@@ -20,7 +20,7 @@
     .topo { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--linha); }
     .topo .miolo { display: flex; justify-content: space-between; align-items: center; height: 68px; }
     .quem { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .quem .foto { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #111, #444); display: grid; place-items: center; color: #fff; font-weight: 600; font-size: 15px; }
+    .quem .foto { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; display: block; }
     .quem b { display: block; font-size: 14px; font-weight: 600; line-height: 1.2; }
     .quem span { font-size: 12px; color: var(--cinza); }
     .nav { display: flex; gap: 26px; font-size: 14px; font-weight: 500; }
@@ -70,7 +70,8 @@
 
     /* sobre */
     .sobre .miolo { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
-    .retrato { aspect-ratio: 4/5; border-radius: 24px; background: linear-gradient(160deg, #f4f4f4, #dcdcdc); display: grid; place-items: center; color: var(--cinza-2); font-size: 13px; letter-spacing: .1em; }
+    .retrato { aspect-ratio: 4/5; border-radius: 24px; overflow: hidden; background: #f4f4f4; }
+    .retrato img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
     .sobre p { color: var(--cinza); margin-top: 16px; max-width: 52ch; }
     .pilulas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 30px; }
     .pilula { padding: 22px 20px; border-radius: 22px; background: var(--cinza-fundo); }
@@ -117,7 +118,7 @@
 
   <header class="topo">
     <div class="miolo">
-      <a class="quem" href="#"><span class="foto">G</span><span><b>Guilherme</b><span>Sites e automação</span></span></a>
+      <a class="quem" href="#"><img class="foto" src="img/guilherme-mini.jpg" alt="Guilherme" /><span><b>Guilherme</b><span>Sites e automação</span></span></a>
       <nav class="nav"><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></nav>
     </div>
   </header>
@@ -175,7 +176,7 @@
 
   <section id="sobre" class="sobre">
     <div class="miolo">
-      <div class="retrato rev">SUA FOTO AQUI</div>
+      <div class="retrato rev"><img src="img/guilherme.jpg" alt="Guilherme" /></div>
       <div class="rev">
         <div class="rotulo">[ 02 ] SOBRE</div>
         <h2>Prazer, sou <em>Guilherme.</em></h2>
