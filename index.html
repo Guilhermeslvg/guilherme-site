@@ -4,63 +4,299 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guilherme · Sites e automação em Timóteo</title>
-  <meta name="description" content="Site de uma página, WhatsApp com agendamento e automação de planilhas para negócios de Timóteo e do Vale do Aço. Entrega em dois dias." />
+  <meta name="description" content="Sites de uma página, WhatsApp com agendamento e automação para negócios de Timóteo e do Vale do Aço. Pronto em dois dias, pago só quando estiver no ar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    :root { --fundo: #0b0d12; --texto: #f2f4f8; --suave: #9aa3b2; --linha: rgba(255,255,255,.1); --destaque: #25d366; }
+    :root {
+      --preto: #050505; --branco: #f3f1ec; --cinza: #9a9a9a; --cinza-2: #5c5c5c;
+      --linha: rgba(255,255,255,.14); --zap: #25d366;
+      --serif: "Playfair Display", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--fundo); color: var(--texto); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.6; }
-    main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
-    h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 14px; }
-    .sub { color: var(--suave); font-size: 18px; max-width: 46ch; }
-    .zap { display: inline-flex; align-items: center; gap: 10px; margin: 26px 0 8px; padding: 14px 22px; background: var(--destaque); color: #06250f; font-weight: 700; border-radius: 999px; text-decoration: none; font-size: 17px; }
-    .nota { color: var(--suave); font-size: 14px; }
-    h2 { margin: 48px 0 14px; font-size: 22px; }
-    .oferta { padding: 18px 20px; border: 1px solid var(--linha); border-radius: 14px; margin-bottom: 12px; }
-    .oferta strong { display: block; font-size: 18px; }
-    .oferta .preco { color: var(--destaque); font-weight: 700; margin-top: 4px; }
-    .oferta p { color: var(--suave); margin-top: 6px; }
-    ul { padding-left: 20px; color: var(--suave); }
-    li { margin: 6px 0; }
-    .rodape { margin-top: 56px; color: var(--suave); font-size: 14px; border-top: 1px solid var(--linha); padding-top: 18px; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--preto); color: var(--branco); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; }
+
+    /* ---------- topo ---------- */
+    .topo { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; justify-content: space-between; align-items: center; padding: 26px 32px; mix-blend-mode: difference; }
+    .marca { font-family: var(--serif); font-size: 22px; letter-spacing: .01em; text-decoration: none; }
+    .menu-btn { background: none; border: 0; color: inherit; font: 500 13px var(--sans); cursor: pointer; display: grid; gap: 6px; justify-items: end; }
+    .menu-btn i { display: block; width: 48px; height: 1px; background: currentColor; }
+    .menu-btn i + i { width: 32px; }
+
+    /* ---------- menu tela cheia ---------- */
+    .menu { position: fixed; inset: 0; z-index: 40; background: rgba(5,5,5,.96); display: grid; place-items: center; opacity: 0; pointer-events: none; transition: opacity .5s; }
+    .menu.aberto { opacity: 1; pointer-events: auto; }
+    .menu nav { display: grid; gap: 6px; text-align: center; }
+    .menu a { font-family: var(--serif); font-size: clamp(38px, 8vw, 84px); color: var(--cinza); text-decoration: none; line-height: 1.15; transition: color .3s; }
+    .menu a:hover { color: var(--branco); }
+    .menu .fechar { position: absolute; top: 22px; right: 28px; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--linha); background: none; color: var(--branco); font-size: 22px; cursor: pointer; }
+    .menu small { position: absolute; left: 32px; bottom: 28px; color: var(--cinza-2); font-size: 12px; line-height: 1.7; }
+
+    /* ---------- hero: esfera ---------- */
+    .hero { position: relative; height: 100vh; min-height: 620px; overflow: hidden; perspective: 2200px; cursor: grab; user-select: none; }
+    .hero.arrastando { cursor: grabbing; }
+    .esfera { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+    .card { position: absolute; left: -95px; top: -62px; width: 190px; height: 124px; border-radius: 4px; overflow: hidden; transform-style: preserve-3d; background: #111; box-shadow: 0 20px 60px rgba(0,0,0,.6); cursor: pointer; }
+    .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card .mock { position: absolute; inset: 0; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .card .mock b { font-family: var(--serif); font-weight: 500; font-size: 16px; }
+    .card .mock span { font-size: 11px; color: var(--cinza); line-height: 1.4; }
+    .card .mock em { margin-top: auto; font-style: normal; font-size: 11px; color: var(--branco); border: 1px solid var(--linha); border-radius: 999px; padding: 4px 10px; width: max-content; }
+    .card.servico { background: linear-gradient(160deg, #1a1a1a, #0a0a0a); border: 1px solid var(--linha); }
+    .titulo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5; text-align: center; pointer-events: none; }
+    .titulo h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 6vw, 72px); line-height: 1.05; letter-spacing: -.01em; text-shadow: 0 4px 40px rgba(0,0,0,.9); }
+    .perfil { position: absolute; left: 32px; bottom: 32px; z-index: 6; max-width: 380px; }
+    .perfil .quem { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .perfil .foto { width: 54px; height: 54px; border-radius: 4px; background: linear-gradient(135deg, #2b2b2b, #111); display: grid; place-items: center; font-family: var(--serif); font-size: 22px; }
+    .perfil .nome { font-family: var(--serif); font-size: 20px; }
+    .perfil p { font-size: 13px; color: var(--cinza); line-height: 1.6; }
+    .dica { position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .28em; color: var(--cinza); white-space: nowrap; }
+    .dica i { display: block; width: 44px; height: 1px; background: var(--cinza); }
+    .assin { position: absolute; right: 32px; bottom: 34px; z-index: 6; font-size: 13px; color: var(--cinza); }
+    .zap-hero { position: absolute; right: 32px; top: 50%; transform: translateY(-50%); z-index: 6; writing-mode: vertical-rl; font-size: 11px; letter-spacing: .28em; color: var(--cinza); text-decoration: none; }
+    .zap-hero:hover { color: var(--branco); }
+
+    /* ---------- intro ---------- */
+    .intro { position: fixed; inset: 0; z-index: 50; background: var(--preto); display: grid; place-items: center; transition: opacity 1s; }
+    .intro.some { opacity: 0; pointer-events: none; }
+    .intro .olho { width: min(70vw, 520px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #000 0 18%, #14331f 19%, #2f6b3a 34%, #6f9f5a 48%, #d8d2c3 62%, #050505 63%); animation: olho 2.6s ease-in forwards; filter: contrast(1.1); }
+    @keyframes olho { 0% { transform: scale(.85); opacity: 0; } 30% { opacity: 1; } 100% { transform: scale(7); opacity: 0; } }
+    .intro .pular { position: absolute; right: 28px; bottom: 28px; width: 60px; height: 60px; border-radius: 50%; border: 1px solid var(--linha); background: rgba(255,255,255,.05); color: var(--cinza); font: 500 10px var(--sans); letter-spacing: .2em; cursor: pointer; }
+
+    /* ---------- detalhe (lightbox) ---------- */
+    .detalhe { position: fixed; inset: 0; z-index: 45; background: rgba(5,5,5,.94); display: grid; place-items: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity .4s; }
+    .detalhe.aberto { opacity: 1; pointer-events: auto; }
+    .detalhe .caixa { width: min(760px, 100%); }
+    .detalhe .img { width: 100%; aspect-ratio: 16/10; border-radius: 6px; overflow: hidden; background: #111; }
+    .detalhe .img img { width: 100%; height: 100%; object-fit: cover; }
+    .detalhe .texto { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; margin-top: 18px; }
+    .detalhe h3 { font-family: var(--serif); font-weight: 400; font-size: 26px; }
+    .detalhe .sub { color: var(--cinza); font-size: 13px; margin-top: 2px; }
+    .detalhe .desc { color: var(--cinza); font-size: 14px; }
+    .detalhe .preco { font-family: var(--serif); font-size: 22px; margin-top: 10px; }
+    .detalhe .fechar { position: absolute; top: 26px; right: 28px; padding: 8px 16px; border: 1px solid var(--linha); border-radius: 6px; background: rgba(255,255,255,.06); color: var(--branco); font: 500 13px var(--sans); cursor: pointer; }
+    .btn-zap { display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; padding: 12px 20px; background: var(--zap); color: #06250f; font-weight: 500; border-radius: 999px; text-decoration: none; font-size: 14px; }
+
+    /* ---------- seções ---------- */
+    section { max-width: 1080px; margin: 0 auto; padding: 120px 32px; }
+    .eyebrow { font-size: 11px; letter-spacing: .28em; color: var(--cinza); margin-bottom: 18px; }
+    h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 4.5vw, 52px); line-height: 1.1; max-width: 18ch; }
+    .servicos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--linha); border: 1px solid var(--linha); margin-top: 48px; }
+    .servico { background: var(--preto); padding: 34px 28px; }
+    .servico h3 { font-family: var(--serif); font-weight: 400; font-size: 24px; }
+    .servico .preco { margin: 8px 0 14px; font-size: 14px; color: var(--branco); }
+    .servico p { color: var(--cinza); font-size: 14px; }
+    .passos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-top: 48px; }
+    .passo b { display: block; font-family: var(--serif); font-weight: 400; font-size: 20px; margin-bottom: 8px; }
+    .passo p { color: var(--cinza); font-size: 14px; }
+    .contato { text-align: center; }
+    .contato h2 { margin: 0 auto; }
+    .contato p { color: var(--cinza); margin-top: 16px; }
+    .contato .btn-zap { font-size: 16px; padding: 16px 28px; margin-top: 28px; }
+    footer { padding: 40px 32px 60px; text-align: center; color: var(--cinza-2); font-size: 12px; }
+
+    @media (max-width: 720px) {
+      .topo { padding: 20px; }
+      .perfil { left: 20px; right: 20px; bottom: 76px; max-width: none; }
+      .dica { bottom: 24px; font-size: 10px; letter-spacing: .2em; }
+      .perfil p { font-size: 12px; }
+      .assin, .zap-hero { display: none; }
+      .card { width: 130px; height: 85px; left: -65px; top: -42px; }
+      .detalhe .texto { grid-template-columns: 1fr; }
+      section { padding: 90px 20px 70px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
   </style>
 </head>
 <body>
-<main>
-  <h1>Seu negócio em Timóteo respondendo cliente e vendendo, mesmo quando você está ocupado.</h1>
-  <p class="sub">Faço site de uma página, WhatsApp com agendamento automático e planilhas que se preenchem sozinhas. Entrego em dois dias e você só paga quando estiver no ar.</p>
 
-  <!-- TROQUE O NÚMERO: 55 + DDD + número, só dígitos -->
-  <a class="zap" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">Chamar no WhatsApp</a>
-  <p class="nota">Atendo Timóteo, Coronel Fabriciano e Ipatinga. Respondo em minutos.</p>
-
-  <h2>O que eu faço</h2>
-
-  <div class="oferta">
-    <strong>Site de uma página com botão de WhatsApp</strong>
-    <span class="preco">a partir de R$ 390</span>
-    <p>Seu negócio aparece no Google e no Instagram com endereço, horário, serviços, fotos e um botão que abre o WhatsApp. Pronto em dois dias, com seu domínio ou um gratuito.</p>
+  <!-- abertura -->
+  <div class="intro" id="intro">
+    <div class="olho"></div>
+    <button class="pular" id="pular">PULAR</button>
   </div>
 
-  <div class="oferta">
-    <strong>WhatsApp que atende e agenda sozinho</strong>
-    <span class="preco">a partir de R$ 590 + R$ 99/mês</span>
-    <p>Responde as perguntas de sempre (preço, horário, endereço), marca horário e manda lembrete no dia. Você só entra quando precisa.</p>
+  <header class="topo">
+    <a class="marca" href="#">Guilherme</a>
+    <button class="menu-btn" id="abrir-menu" aria-label="Abrir menu">Menu<i></i><i></i></button>
+  </header>
+
+  <div class="menu" id="menu">
+    <button class="fechar" id="fechar-menu" aria-label="Fechar">✕</button>
+    <nav>
+      <a href="#servicos">Serviços</a>
+      <a href="#como">Como funciona</a>
+      <a href="#contato">Contato</a>
+      <a href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">WhatsApp</a>
+    </nav>
+    <small>Timóteo · Coronel Fabriciano · Ipatinga<br />(31) 98916-5103</small>
   </div>
 
-  <div class="oferta">
-    <strong>Planilha ou relatório que se faz sozinho</strong>
-    <span class="preco">a partir de R$ 490</span>
-    <p>Controle de caixa, estoque, comissão, cobrança. Você digita uma vez e o resto se calcula. Menos duas horas por dia de trabalho manual.</p>
+  <!-- esfera -->
+  <div class="hero" id="hero">
+    <div class="esfera" id="esfera"></div>
+    <div class="titulo"><h1>Seu negócio,<br />encontrado.</h1></div>
+    <div class="perfil">
+      <div class="quem"><div class="foto">G</div><div class="nome">Guilherme</div></div>
+      <p>Faço sites de uma página, WhatsApp que atende e agenda sozinho e planilhas que se preenchem. Para negócios de Timóteo e do Vale do Aço. Pronto em dois dias, pago só quando estiver no ar.</p>
+    </div>
+    <div class="dica"><i></i>ARRASTE PARA GIRAR</div>
+    <a class="zap-hero" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">CHAMAR NO WHATSAPP</a>
+    <div class="assin">Timóteo, 2026.</div>
   </div>
 
-  <h2>Como funciona</h2>
-  <ul>
-    <li>Você me chama no WhatsApp e conta o que precisa. Em 15 minutos eu digo o preço.</li>
-    <li>Eu monto e te mostro pelo celular. Você pede ajustes.</li>
-    <li>Ficou do seu jeito, entra no ar. Aí você paga: Pix ou cartão.</li>
-  </ul>
+  <!-- detalhe -->
+  <div class="detalhe" id="detalhe">
+    <button class="fechar" id="fechar-detalhe">Fechar</button>
+    <div class="caixa">
+      <div class="img" id="det-img"></div>
+      <div class="texto">
+        <div><h3 id="det-titulo"></h3><div class="sub" id="det-sub"></div><div class="preco" id="det-preco"></div></div>
+        <div><p class="desc" id="det-desc"></p><a class="btn-zap" id="det-zap" href="#">Quero esse</a></div>
+      </div>
+    </div>
+  </div>
 
-  <p class="rodape">Guilherme · Timóteo, MG · Sites, automação e assistentes de IA para pequenos negócios.</p>
-</main>
+  <section id="servicos">
+    <div class="eyebrow">SERVIÇOS</div>
+    <h2>Três coisas que fazem cliente chegar e voltar.</h2>
+    <div class="servicos">
+      <div class="servico"><h3>Site de uma página</h3><div class="preco">a partir de R$ 390</div><p>Serviços, preços, fotos, endereço com mapa, horário e um botão que abre o seu WhatsApp. Aparece no Google. Pronto em dois dias.</p></div>
+      <div class="servico"><h3>WhatsApp que atende e agenda</h3><div class="preco">a partir de R$ 590 + R$ 99/mês</div><p>Responde as perguntas de sempre, marca horário e manda lembrete no dia. Você só entra quando precisa.</p></div>
+      <div class="servico"><h3>Planilha que se faz sozinha</h3><div class="preco">a partir de R$ 490</div><p>Caixa, estoque, comissão, cobrança. Você digita uma vez e o resto se calcula. Menos duas horas por dia de trabalho manual.</p></div>
+    </div>
+  </section>
+
+  <section id="como">
+    <div class="eyebrow">COMO FUNCIONA</div>
+    <h2>Sem reunião longa, sem contrato de dez páginas.</h2>
+    <div class="passos">
+      <div class="passo"><b>Você me chama</b><p>Conta o que precisa pelo WhatsApp. Em quinze minutos eu digo o preço.</p></div>
+      <div class="passo"><b>Eu monto e mostro</b><p>Você vê pelo celular, pede ajustes, aprova.</p></div>
+      <div class="passo"><b>Entra no ar, aí você paga</b><p>Pix ou cartão. Ajustes nos primeiros trinta dias estão incluídos.</p></div>
+    </div>
+  </section>
+
+  <section id="contato" class="contato">
+    <div class="eyebrow">CONTATO</div>
+    <h2>Vamos colocar o seu negócio no mapa.</h2>
+    <p>Atendo Timóteo, Coronel Fabriciano e Ipatinga. Respondo em minutos.</p>
+    <a class="btn-zap" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">Chamar no WhatsApp · (31) 98916-5103</a>
+  </section>
+
+  <footer>Guilherme · Timóteo, MG · Sites, automação e assistentes de IA para pequenos negócios.</footer>
+
+<script>
+  const ZAP = "https://wa.me/5531989165103?text=";
+  // Cards da esfera: serviços (com preço) e tipos de negócio que atendo (fotos)
+  const cards = [
+    { tipo: "servico", titulo: "Site de uma página", sub: "pronto em 2 dias", preco: "a partir de R$ 390", desc: "Serviços, preços, fotos, endereço com mapa, horário e botão de WhatsApp. Aparece no Google. Você só paga quando estiver no ar." },
+    { tipo: "servico", titulo: "WhatsApp que atende", sub: "agenda e lembra sozinho", preco: "a partir de R$ 590 + R$ 99/mês", desc: "Responde preço, horário e endereço, marca horário e manda lembrete no dia. Você só entra quando precisa." },
+    { tipo: "servico", titulo: "Planilha automática", sub: "caixa, estoque, comissão", preco: "a partir de R$ 490", desc: "Você digita uma vez e o resto se calcula. Menos duas horas por dia de trabalho manual." },
+    { tipo: "servico", titulo: "Assistente de IA", sub: "instalado no seu computador", preco: "a partir de R$ 300", desc: "Um assistente por voz que abre programas, responde e organiza sua rotina. Instalação com o seu nome e a sua voz." },
+    { foto: "barbearia", titulo: "Barbearia do Léo", sub: "site com agendamento", desc: "Exemplo de site de uma página para barbearia: serviços, preços, fotos e agendamento pelo WhatsApp." },
+    { foto: "clinica", titulo: "Clínica Sorriso", sub: "dentista", desc: "Especialidades, convênios, avaliação gratuita e lembrete automático de consulta." },
+    { foto: "oficina", titulo: "Auto Center Vale", sub: "mecânica", desc: "Serviços com preço, orçamento pelo WhatsApp com foto do carro, localização no mapa." },
+    { foto: "marmitaria", titulo: "Marmitas da Dona Cida", sub: "comida caseira", desc: "Cardápio do dia, tamanhos e preços, pedido direto pelo WhatsApp." },
+    { foto: "academia", titulo: "Forma Fitness", sub: "academia", desc: "Planos, horários das aulas e matrícula pelo WhatsApp. Lembrete de renovação." },
+    { foto: "petshop", titulo: "Patas & Bigodes", sub: "pet shop", desc: "Banho e tosa com hora marcada, busca em casa, consulta veterinária." },
+    { foto: "estetica", titulo: "Studio Ana Estética", sub: "estética", desc: "Serviços com preço, fotos dos resultados e agendamento." },
+    { foto: "celular", titulo: "Fix Cell Timóteo", sub: "assistência técnica", desc: "Conserto em até duas horas, orçamento pelo WhatsApp, endereço e horário." },
+    { foto: "advogado", titulo: "Dr. Marcos Almeida", sub: "advocacia", desc: "Áreas de atuação, primeira conversa gratuita, agendamento." },
+    { foto: "lavajato", titulo: "Lava Jato Brilho", sub: "lava-jato", desc: "Tabela de lavagens, agendamento e localização." },
+    { foto: "salao", titulo: "Salão da Carla", sub: "salão de beleza", desc: "Serviços, fotos, horário marcado pelo WhatsApp." },
+    { foto: "pizzaria", titulo: "Pizzaria Forno a Lenha", sub: "delivery", desc: "Cardápio, preços e pedido pelo WhatsApp em 40 minutos." },
+    { foto: "loja", titulo: "Bella Moda", sub: "loja de roupas", desc: "Vitrine com as peças principais e atendimento pelo WhatsApp." },
+    { foto: "escola", titulo: "Escolinha Gol de Placa", sub: "escolinha de futebol", desc: "Turmas, mensalidade e matrícula pelo WhatsApp." },
+    { foto: "contador", titulo: "Contabilidade Vale", sub: "contabilidade", desc: "MEI, abertura de empresa e imposto de renda. Orçamento na hora." },
+    { foto: "psicologa", titulo: "Psicóloga Juliana Reis", sub: "psicologia", desc: "Atendimento presencial e online, agendamento pelo WhatsApp." },
+    { foto: "barbearia-cel", titulo: "No celular", sub: "todo site é responsivo", desc: "Cada site que eu entrego funciona perfeito no celular, que é onde o seu cliente está." },
+    { foto: "clinica-cel", titulo: "No celular", sub: "botão de WhatsApp fixo", desc: "O botão de WhatsApp acompanha a tela: em qualquer ponto o cliente te chama." },
+    { foto: "oficina-cel", titulo: "No celular", sub: "carrega em 1 segundo", desc: "Sem plugin pesado. Abre rápido mesmo no 4G fraco." },
+    { foto: "marmitaria-cel", titulo: "No celular", sub: "link na bio", desc: "O site vira o link da sua bio do Instagram." },
+  ];
+  const fotoUrl = (id) => `img/${id}.jpg`;
+
+  // Distribui os cards numa esfera (espiral de Fibonacci) e gira com o mouse
+  const esfera = document.getElementById("esfera");
+  const hero = document.getElementById("hero");
+  const RAIO = Math.min(430, Math.max(260, window.innerWidth * 0.3));
+  const n = cards.length, els = [];
+  cards.forEach((c, i) => {
+    const el = document.createElement("div");
+    el.className = "card" + (c.tipo === "servico" ? " servico" : "");
+    el.innerHTML = c.tipo === "servico"
+      ? `<div class="mock"><b>${c.titulo}</b><span>${c.sub}</span><em>${c.preco}</em></div>`
+      : `<img src="${fotoUrl(c.foto)}" alt="${c.titulo}" loading="lazy" />`;
+    const y = 1 - (i / (n - 1)) * 2;              // -1..1
+    const r = Math.sqrt(1 - y * y);
+    const theta = Math.PI * (3 - Math.sqrt(5)) * i; // ângulo dourado
+    const lat = Math.asin(y) * 180 / Math.PI, lon = theta * 180 / Math.PI;
+    el.dataset.lat = lat; el.dataset.lon = lon;
+    el.addEventListener("click", () => { if (!moveu) abrirDetalhe(c); });
+    esfera.appendChild(el); els.push(el);
+  });
+
+  let rotX = -8, rotY = 0, velY = 0.08, arrastando = false, ultimo = null, moveu = false;
+  function render() {
+    if (!arrastando) rotY += velY;
+    esfera.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    // Cada card fica de frente para fora; os do fundo escurecem
+    const rx = rotX * Math.PI / 180, ry = rotY * Math.PI / 180;
+    els.forEach((el) => {
+      const lat = +el.dataset.lat, lon = +el.dataset.lon;
+      el.style.transform = `rotateY(${lon}deg) rotateX(${-lat}deg) translateZ(${RAIO}px)`;
+      // profundidade aproximada após a rotação do container
+      const la = lat * Math.PI / 180, lo = (lon + rotY) * Math.PI / 180;
+      let z = Math.cos(la) * Math.cos(lo);
+      const y = Math.sin(la);
+      z = z * Math.cos(rx) - y * Math.sin(rx);
+      el.style.opacity = (0.12 + 0.88 * Math.pow(Math.max(0, (z + 1) / 2), 1.6)).toFixed(2);
+    });
+    requestAnimationFrame(render);
+  }
+  render();
+
+  const pos = (e) => (e.touches ? e.touches[0] : e);
+  hero.addEventListener("pointerdown", (e) => { arrastando = true; moveu = false; ultimo = pos(e); hero.classList.add("arrastando"); });
+  window.addEventListener("pointermove", (e) => {
+    if (!arrastando) return;
+    const p = pos(e); const dx = p.clientX - ultimo.clientX, dy = p.clientY - ultimo.clientY;
+    if (Math.abs(dx) + Math.abs(dy) > 3) moveu = true;
+    rotY += dx * 0.25; rotX = Math.max(-60, Math.min(60, rotX - dy * 0.15)); velY = dx * 0.02;
+    ultimo = p;
+  });
+  window.addEventListener("pointerup", () => { arrastando = false; hero.classList.remove("arrastando"); velY = Math.max(-0.6, Math.min(0.6, velY)) || 0.08; setTimeout(() => (moveu = false), 50); });
+
+  // detalhe
+  const detalhe = document.getElementById("detalhe");
+  function abrirDetalhe(c) {
+    document.getElementById("det-img").innerHTML = c.foto ? `<img src="img/${c.foto}.jpg" alt="" style="object-fit:contain;background:#0d0d0d" />` : `<div class="mock" style="position:static;padding:40px;height:100%;display:grid;place-content:center;text-align:center"><b style="font-family:var(--serif);font-size:34px;font-weight:400">${c.titulo}</b><span style="color:var(--cinza);margin-top:8px">${c.sub}</span></div>`;
+    document.getElementById("det-titulo").textContent = c.titulo;
+    document.getElementById("det-sub").textContent = c.sub;
+    document.getElementById("det-preco").textContent = c.preco || "";
+    document.getElementById("det-desc").textContent = c.desc;
+    document.getElementById("det-zap").href = ZAP + encodeURIComponent(`Oi Guilherme, quero saber mais sobre: ${c.titulo}`);
+    detalhe.classList.add("aberto");
+  }
+  document.getElementById("fechar-detalhe").addEventListener("click", () => detalhe.classList.remove("aberto"));
+  detalhe.addEventListener("click", (e) => { if (e.target === detalhe) detalhe.classList.remove("aberto"); });
+
+  // menu
+  const menu = document.getElementById("menu");
+  document.getElementById("abrir-menu").addEventListener("click", () => menu.classList.add("aberto"));
+  document.getElementById("fechar-menu").addEventListener("click", () => menu.classList.remove("aberto"));
+  menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => menu.classList.remove("aberto")));
+  window.addEventListener("keydown", (e) => { if (e.key === "Escape") { menu.classList.remove("aberto"); detalhe.classList.remove("aberto"); } });
+
+  // abertura
+  const intro = document.getElementById("intro");
+  const fecharIntro = () => intro.classList.add("some");
+  document.getElementById("pular").addEventListener("click", fecharIntro);
+  setTimeout(fecharIntro, 2600);
+</script>
 </body>
 </html>
