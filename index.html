@@ -4,300 +4,63 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guilherme · Sites e automação em Timóteo</title>
-  <meta name="description" content="Sites de uma página, WhatsApp com agendamento e automação para negócios de Timóteo e do Vale do Aço. Pronto em dois dias, pago só quando estiver no ar." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <meta name="description" content="Site de uma página, WhatsApp com agendamento e automação de planilhas para negócios de Timóteo e do Vale do Aço. Entrega em dois dias." />
   <style>
-    :root {
-      --preto: #070707; --carvao: #0f0f10; --grafite: #17181a; --linha: rgba(255,255,255,.09); --linha-2: rgba(255,255,255,.18);
-      --marfim: #f2ede4; --cinza: #a2a09b; --cinza-2: #66645f;
-      --brasa: #ff6a2b; --brasa-2: #ffb08a; --zap: #25d366;
-      --serif: "Fraunces", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
-    }
+    :root { --fundo: #0b0d12; --texto: #f2f4f8; --suave: #9aa3b2; --linha: rgba(255,255,255,.1); --destaque: #25d366; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--preto); color: var(--marfim); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; }
-    ::selection { background: var(--brasa); color: #000; }
-
-    /* fundo vivo: dois brilhos de brasa que se movem devagar */
-    .fundo { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--preto); }
-    .fundo i { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(80px); opacity: .55; }
-    .fundo i:nth-child(1) { background: radial-gradient(circle, rgba(255,106,43,.35), transparent 60%); left: -20vmax; top: -20vmax; animation: flutuar 26s ease-in-out infinite; }
-    .fundo i:nth-child(2) { background: radial-gradient(circle, rgba(255,176,138,.18), transparent 60%); right: -25vmax; bottom: -25vmax; animation: flutuar 32s ease-in-out infinite reverse; }
-    .fundo::after { content: ""; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); opacity: .06; mix-blend-mode: overlay; }
-    @keyframes flutuar { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(8vmax, 6vmax) scale(1.15); } }
-
-    /* topo */
-    .topo { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; justify-content: space-between; align-items: center; padding: 22px 32px; }
-    .topo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,7,7,.85), transparent); pointer-events: none; }
-    .marca { position: relative; font-family: var(--serif); font-weight: 400; font-size: 22px; text-decoration: none; letter-spacing: -.01em; }
-    .marca em { font-style: italic; color: var(--brasa-2); }
-    .nav { position: relative; display: flex; gap: 28px; font-size: 13px; font-weight: 500; }
-    .nav a { text-decoration: none; color: var(--cinza); transition: color .2s; }
-    .nav a:hover { color: var(--marfim); }
-    .nav .cta { color: var(--marfim); padding: 9px 16px; border: 1px solid var(--linha-2); border-radius: 999px; }
-    .nav .cta:hover { border-color: var(--marfim); }
-
-    /* hero */
-    .hero { min-height: 100vh; display: grid; grid-template-rows: 1fr auto; padding: 160px 32px 0; position: relative; }
-    .hero-grid { max-width: 1240px; width: 100%; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: end; padding-bottom: 64px; }
-    .h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(48px, 8.2vw, 124px); line-height: .96; letter-spacing: -.03em; }
-    .h1 .linha { display: block; overflow: hidden; }
-    .h1 .linha span { display: block; transform: translateY(110%); animation: subir 1.1s cubic-bezier(.22,1,.36,1) forwards; }
-    .h1 .linha:nth-child(2) span { animation-delay: .12s; }
-    .h1 .linha:nth-child(3) span { animation-delay: .24s; }
-    .h1 em { font-style: italic; font-weight: 300; color: var(--brasa-2); }
-    @keyframes subir { to { transform: translateY(0); } }
-    .hero-lado { display: grid; gap: 22px; opacity: 0; animation: aparecer 1s .6s forwards; }
-    @keyframes aparecer { to { opacity: 1; } }
-    .hero-lado p { color: var(--cinza); font-size: 17px; max-width: 40ch; }
-    .botoes { display: flex; flex-wrap: wrap; gap: 12px; }
-    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; text-decoration: none; font-weight: 500; font-size: 15px; transition: transform .2s, background .2s, border-color .2s; }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-zap { background: var(--zap); color: #06250f; }
-    .btn-zap:hover { background: #3ee07d; }
-    .btn-linha { border: 1px solid var(--linha-2); color: var(--marfim); }
-    .btn-linha:hover { border-color: var(--marfim); }
-    .selo { display: flex; gap: 22px; font-size: 13px; color: var(--cinza); }
-    .selo b { display: block; font-family: var(--serif); font-weight: 400; font-size: 26px; color: var(--marfim); line-height: 1.1; }
-
-    /* faixa rolando */
-    .faixa { border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); padding: 18px 0; overflow: hidden; white-space: nowrap; }
-    .faixa div { display: inline-block; animation: rolar 38s linear infinite; }
-    .faixa span { display: inline-block; padding: 0 28px; font-family: var(--serif); font-weight: 300; font-size: 22px; color: var(--cinza); }
-    .faixa span::after { content: "✦"; margin-left: 56px; color: var(--brasa); font-size: 12px; vertical-align: middle; }
-    @keyframes rolar { to { transform: translateX(-50%); } }
-
-    /* seções */
-    section { padding: 140px 32px; }
-    .miolo { max-width: 1240px; margin: 0 auto; }
-    .cabeca { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 56px; }
-    .rotulo { font-size: 12px; letter-spacing: .22em; color: var(--brasa); margin-bottom: 18px; }
-    h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(36px, 5vw, 68px); line-height: 1; letter-spacing: -.025em; }
-    h2 em { font-style: italic; color: var(--brasa-2); }
-    .cabeca p { color: var(--cinza); font-size: 17px; max-width: 44ch; }
-
-    /* grade de serviços (bento) com brilho que segue o mouse */
-    .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
-    .tile { position: relative; grid-column: span 4; padding: 34px 30px; border: 1px solid var(--linha); border-radius: 22px; background: var(--carvao); overflow: hidden; min-height: 300px; display: flex; flex-direction: column; transition: border-color .3s, transform .3s; }
-    .tile:hover { border-color: var(--linha-2); transform: translateY(-3px); }
-    .tile::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(255,106,43,.16), transparent 45%); opacity: 0; transition: opacity .4s; pointer-events: none; }
-    .tile:hover::before { opacity: 1; }
-    .tile.grande { grid-column: span 8; }
-    .tile.alto { grid-row: span 2; }
-    .tile .num { font-family: var(--serif); font-size: 13px; color: var(--cinza-2); letter-spacing: .1em; }
-    .tile h3 { font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; margin: 18px 0 10px; letter-spacing: -.01em; }
-    .tile p { color: var(--cinza); font-size: 15px; max-width: 46ch; }
-    .tile .preco { margin-top: auto; padding-top: 26px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-    .tile .preco b { font-family: var(--serif); font-weight: 400; font-size: 24px; }
-    .tile .preco a { font-size: 13px; color: var(--brasa-2); text-decoration: none; border-bottom: 1px solid transparent; }
-    .tile .preco a:hover { border-color: var(--brasa-2); }
-    .tile.destaque { background: linear-gradient(135deg, #1c120d, var(--carvao) 60%); }
-    .tile ul { list-style: none; display: grid; gap: 8px; margin-top: 10px; color: var(--cinza); font-size: 14px; }
-    .tile li::before { content: "—"; color: var(--brasa); margin-right: 10px; }
-
-    /* processo: linha do tempo */
-    .passos { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .passos::before { content: ""; position: absolute; left: 0; right: 0; top: 22px; height: 1px; background: var(--linha); }
-    .passos::after { content: ""; position: absolute; left: 0; top: 22px; height: 1px; width: 0; background: var(--brasa); transition: width 1.6s cubic-bezier(.22,1,.36,1); }
-    .passos.vivo::after { width: 100%; }
-    .passo { padding-top: 56px; position: relative; }
-    .passo::before { content: attr(data-n); position: absolute; top: 0; left: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--linha-2); background: var(--preto); display: grid; place-items: center; font-family: var(--serif); font-size: 16px; }
-    .passo b { display: block; font-family: var(--serif); font-weight: 400; font-size: 26px; margin-bottom: 8px; }
-    .passo p { color: var(--cinza); font-size: 15px; max-width: 34ch; }
-
-    /* para quem */
-    .pilulas { display: flex; flex-wrap: wrap; gap: 10px; }
-    .pilulas span { padding: 12px 18px; border: 1px solid var(--linha); border-radius: 999px; font-size: 14px; color: var(--cinza); transition: color .2s, border-color .2s, background .2s; }
-    .pilulas span:hover { color: var(--marfim); border-color: var(--brasa); background: rgba(255,106,43,.08); }
-
-    /* perguntas */
-    .faq { border-top: 1px solid var(--linha); }
-    .faq details { border-bottom: 1px solid var(--linha); }
-    .faq summary { list-style: none; cursor: pointer; padding: 26px 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: var(--serif); font-weight: 400; font-size: 22px; }
-    .faq summary::-webkit-details-marker { display: none; }
-    .faq summary::after { content: "+"; font-family: var(--sans); color: var(--brasa); font-size: 26px; transition: transform .3s; }
-    .faq details[open] summary::after { transform: rotate(45deg); }
-    .faq p { color: var(--cinza); padding: 0 0 26px; max-width: 70ch; font-size: 15px; }
-
-    /* contato */
-    .contato { text-align: center; padding-bottom: 100px; }
-    .contato h2 { font-size: clamp(44px, 8vw, 120px); }
-    .contato p { color: var(--cinza); margin: 24px auto 34px; max-width: 46ch; font-size: 17px; }
-    .contato .btn-zap { font-size: 18px; padding: 18px 30px; }
-    .contato .tel { display: block; margin-top: 18px; color: var(--cinza-2); font-size: 14px; }
-    footer { border-top: 1px solid var(--linha); padding: 30px 32px; display: flex; justify-content: space-between; gap: 20px; font-size: 13px; color: var(--cinza-2); }
-
-    /* revelação ao rolar */
-    .rev { opacity: 0; transform: translateY(26px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
-    .rev.vivo { opacity: 1; transform: none; }
-
-    @media (max-width: 900px) {
-      .topo { padding: 18px 20px; }
-      .nav a:not(.cta) { display: none; }
-      .hero { padding: 130px 20px 0; }
-      .hero-grid { grid-template-columns: 1fr; gap: 30px; padding-bottom: 40px; }
-      section { padding: 90px 20px; }
-      .cabeca { grid-template-columns: 1fr; gap: 16px; margin-bottom: 36px; }
-      .tile, .tile.grande { grid-column: span 12; min-height: 0; }
-      .passos { grid-template-columns: 1fr; gap: 36px; }
-      .passos::before, .passos::after { display: none; }
-      .selo { gap: 16px; }
-      footer { flex-direction: column; text-align: center; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .h1 .linha span, .hero-lado { animation: none; transform: none; opacity: 1; }
-      .rev { opacity: 1; transform: none; }
-      .fundo i, .faixa div { animation: none; }
-    }
+    body { background: var(--fundo); color: var(--texto); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.6; }
+    main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
+    h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 14px; }
+    .sub { color: var(--suave); font-size: 18px; max-width: 46ch; }
+    .zap { display: inline-flex; align-items: center; gap: 10px; margin: 26px 0 8px; padding: 14px 22px; background: var(--destaque); color: #06250f; font-weight: 700; border-radius: 999px; text-decoration: none; font-size: 17px; }
+    .nota { color: var(--suave); font-size: 14px; }
+    h2 { margin: 48px 0 14px; font-size: 22px; }
+    .oferta { padding: 18px 20px; border: 1px solid var(--linha); border-radius: 14px; margin-bottom: 12px; }
+    .oferta strong { display: block; font-size: 18px; }
+    .oferta .preco { color: var(--destaque); font-weight: 700; margin-top: 4px; }
+    .oferta p { color: var(--suave); margin-top: 6px; }
+    ul { padding-left: 20px; color: var(--suave); }
+    li { margin: 6px 0; }
+    .rodape { margin-top: 56px; color: var(--suave); font-size: 14px; border-top: 1px solid var(--linha); padding-top: 18px; }
   </style>
 </head>
 <body>
-  <div class="fundo"><i></i><i></i></div>
+<main>
+  <h1>Seu negócio em Timóteo respondendo cliente e vendendo, mesmo quando você está ocupado.</h1>
+  <p class="sub">Faço site de uma página, WhatsApp com agendamento automático e planilhas que se preenchem sozinhas. Entrego em dois dias e você só paga quando estiver no ar.</p>
 
-  <header class="topo">
-    <a class="marca" href="#">Guilherme<em>.</em></a>
-    <nav class="nav">
-      <a href="#servicos">Serviços</a>
-      <a href="#como">Como funciona</a>
-      <a href="#perguntas">Perguntas</a>
-      <a class="cta" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">WhatsApp</a>
-    </nav>
-  </header>
+  <!-- TROQUE O NÚMERO: 55 + DDD + número, só dígitos -->
+  <a class="zap" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">Chamar no WhatsApp</a>
+  <p class="nota">Atendo Timóteo, Coronel Fabriciano e Ipatinga. Respondo em minutos.</p>
 
-  <section class="hero" id="inicio" style="padding-top:160px">
-    <div class="hero-grid">
-      <h1 class="h1">
-        <span class="linha"><span>Seu negócio</span></span>
-        <span class="linha"><span>no mapa,</span></span>
-        <span class="linha"><span><em>em dois dias.</em></span></span>
-      </h1>
-      <div class="hero-lado">
-        <p>Site de uma página, WhatsApp que atende e agenda sozinho, e planilhas que se preenchem. Para negócios de Timóteo e do Vale do Aço. Você só paga quando estiver no ar.</p>
-        <div class="botoes">
-          <a class="btn btn-zap" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">Chamar no WhatsApp</a>
-          <a class="btn btn-linha" href="#servicos">Ver serviços</a>
-        </div>
-        <div class="selo">
-          <div><b>2 dias</b>de prazo</div>
-          <div><b>R$ 390</b>a partir de</div>
-          <div><b>0</b>de risco: paga no ar</div>
-        </div>
-      </div>
-    </div>
-    <div class="faixa"><div>
-      <span>barbearias</span><span>clínicas</span><span>oficinas</span><span>restaurantes</span><span>academias</span><span>pet shops</span><span>salões</span><span>lojas</span><span>advogados</span><span>contadores</span><span>escolinhas</span><span>lava-jatos</span>
-      <span>barbearias</span><span>clínicas</span><span>oficinas</span><span>restaurantes</span><span>academias</span><span>pet shops</span><span>salões</span><span>lojas</span><span>advogados</span><span>contadores</span><span>escolinhas</span><span>lava-jatos</span>
-    </div></div>
-  </section>
+  <h2>O que eu faço</h2>
 
-  <section id="servicos">
-    <div class="miolo">
-      <div class="cabeca rev">
-        <div><div class="rotulo">SERVIÇOS</div><h2>Três coisas que fazem cliente <em>chegar</em> e voltar.</h2></div>
-        <p>Nada de pacote gigante. Cada serviço resolve um problema concreto do seu dia, com preço fechado antes de começar.</p>
-      </div>
-      <div class="bento">
-        <div class="tile grande destaque rev">
-          <div class="num">01</div>
-          <h3>Site de uma página com botão de WhatsApp</h3>
-          <p>Seu negócio aparece no Google e no Instagram com serviços, preços, fotos, endereço com mapa e horário. Um botão abre o seu WhatsApp. Pronto em dois dias, com domínio próprio ou gratuito.</p>
-          <ul><li>Cadastro no Google Meu Negócio incluído</li><li>Funciona perfeito no celular</li><li>Ajustes nos primeiros 30 dias</li></ul>
-          <div class="preco"><b>a partir de R$ 390</b><a href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20site%20de%20uma%20p%C3%A1gina">quero esse →</a></div>
-        </div>
-        <div class="tile rev">
-          <div class="num">02</div>
-          <h3>WhatsApp que atende e agenda sozinho</h3>
-          <p>Responde preço, horário e endereço, marca horário e manda lembrete no dia. Você só entra quando precisa.</p>
-          <div class="preco"><b>R$ 590 + R$ 99/mês</b><a href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20o%20WhatsApp%20autom%C3%A1tico">quero esse →</a></div>
-        </div>
-        <div class="tile rev">
-          <div class="num">03</div>
-          <h3>Planilha que se faz sozinha</h3>
-          <p>Caixa, estoque, comissão, cobrança. Você digita uma vez e o resto se calcula. Menos duas horas por dia de trabalho manual.</p>
-          <div class="preco"><b>a partir de R$ 490</b><a href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20automatizar%20uma%20planilha">quero esse →</a></div>
-        </div>
-        <div class="tile grande rev">
-          <div class="num">04</div>
-          <h3>Assistente de IA no seu computador</h3>
-          <p>Um assistente por voz que abre programas, responde, organiza sua agenda e lembra das coisas por você. Instalado e configurado com o seu nome e a sua voz.</p>
-          <div class="preco"><b>a partir de R$ 300</b><a href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20o%20assistente%20de%20IA">quero esse →</a></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="oferta">
+    <strong>Site de uma página com botão de WhatsApp</strong>
+    <span class="preco">a partir de R$ 390</span>
+    <p>Seu negócio aparece no Google e no Instagram com endereço, horário, serviços, fotos e um botão que abre o WhatsApp. Pronto em dois dias, com seu domínio ou um gratuito.</p>
+  </div>
 
-  <section id="como">
-    <div class="miolo">
-      <div class="cabeca rev">
-        <div><div class="rotulo">COMO FUNCIONA</div><h2>Sem reunião longa, sem contrato de <em>dez páginas.</em></h2></div>
-        <p>Três passos. O terceiro é o único em que você paga.</p>
-      </div>
-      <div class="passos rev" id="passos">
-        <div class="passo" data-n="1"><b>Você me chama</b><p>Conta o que precisa pelo WhatsApp. Em quinze minutos eu digo o preço fechado.</p></div>
-        <div class="passo" data-n="2"><b>Eu monto e mostro</b><p>Você vê pelo celular, pede ajustes, aprova. Se não tiver fotos boas, eu faço.</p></div>
-        <div class="passo" data-n="3"><b>Entra no ar, aí você paga</b><p>Pix ou cartão. Ajustes de texto e foto nos primeiros trinta dias estão incluídos.</p></div>
-      </div>
-    </div>
-  </section>
+  <div class="oferta">
+    <strong>WhatsApp que atende e agenda sozinho</strong>
+    <span class="preco">a partir de R$ 590 + R$ 99/mês</span>
+    <p>Responde as perguntas de sempre (preço, horário, endereço), marca horário e manda lembrete no dia. Você só entra quando precisa.</p>
+  </div>
 
-  <section id="paraquem">
-    <div class="miolo">
-      <div class="cabeca rev">
-        <div><div class="rotulo">PARA QUEM</div><h2>Negócios de Timóteo, Fabriciano e <em>Ipatinga.</em></h2></div>
-        <p>Se o seu cliente te procura no Google ou no Instagram e acaba no WhatsApp, isso é para você.</p>
-      </div>
-      <div class="pilulas rev">
-        <span>barbearias e salões</span><span>clínicas e dentistas</span><span>estética e manicure</span><span>oficinas e lava-jatos</span><span>restaurantes e marmitarias</span><span>academias e personais</span><span>pet shops</span><span>lojas de roupa</span><span>assistência de celular</span><span>escolinhas de esporte</span><span>advogados</span><span>contadores</span><span>psicólogos</span><span>imobiliárias</span>
-      </div>
-    </div>
-  </section>
+  <div class="oferta">
+    <strong>Planilha ou relatório que se faz sozinho</strong>
+    <span class="preco">a partir de R$ 490</span>
+    <p>Controle de caixa, estoque, comissão, cobrança. Você digita uma vez e o resto se calcula. Menos duas horas por dia de trabalho manual.</p>
+  </div>
 
-  <section id="perguntas">
-    <div class="miolo">
-      <div class="cabeca rev">
-        <div><div class="rotulo">PERGUNTAS</div><h2>O que todo mundo <em>pergunta.</em></h2></div>
-      </div>
-      <div class="faq rev">
-        <details><summary>Tem mensalidade?</summary><p>O site, não. O domínio .com.br custa uns R$ 40 por ano e é seu. Só o WhatsApp automático tem mensalidade, porque roda num servidor ligado o tempo todo.</p></details>
-        <details><summary>Eu já tenho Instagram. Preciso de site?</summary><p>O Instagram continua sendo o principal. O site é a porta pelo Google: quem procura "barbearia em Timóteo" cai no site e do site vai para o seu WhatsApp. E vira o link da sua bio.</p></details>
-        <details><summary>E se eu não gostar?</summary><p>Você só paga depois de aprovar. Se não ficar do seu jeito, a gente ajusta; se mesmo assim não servir, não custou nada.</p></details>
-        <details><summary>Quanto tempo leva?</summary><p>Dois dias úteis a partir das fotos e informações. Se você tiver tudo em mãos, muitas vezes sai no mesmo dia.</p></details>
-        <details><summary>Você atende fora de Timóteo?</summary><p>Presencialmente, Timóteo, Coronel Fabriciano e Ipatinga. Pelo WhatsApp, qualquer cidade.</p></details>
-      </div>
-    </div>
-  </section>
+  <h2>Como funciona</h2>
+  <ul>
+    <li>Você me chama no WhatsApp e conta o que precisa. Em 15 minutos eu digo o preço.</li>
+    <li>Eu monto e te mostro pelo celular. Você pede ajustes.</li>
+    <li>Ficou do seu jeito, entra no ar. Aí você paga: Pix ou cartão.</li>
+  </ul>
 
-  <section class="contato" id="contato">
-    <div class="miolo rev">
-      <div class="rotulo">CONTATO</div>
-      <h2>Bora colocar o seu negócio <em>no mapa.</em></h2>
-      <p>Me chama no WhatsApp, conta o que precisa, e em quinze minutos eu te digo o preço.</p>
-      <a class="btn btn-zap" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">Chamar no WhatsApp</a>
-      <span class="tel">(31) 98916-5103 · Timóteo, MG</span>
-    </div>
-  </section>
-
-  <footer>
-    <span>Guilherme · Sites, automação e assistentes de IA para pequenos negócios.</span>
-    <span>Timóteo, Minas Gerais · 2026</span>
-  </footer>
-
-<script>
-  // Revelação ao rolar
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("vivo"); io.unobserve(e.target); } }), { threshold: .15 });
-  document.querySelectorAll(".rev").forEach((el) => io.observe(el));
-
-  // Brilho que segue o mouse nos blocos de serviço
-  document.querySelectorAll(".tile").forEach((t) => {
-    t.addEventListener("pointermove", (e) => {
-      const r = t.getBoundingClientRect();
-      t.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      t.style.setProperty("--my", `${e.clientY - r.top}px`);
-    });
-  });
-</script>
+  <p class="rodape">Guilherme · Timóteo, MG · Sites, automação e assistentes de IA para pequenos negócios.</p>
+</main>
 </body>
 </html>
