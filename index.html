@@ -9,15 +9,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
-    :root { --fundo: #ffffff; --texto: #0a0a0a; --cinza: #6b6b6b; --cinza-2: #a3a3a3; --linha: #e6e6e6; --cinza-fundo: #f4f4f4; --zap: #22c55e; }
+    :root { --fundo: #ffffff; --texto: #0b1220; --cinza: #3f4a5c; --cinza-2: #6b7688; --linha: rgba(10,25,50,.14); --cinza-fundo: rgba(255,255,255,.55); --vidro: rgba(255,255,255,.55); --zap: #22c55e; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--fundo); color: var(--texto); font-family: "Inter", system-ui, -apple-system, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    /* fundo: degradê azul com grão, deslizando devagar */
+    .fundo { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: #cfe0f2; }
+    .fundo i { position: absolute; inset: -20%; background:
+        radial-gradient(60% 70% at 8% 18%, #1f3f8f 0%, rgba(31,63,143,0) 60%),
+        radial-gradient(55% 65% at 40% 45%, #3f7fc4 0%, rgba(63,127,196,0) 62%),
+        radial-gradient(50% 60% at 85% 20%, #9fc6e8 0%, rgba(159,198,232,0) 60%),
+        radial-gradient(70% 60% at 80% 90%, #e6eef8 0%, rgba(230,238,248,0) 60%),
+        radial-gradient(50% 50% at 20% 95%, #cfe0f2 0%, rgba(207,224,242,0) 60%);
+      animation: deriva 22s ease-in-out infinite alternate; }
+    .fundo::after { content: ""; position: absolute; inset: 0; opacity: .32; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27220%27 height=%27220%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.85%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E"); }
+    @keyframes deriva { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(4%, -3%) scale(1.08); } }
+
+    body { background: transparent; color: var(--texto); font-family: "Inter", system-ui, -apple-system, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
     .miolo { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
 
     /* cabeçalho */
-    .topo { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--linha); }
+    .topo { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.35); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,.35); }
     .topo .miolo { display: flex; justify-content: space-between; align-items: center; height: 68px; }
     .quem { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .quem .foto { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; display: block; }
@@ -29,7 +42,7 @@
 
     /* abertura */
     .hero { padding: 96px 0 72px; position: relative; overflow: hidden; }
-    .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--linha) 1px, transparent 1px), linear-gradient(90deg, var(--linha) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(60% 60% at 70% 30%, #000, transparent); opacity: .6; pointer-events: none; }
+    .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(60% 60% at 70% 30%, #000, transparent); opacity: .6; pointer-events: none; }
     .hero .miolo { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
     .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11.5px; letter-spacing: .22em; color: var(--cinza); margin-bottom: 22px; }
     .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--texto); }
@@ -50,7 +63,7 @@
         radial-gradient(30% 50% at 96% 60%, #ffe08a 0%, transparent 60%);
       animation: aurora 9s ease-in-out infinite alternate; }
     .btn.solido::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; background: linear-gradient(90deg, rgba(255,255,255,0) 35%, rgba(255,255,255,.5) 80%); pointer-events: none; }
-    .btn.vazado { background: linear-gradient(#fff, #fff) padding-box, linear-gradient(90deg, #60a5fa, #f472b6, #34d399) border-box; border: 1.5px solid transparent; }
+    .btn.vazado { background: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.55)) padding-box, linear-gradient(90deg, #60a5fa, #f472b6, #34d399) border-box; border: 1.5px solid transparent; backdrop-filter: blur(8px); }
     .btn.vazado::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; background: linear-gradient(90deg, rgba(96,165,250,.14), rgba(244,114,182,.12), rgba(52,211,153,.14)); opacity: 0; transition: opacity .3s; }
     .btn.vazado:hover::before { opacity: 1; }
     @keyframes aurora { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(18deg) scale(1.12); } 100% { transform: rotate(-12deg) scale(1.05); } }
@@ -71,22 +84,22 @@
     .linhas .n { font-size: 12px; color: var(--cinza-2); font-variant-numeric: tabular-nums; }
     .linhas .t { font-size: clamp(20px, 2.4vw, 26px); font-weight: 600; letter-spacing: -.02em; }
     .linhas .p { font-size: 14px; color: var(--cinza); white-space: nowrap; }
-    .linhas .mais { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--linha); display: grid; place-items: center; font-size: 20px; font-weight: 300; transition: background .2s, color .2s, transform .3s; }
+    .linhas .mais { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--linha); background: var(--vidro); display: grid; place-items: center; font-size: 20px; font-weight: 300; transition: background .2s, color .2s, transform .3s; }
     .linhas summary:hover .mais { background: var(--texto); color: #fff; }
     .linhas details[open] .mais { transform: rotate(45deg); background: var(--texto); color: #fff; }
     .linhas .corpo { display: grid; grid-template-columns: 48px 1fr; gap: 18px; padding: 0 0 28px; }
     .linhas .corpo p { color: var(--cinza); max-width: 60ch; font-size: 15px; }
     .linhas .corpo ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .linhas .corpo li { font-size: 13px; padding: 7px 12px; background: var(--cinza-fundo); border-radius: 999px; }
+    .linhas .corpo li { font-size: 13px; padding: 7px 12px; background: var(--vidro); border: 1px solid rgba(255,255,255,.5); border-radius: 999px; }
     .linhas .corpo a { display: inline-block; margin-top: 18px; font-size: 14px; font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--texto); }
 
     /* sobre */
     .sobre .miolo { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
-    .retrato { aspect-ratio: 4/5; border-radius: 24px; overflow: hidden; background: #f4f4f4; }
+    .retrato { aspect-ratio: 4/5; border-radius: 24px; overflow: hidden; background: #f4f4f4; box-shadow: 0 30px 80px rgba(10,30,70,.25); }
     .retrato img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
     .sobre p { color: var(--cinza); margin-top: 16px; max-width: 52ch; }
     .pilulas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 30px; }
-    .pilula { padding: 22px 20px; border-radius: 22px; background: var(--cinza-fundo); }
+    .pilula { padding: 22px 20px; border-radius: 22px; background: var(--vidro); border: 1px solid rgba(255,255,255,.5); backdrop-filter: blur(10px); }
     .pilula.preta { background: var(--texto); color: #fff; }
     .pilula b { display: block; font-size: 30px; font-weight: 600; letter-spacing: -.03em; line-height: 1; }
     .pilula span { display: block; font-size: 13px; margin-top: 6px; opacity: .75; }
@@ -96,7 +109,7 @@
     .contato h2 { max-width: 20ch; margin: 0 auto; }
     .contato p { color: var(--cinza); margin: 18px auto 28px; max-width: 44ch; }
     .contato small { display: block; margin-top: 16px; color: var(--cinza-2); font-size: 13px; }
-    footer { border-top: 1px solid var(--linha); padding: 26px 0; font-size: 13px; color: var(--cinza-2); }
+    footer { border-top: 1px solid var(--linha); padding: 26px 0; font-size: 13px; color: var(--cinza); }
     footer .miolo { display: flex; justify-content: space-between; gap: 16px; }
 
     /* botão flutuante de WhatsApp */
@@ -189,6 +202,7 @@
   </style>
 </head>
 <body class="carregando-ativo">
+  <div class="fundo" aria-hidden="true"><i></i></div>
   <div class="progresso" id="progresso"></div>
   <div class="cursor" id="cursor"></div>
 
