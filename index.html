@@ -35,29 +35,40 @@
     .menu .fechar { position: absolute; top: 22px; right: 28px; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--linha); background: none; color: var(--branco); font-size: 22px; cursor: pointer; }
     .menu small { position: absolute; left: 32px; bottom: 28px; color: var(--cinza-2); font-size: 12px; line-height: 1.7; }
 
-    /* ---------- hero: esfera ---------- */
-    .hero { position: relative; height: 100vh; min-height: 620px; overflow: hidden; perspective: 2200px; cursor: grab; user-select: none; }
-    .hero.arrastando { cursor: grabbing; }
-    .esfera { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
-    .card { position: absolute; left: -95px; top: -62px; width: 190px; height: 124px; border-radius: 4px; overflow: hidden; transform-style: preserve-3d; background: #111; box-shadow: 0 20px 60px rgba(0,0,0,.6); cursor: pointer; }
-    .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .card .mock { position: absolute; inset: 0; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
-    .card .mock b { font-family: var(--serif); font-weight: 500; font-size: 16px; }
-    .card .mock span { font-size: 11px; color: var(--cinza); line-height: 1.4; }
-    .card .mock em { margin-top: auto; font-style: normal; font-size: 11px; color: var(--branco); border: 1px solid var(--linha); border-radius: 999px; padding: 4px 10px; width: max-content; }
-    .card.servico { background: linear-gradient(160deg, #1a1a1a, #0a0a0a); border: 1px solid var(--linha); }
-    .titulo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5; text-align: center; pointer-events: none; }
-    .titulo h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 6vw, 72px); line-height: 1.05; letter-spacing: -.01em; text-shadow: 0 4px 40px rgba(0,0,0,.9); }
-    .perfil { position: absolute; left: 32px; bottom: 32px; z-index: 6; max-width: 380px; }
-    .perfil .quem { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .perfil .foto { width: 54px; height: 54px; border-radius: 4px; background: linear-gradient(135deg, #2b2b2b, #111); display: grid; place-items: center; font-family: var(--serif); font-size: 22px; }
+    /* ---------- hero: carrossel ---------- */
+    .hero { position: relative; min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; padding: 120px 0 40px; overflow: hidden; }
+    .titulo { text-align: center; padding: 0 20px; }
+    .titulo h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 6vw, 76px); line-height: 1.05; letter-spacing: -.01em; }
+    .titulo p { color: var(--cinza); margin-top: 14px; font-size: 15px; }
+    .carrossel { position: relative; height: 420px; margin: 36px 0 12px; cursor: grab; user-select: none; touch-action: pan-y; }
+    .carrossel.arrastando { cursor: grabbing; }
+    .trilho { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+    .card { position: absolute; left: -260px; top: -160px; width: 520px; height: 320px; border-radius: 8px; overflow: hidden; background: #111; box-shadow: 0 30px 80px rgba(0,0,0,.65); cursor: pointer; transition: transform .6s cubic-bezier(.22,1,.36,1), opacity .6s, filter .6s; will-change: transform; }
+    .card img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .card .legenda { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 20px 16px; background: linear-gradient(to top, rgba(0,0,0,.85), transparent); }
+    .card .legenda b { display: block; font-family: var(--serif); font-weight: 400; font-size: 20px; }
+    .card .legenda span { font-size: 12px; color: var(--cinza); }
+    .card.servico { background: linear-gradient(160deg, #1c1c1c, #0a0a0a); border: 1px solid var(--linha); }
+    .card .mock { position: absolute; inset: 0; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .card .mock b { font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; }
+    .card .mock span { font-size: 14px; color: var(--cinza); }
+    .card .mock em { margin-top: auto; font-style: normal; font-size: 13px; border: 1px solid var(--linha); border-radius: 999px; padding: 6px 14px; width: max-content; }
+    .seta { position: absolute; top: 50%; transform: translateY(-50%); z-index: 8; width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--linha); background: rgba(5,5,5,.6); color: var(--branco); font-size: 20px; cursor: pointer; backdrop-filter: blur(6px); }
+    .seta:hover { background: rgba(255,255,255,.08); }
+    .seta.esq { left: 28px; } .seta.dir { right: 28px; }
+    .pontos { display: flex; justify-content: center; gap: 8px; margin-top: 6px; }
+    .pontos i { width: 6px; height: 6px; border-radius: 50%; background: var(--cinza-2); transition: background .3s, transform .3s; }
+    .pontos i.ativo { background: var(--branco); transform: scale(1.4); }
+    .rodape-hero { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 20px; padding: 26px 32px 0; }
+    .perfil { max-width: 380px; }
+    .perfil .quem { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .perfil .foto { width: 50px; height: 50px; border-radius: 4px; background: linear-gradient(135deg, #2b2b2b, #111); display: grid; place-items: center; font-family: var(--serif); font-size: 22px; }
     .perfil .nome { font-family: var(--serif); font-size: 20px; }
     .perfil p { font-size: 13px; color: var(--cinza); line-height: 1.6; }
-    .dica { position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .28em; color: var(--cinza); white-space: nowrap; }
+    .dica { display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .28em; color: var(--cinza); white-space: nowrap; padding-bottom: 6px; }
     .dica i { display: block; width: 44px; height: 1px; background: var(--cinza); }
-    .assin { position: absolute; right: 32px; bottom: 34px; z-index: 6; font-size: 13px; color: var(--cinza); }
-    .zap-hero { position: absolute; right: 32px; top: 50%; transform: translateY(-50%); z-index: 6; writing-mode: vertical-rl; font-size: 11px; letter-spacing: .28em; color: var(--cinza); text-decoration: none; }
-    .zap-hero:hover { color: var(--branco); }
+    .assin { text-align: right; font-size: 13px; color: var(--cinza); padding-bottom: 6px; }
+    .zap-hero { position: fixed; right: 22px; bottom: 22px; z-index: 20; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--zap); color: #06250f; font-weight: 500; border-radius: 999px; text-decoration: none; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
 
     /* ---------- intro ---------- */
     .intro { position: fixed; inset: 0; z-index: 50; background: var(--preto); display: grid; place-items: center; transition: opacity 1s; }
@@ -100,11 +111,15 @@
 
     @media (max-width: 720px) {
       .topo { padding: 20px; }
-      .perfil { left: 20px; right: 20px; bottom: 76px; max-width: none; }
-      .dica { bottom: 24px; font-size: 10px; letter-spacing: .2em; }
-      .perfil p { font-size: 12px; }
-      .assin, .zap-hero { display: none; }
-      .card { width: 130px; height: 85px; left: -65px; top: -42px; }
+      .hero { padding-top: 96px; }
+      .carrossel { height: 250px; margin-top: 24px; }
+      .card { width: 300px; height: 190px; left: -150px; top: -95px; }
+      .seta { width: 42px; height: 42px; }
+      .seta.esq { left: 10px; } .seta.dir { right: 10px; }
+      .rodape-hero { grid-template-columns: 1fr; padding: 20px 20px 0; }
+      .assin { display: none; }
+      .dica { display: none; }
+      .zap-hero { bottom: 16px; right: 16px; font-size: 13px; }
       .detalhe .texto { grid-template-columns: 1fr; }
       section { padding: 90px 20px 70px; }
     }
@@ -135,18 +150,28 @@
     <small>Timóteo · Coronel Fabriciano · Ipatinga<br />(31) 98916-5103</small>
   </div>
 
-  <!-- esfera -->
-  <div class="hero" id="hero">
-    <div class="esfera" id="esfera"></div>
-    <div class="titulo"><h1>Seu negócio,<br />encontrado.</h1></div>
-    <div class="perfil">
-      <div class="quem"><div class="foto">G</div><div class="nome">Guilherme</div></div>
-      <p>Faço sites de uma página, WhatsApp que atende e agenda sozinho e planilhas que se preenchem. Para negócios de Timóteo e do Vale do Aço. Pronto em dois dias, pago só quando estiver no ar.</p>
+  <!-- carrossel -->
+  <div class="hero">
+    <div class="titulo">
+      <h1>Seu negócio,<br />encontrado.</h1>
+      <p>Sites que eu entrego em dois dias para negócios de Timóteo e do Vale do Aço.</p>
     </div>
-    <div class="dica"><i></i>ARRASTE PARA GIRAR</div>
-    <a class="zap-hero" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">CHAMAR NO WHATSAPP</a>
-    <div class="assin">Timóteo, 2026.</div>
+    <div class="carrossel" id="carrossel">
+      <button class="seta esq" id="ant" aria-label="Anterior">←</button>
+      <div class="trilho" id="trilho"></div>
+      <button class="seta dir" id="prox" aria-label="Próximo">→</button>
+    </div>
+    <div class="pontos" id="pontos"></div>
+    <div class="rodape-hero">
+      <div class="perfil">
+        <div class="quem"><div class="foto">G</div><div class="nome">Guilherme</div></div>
+        <p>Faço sites de uma página, WhatsApp que atende e agenda sozinho e planilhas que se preenchem. Pronto em dois dias, pago só quando estiver no ar.</p>
+      </div>
+      <div class="dica"><i></i>ARRASTE OU USE AS SETAS</div>
+      <div class="assin">Timóteo, 2026.</div>
+    </div>
   </div>
+  <a class="zap-hero" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">Chamar no WhatsApp</a>
 
   <!-- detalhe -->
   <div class="detalhe" id="detalhe">
@@ -220,56 +245,56 @@
   ];
   const fotoUrl = (id) => `img/${id}.jpg`;
 
-  // Distribui os cards numa esfera (espiral de Fibonacci) e gira com o mouse
-  const esfera = document.getElementById("esfera");
-  const hero = document.getElementById("hero");
-  const RAIO = Math.min(430, Math.max(260, window.innerWidth * 0.3));
+  // Carrossel: o card do meio em destaque, vizinhos menores e escurecidos
+  const trilho = document.getElementById("trilho");
+  const carrossel = document.getElementById("carrossel");
+  const pontos = document.getElementById("pontos");
   const n = cards.length, els = [];
   cards.forEach((c, i) => {
     const el = document.createElement("div");
     el.className = "card" + (c.tipo === "servico" ? " servico" : "");
     el.innerHTML = c.tipo === "servico"
       ? `<div class="mock"><b>${c.titulo}</b><span>${c.sub}</span><em>${c.preco}</em></div>`
-      : `<img src="${fotoUrl(c.foto)}" alt="${c.titulo}" loading="lazy" />`;
-    const y = 1 - (i / (n - 1)) * 2;              // -1..1
-    const r = Math.sqrt(1 - y * y);
-    const theta = Math.PI * (3 - Math.sqrt(5)) * i; // ângulo dourado
-    const lat = Math.asin(y) * 180 / Math.PI, lon = theta * 180 / Math.PI;
-    el.dataset.lat = lat; el.dataset.lon = lon;
-    el.addEventListener("click", () => { if (!moveu) abrirDetalhe(c); });
-    esfera.appendChild(el); els.push(el);
+      : `<img src="${fotoUrl(c.foto)}" alt="${c.titulo}" loading="lazy" /><div class="legenda"><b>${c.titulo}</b><span>${c.sub}</span></div>`;
+    el.addEventListener("click", () => { if (moveu) return; if (i === atual) abrirDetalhe(c); else irPara(i); });
+    trilho.appendChild(el); els.push(el);
+    const pt = document.createElement("i"); pt.addEventListener("click", () => irPara(i)); pontos.appendChild(pt);
   });
 
-  let rotX = -8, rotY = 0, velY = 0.08, arrastando = false, ultimo = null, moveu = false;
+  let atual = 4, moveu = false, arrastando = false, x0 = 0, dx = 0, timer = null;   // começa num site-exemplo
+  const largura = () => (window.innerWidth <= 720 ? 320 : 560);
   function render() {
-    if (!arrastando) rotY += velY;
-    esfera.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    // Cada card fica de frente para fora; os do fundo escurecem
-    const rx = rotX * Math.PI / 180, ry = rotY * Math.PI / 180;
-    els.forEach((el) => {
-      const lat = +el.dataset.lat, lon = +el.dataset.lon;
-      el.style.transform = `rotateY(${lon}deg) rotateX(${-lat}deg) translateZ(${RAIO}px)`;
-      // profundidade aproximada após a rotação do container
-      const la = lat * Math.PI / 180, lo = (lon + rotY) * Math.PI / 180;
-      let z = Math.cos(la) * Math.cos(lo);
-      const y = Math.sin(la);
-      z = z * Math.cos(rx) - y * Math.sin(rx);
-      el.style.opacity = (0.12 + 0.88 * Math.pow(Math.max(0, (z + 1) / 2), 1.6)).toFixed(2);
+    els.forEach((el, i) => {
+      let d = i - atual;
+      if (d > n / 2) d -= n; if (d < -n / 2) d += n;   // circular
+      const vis = Math.abs(d) <= 2;
+      const x = d * largura() + dx;
+      const esc = d === 0 ? 1 : 0.82;
+      el.style.transform = `translateX(${x}px) scale(${esc})`;
+      el.style.opacity = vis ? (d === 0 ? 1 : 0.45) : 0;
+      el.style.filter = d === 0 ? "none" : "brightness(.7)";
+      el.style.zIndex = 10 - Math.abs(d);
+      el.style.pointerEvents = vis ? "auto" : "none";
     });
-    requestAnimationFrame(render);
+    [...pontos.children].forEach((pt, i) => pt.classList.toggle("ativo", i === atual));
   }
-  render();
-
-  const pos = (e) => (e.touches ? e.touches[0] : e);
-  hero.addEventListener("pointerdown", (e) => { arrastando = true; moveu = false; ultimo = pos(e); hero.classList.add("arrastando"); });
-  window.addEventListener("pointermove", (e) => {
+  function irPara(i) { atual = (i + n) % n; render(); reiniciar(); }
+  function reiniciar() { clearInterval(timer); timer = setInterval(() => irPara(atual + 1), 4200); }
+  document.getElementById("ant").addEventListener("click", () => irPara(atual - 1));
+  document.getElementById("prox").addEventListener("click", () => irPara(atual + 1));
+  carrossel.addEventListener("pointerdown", (e) => { if (e.target.closest(".seta")) return; arrastando = true; moveu = false; x0 = e.clientX; dx = 0; carrossel.classList.add("arrastando"); els.forEach((el) => (el.style.transition = "none")); });
+  window.addEventListener("pointermove", (e) => { if (!arrastando) return; dx = e.clientX - x0; if (Math.abs(dx) > 6) moveu = true; render(); });
+  window.addEventListener("pointerup", () => {
     if (!arrastando) return;
-    const p = pos(e); const dx = p.clientX - ultimo.clientX, dy = p.clientY - ultimo.clientY;
-    if (Math.abs(dx) + Math.abs(dy) > 3) moveu = true;
-    rotY += dx * 0.25; rotX = Math.max(-60, Math.min(60, rotX - dy * 0.15)); velY = dx * 0.02;
-    ultimo = p;
+    arrastando = false; carrossel.classList.remove("arrastando");
+    els.forEach((el) => (el.style.transition = ""));
+    const passo = dx < -60 ? 1 : dx > 60 ? -1 : 0; dx = 0;
+    irPara(atual + passo);
+    setTimeout(() => (moveu = false), 50);
   });
-  window.addEventListener("pointerup", () => { arrastando = false; hero.classList.remove("arrastando"); velY = Math.max(-0.6, Math.min(0.6, velY)) || 0.08; setTimeout(() => (moveu = false), 50); });
+  window.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") irPara(atual + 1); if (e.key === "ArrowLeft") irPara(atual - 1); });
+  window.addEventListener("resize", render);
+  render(); reiniciar();
 
   // detalhe
   const detalhe = document.getElementById("detalhe");
