@@ -7,7 +7,7 @@
   <meta name="description" content="Sites de uma página, WhatsApp com agendamento e planilhas automáticas para negócios de Timóteo e do Vale do Aço. Pronto em dois dias, pago só quando estiver no ar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@800;900&display=swap" rel="stylesheet" />
   <style>
     :root { --fundo: #ffffff; --texto: #0b1220; --cinza: #3f4a5c; --cinza-2: #6b7688; --linha: rgba(10,25,50,.14); --cinza-fundo: rgba(255,255,255,.55); --vidro: rgba(255,255,255,.55); --zap: #22c55e; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,7 +50,15 @@
     .hero .painel::before { content: ""; position: absolute; inset: 0; z-index: -2; background: url("img/setup.jpg") center 40% / cover no-repeat; transform: scale(1.06); transition: transform 8s ease-out; }
     body.pronto .hero .painel::before { transform: scale(1); }
     .hero .painel::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(219,234,254,.96) 0%, rgba(199,222,250,.9) 38%, rgba(120,165,230,.55) 68%, rgba(31,63,143,.35) 100%); }
-    .hero h1, .hero .lado p { color: var(--texto); }
+    .hero .lado p { color: var(--texto); }
+    /* manchete no estilo do logo: geométrica, pesada, apertada, com faixa azul-violeta atravessando */
+    .hero h1 { font-family: "Outfit", "Inter", sans-serif; font-weight: 900; letter-spacing: -.045em; line-height: .98; font-size: clamp(42px, 6.4vw, 78px); }
+    .hero h1 .l > span { background: linear-gradient(180deg, #0b1220 0%, #0b1220 42%, #4f46e5 50%, #7c6cf0 56%, #0b1220 66%, #0b1220 100%); background-size: 100% 220%; background-position: 0 var(--faixa, 30%); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .06em; margin-bottom: -.06em; animation: faixa 7s ease-in-out infinite alternate; }
+    .hero h1 .l:nth-child(2) > span { animation-delay: -2.3s; }
+    .hero h1 .l:nth-child(3) > span { animation-delay: -4.6s; }
+    .hero h1 em { font-style: normal; font-weight: 900; color: inherit; }
+    @keyframes faixa { from { background-position: 0 0%; } to { background-position: 0 100%; } }
+    @media (prefers-reduced-motion: reduce) { .hero h1 .l > span { animation: none; } }
     .hero .painel .grade { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(rgba(255,255,255,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.28) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(60% 60% at 70% 30%, #000, transparent); opacity: .6; pointer-events: none; }
     .hero .miolo { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; padding: 0; }
     .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11.5px; letter-spacing: .22em; color: var(--cinza); margin-bottom: 22px; }
