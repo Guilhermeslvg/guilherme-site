@@ -72,6 +72,16 @@
     .btn.vazado:hover::before { opacity: 1; }
     @keyframes aurora { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(18deg) scale(1.12); } 100% { transform: rotate(-12deg) scale(1.05); } }
 
+    /* cartão flutuante com a imagem, no canto direito da abertura */
+    .hero { position: relative; }
+    @media (min-width: 1101px) { .hero .miolo { padding-right: 250px; grid-template-columns: 1.35fr 1fr; } .hero h1 { font-size: clamp(38px, 4.6vw, 58px); } }
+    .flutua { position: absolute; right: max(24px, calc((100vw - 1120px) / 2 - 10px)); top: 50%; width: 220px; transform: translateY(-50%) rotate(4deg); z-index: 3; border-radius: 22px; padding: 10px; background: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.6); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 30px 70px rgba(10,30,70,.28), inset 0 1px 0 rgba(255,255,255,.7); opacity: 0; animation: balanca 7s ease-in-out infinite; transition: transform .5s cubic-bezier(.22,1,.36,1); will-change: transform; }
+    body.pronto .flutua { opacity: 1; transition: opacity 1s .6s, transform .5s cubic-bezier(.22,1,.36,1); }
+    .flutua img { display: block; width: 100%; border-radius: 14px; }
+    .flutua span { position: absolute; left: 18px; bottom: 18px; padding: 6px 10px; font-size: 11px; font-weight: 500; letter-spacing: .06em; color: #fff; background: rgba(10,15,30,.55); border-radius: 999px; backdrop-filter: blur(6px); }
+    @keyframes balanca { 0%, 100% { margin-top: 0; } 50% { margin-top: -14px; } }
+    @media (max-width: 1100px) { .flutua { display: none; } }
+
     /* seções */
     section { padding: 80px 0; border-top: 1px solid var(--linha); }
     .rotulo { font-size: 11.5px; letter-spacing: .22em; color: var(--cinza); margin-bottom: 18px; }
@@ -239,6 +249,7 @@
         </div>
       </div>
     </div>
+    <div class="flutua" id="flutua"><img src="img/enter.jpg" alt="" /><span>É só apertar Enter.</span></div>
   </section>
 
   <section id="servicos">
@@ -399,6 +410,12 @@
   document.querySelectorAll("[data-alvo]").forEach((el) => ioNum.observe(el));
 
   if (comMouse && !semMovimento) {
+    // cartão flutuante inclina na direção do mouse
+    const fl = document.getElementById("flutua");
+    if (fl) {
+      fl.addEventListener("pointermove", (e) => { const r = fl.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; fl.style.transform = "translateY(-50%) rotate(4deg) perspective(700px) rotateY(" + (x * 16).toFixed(1) + "deg) rotateX(" + (-y * 12).toFixed(1) + "deg) scale(1.03)"; });
+      fl.addEventListener("pointerleave", () => { fl.style.transform = ""; });
+    }
     // 2. cursor personalizado
     const cursor = document.getElementById("cursor");
     let cx = innerWidth / 2, cy = innerHeight / 2, mx = cx, my = cy;
