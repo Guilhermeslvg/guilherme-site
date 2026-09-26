@@ -103,6 +103,56 @@
     .carregando .barra i { display: block; height: 100%; width: 0; background: #fff; }
     body.carregando-ativo { overflow: hidden; }
 
+    /* 10. barra de progresso da leitura */
+    .progresso { position: fixed; left: 0; top: 0; height: 2px; width: 0; background: var(--texto); z-index: 40; transition: width .1s linear; }
+
+    /* 2. cursor personalizado (só com mouse) */
+    .cursor { position: fixed; left: 0; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--texto); pointer-events: none; z-index: 60; transition: transform .25s cubic-bezier(.22,1,.36,1), opacity .3s; mix-blend-mode: difference; background: #fff; opacity: 0; }
+    body.com-mouse .cursor { opacity: 1; }
+    body.com-mouse.cursor-grande .cursor { transform: scale(4.5); }
+    @media (pointer: coarse) { .cursor { display: none; } }
+
+    /* 1. manchete e lado da abertura entrando depois do carregando */
+    h1 .l { display: block; overflow: hidden; }
+    h1 .l > span { display: block; transform: translateY(110%); transition: transform 1s cubic-bezier(.22,1,.36,1); }
+    body.pronto h1 .l:nth-child(1) > span { transform: none; transition-delay: .05s; }
+    body.pronto h1 .l:nth-child(2) > span { transform: none; transition-delay: .17s; }
+    body.pronto h1 .l:nth-child(3) > span { transform: none; transition-delay: .29s; }
+    .hero .eyebrow, .hero .lado > * { opacity: 0; transform: translateY(14px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+    body.pronto .hero .eyebrow { opacity: 1; transform: none; transition-delay: .4s; }
+    body.pronto .hero .lado > * { opacity: 1; transform: none; }
+    body.pronto .hero .lado > :nth-child(1) { transition-delay: .55s; }
+    body.pronto .hero .lado > :nth-child(2) { transition-delay: .7s; }
+
+    /* 3. grade do fundo acompanhando o mouse */
+    .hero::before { mask-image: radial-gradient(38% 55% at var(--gx, 70%) var(--gy, 30%), #000, transparent); -webkit-mask-image: radial-gradient(38% 55% at var(--gx, 70%) var(--gy, 30%), #000, transparent); transition: -webkit-mask-position .2s; }
+
+    /* 6. cabeçalho que encolhe ao rolar */
+    .topo .miolo, .quem .foto { transition: height .35s cubic-bezier(.22,1,.36,1), width .35s cubic-bezier(.22,1,.36,1); }
+    body.rolou .topo .miolo { height: 54px; }
+    body.rolou .quem .foto { width: 30px; height: 30px; }
+    body.rolou .quem span span { display: none; }
+
+    /* 11. sublinhado do menu que acompanha a seção */
+    .nav { position: relative; }
+    .nav .traco { position: absolute; bottom: -6px; left: 0; height: 1px; width: 0; background: var(--texto); transition: left .4s cubic-bezier(.22,1,.36,1), width .4s cubic-bezier(.22,1,.36,1); }
+
+    /* 8. botões magnéticos com texto deslizando */
+    .btn { position: relative; overflow: hidden; will-change: transform; }
+    .btn .rot { display: block; position: relative; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+    .btn .rot::after { content: attr(data-t); position: absolute; left: 0; top: 100%; white-space: nowrap; }
+    .btn:hover .rot { transform: translateY(-100%); }
+
+    /* 9. linhas de serviço abrindo com movimento; "+" com mola */
+    .linhas .mais { transition: background .2s, color .2s, transform .55s cubic-bezier(.34,1.56,.64,1); }
+    .linhas .corpo { overflow: hidden; }
+
+    /* 4. revelação por linhas com defasagem */
+    .rev { transition-delay: calc(var(--i, 0) * 90ms); }
+
+    /* 7. paralaxe da foto */
+    .retrato img { will-change: transform; transition: none; }
+
     /* revelação */
     .rev { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
     .rev.vivo { opacity: 1; transform: none; }
@@ -126,6 +176,8 @@
   </style>
 </head>
 <body class="carregando-ativo">
+  <div class="progresso" id="progresso"></div>
+  <div class="cursor" id="cursor"></div>
 
   <div class="carregando" id="carregando" aria-hidden="true">
     <div class="caixa">
@@ -138,7 +190,7 @@
   <header class="topo">
     <div class="miolo">
       <a class="quem" href="#"><img class="foto" src="img/guilherme-mini.jpg" alt="Guilherme" /><span><b>Guilherme</b><span>Sites e automação</span></span></a>
-      <nav class="nav"><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></nav>
+      <nav class="nav"><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a><i class="traco" id="traco"></i></nav>
     </div>
   </header>
 
@@ -146,13 +198,13 @@
     <div class="miolo">
       <div>
         <div class="eyebrow">SITES • WHATSAPP • AUTOMAÇÃO</div>
-        <h1>Sites que fazem<br />seu negócio<br />parecer <em>grande.</em></h1>
+        <h1><span class="l"><span>Sites que fazem</span></span><span class="l"><span>seu negócio</span></span><span class="l"><span>parecer <em>grande.</em></span></span></h1>
       </div>
-      <div>
+      <div class="lado">
         <p>Site de uma página, WhatsApp que atende e agenda sozinho e planilhas que se preenchem, para negócios de Timóteo e do Vale do Aço. Pronto em dois dias. Você só paga quando estiver no ar.</p>
         <div class="botoes">
-          <a class="btn solido" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20or%C3%A7amento">Solicitar orçamento →</a>
-          <a class="btn vazado" href="#servicos">Ver serviços ↓</a>
+          <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20or%C3%A7amento"><span class="rot" data-t="Solicitar orçamento →">Solicitar orçamento →</span></a>
+          <a class="btn vazado magnetico" href="#servicos"><span class="rot" data-t="Ver serviços ↓">Ver serviços ↓</span></a>
         </div>
       </div>
     </div>
@@ -165,7 +217,7 @@
         <p>Preço fechado antes de começar. Sem pacote gigante, sem contrato de dez páginas.</p>
       </div>
       <div class="linhas rev">
-        <details open>
+        <details open class="rev" style="--i:1">
           <summary><span class="n">01</span><span class="t">Site de uma página</span><span class="p">a partir de R$ 390</span><span class="mais">+</span></summary>
           <div class="corpo"><span></span><div>
             <p>Seu negócio aparece no Google e no Instagram com serviços, preços, fotos, endereço com mapa e horário. Um botão abre o seu WhatsApp. Pronto em dois dias, com domínio próprio ou gratuito.</p>
@@ -173,7 +225,7 @@
             <a href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20site%20de%20uma%20p%C3%A1gina">Quero esse</a>
           </div></div>
         </details>
-        <details>
+        <details class="rev" style="--i:2">
           <summary><span class="n">02</span><span class="t">WhatsApp que atende e agenda</span><span class="p">R$ 590 + R$ 99/mês</span><span class="mais">+</span></summary>
           <div class="corpo"><span></span><div>
             <p>Responde as perguntas de sempre (preço, horário, endereço), marca horário e manda lembrete no dia. Você só entra quando precisa.</p>
@@ -181,7 +233,7 @@
             <a href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20o%20WhatsApp%20autom%C3%A1tico">Quero esse</a>
           </div></div>
         </details>
-        <details>
+        <details class="rev" style="--i:3">
           <summary><span class="n">03</span><span class="t">Planilha que se faz sozinha</span><span class="p">a partir de R$ 490</span><span class="mais">+</span></summary>
           <div class="corpo"><span></span><div>
             <p>Caixa, estoque, comissão, cobrança. Você digita uma vez e o resto se calcula. Menos duas horas por dia de trabalho manual.</p>
@@ -202,9 +254,9 @@
         <p>Faço sites e automações para negócios de Timóteo e do Vale do Aço. Meu trabalho é fazer o cliente te encontrar no Google, chegar no seu WhatsApp e ser atendido rápido, mesmo quando você está ocupado.</p>
         <p>Sem reunião longa: você me chama, eu monto, você aprova, entra no ar, aí você paga.</p>
         <div class="pilulas">
-          <div class="pilula"><b>2</b><span>dias de prazo</span></div>
-          <div class="pilula preta"><b>R$ 390</b><span>a partir de</span></div>
-          <div class="pilula"><b>0</b><span>risco: paga no ar</span></div>
+          <div class="pilula rev" style="--i:1"><b data-alvo="2">0</b><span>dias de prazo</span></div>
+          <div class="pilula preta rev" style="--i:2"><b data-alvo="390" data-prefixo="R$ ">R$ 0</b><span>a partir de</span></div>
+          <div class="pilula rev" style="--i:3"><b data-alvo="0">0</b><span>risco: paga no ar</span></div>
         </div>
       </div>
     </div>
@@ -215,7 +267,7 @@
       <div class="rotulo">[ 03 ] CONTATO</div>
       <h2>Bora colocar o seu negócio no mapa.</h2>
       <p>Me chama no WhatsApp, conta o que precisa, e em quinze minutos eu digo o preço.</p>
-      <a class="btn solido" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais">Chamar no WhatsApp →</a>
+      <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais"><span class="rot" data-t="Chamar no WhatsApp →">Chamar no WhatsApp →</span></a>
       <small>(31) 98916-5103 · Timóteo, Coronel Fabriciano e Ipatinga</small>
     </div>
   </section>
@@ -237,17 +289,86 @@
       const v = Math.round((1 - Math.pow(1 - t, 2.2)) * 100);   // começa rápido, termina suave
       pct.textContent = v; barra.style.width = v + "%";
       if (t < 1) requestAnimationFrame(passo);
-      else setTimeout(() => { tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); }, 250);
+      else setTimeout(() => { tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); document.body.classList.add("pronto"); }, 250);
     };
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); }
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); document.body.classList.add("pronto"); }
     else requestAnimationFrame(passo);
   })();
 
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("vivo"); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll(".rev").forEach((el) => io.observe(el));
-  // Só um serviço aberto por vez
+  const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const comMouse = matchMedia("(pointer: fine)").matches;
+
+  // 9. serviços abrindo com movimento (um por vez)
   const ds = document.querySelectorAll(".linhas details");
-  ds.forEach((d) => d.addEventListener("toggle", () => { if (d.open) ds.forEach((o) => { if (o !== d) o.open = false; }); }));
+  ds.forEach((d) => {
+    const corpo = d.querySelector(".corpo");
+    d.querySelector("summary").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (d.open) { fechar(d, corpo); return; }
+      ds.forEach((o) => { if (o !== d && o.open) fechar(o, o.querySelector(".corpo")); });
+      d.open = true;
+      if (semMovimento) return;
+      const alt = corpo.scrollHeight;
+      corpo.animate([{ height: "0px", opacity: 0 }, { height: alt + "px", opacity: 1 }], { duration: 520, easing: "cubic-bezier(.22,1,.36,1)" });
+    });
+  });
+  function fechar(d, corpo) {
+    if (semMovimento) { d.open = false; return; }
+    const a = corpo.animate([{ height: corpo.scrollHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }], { duration: 380, easing: "cubic-bezier(.22,1,.36,1)" });
+    a.onfinish = () => { d.open = false; };
+  }
+
+  // 10. barra de progresso da leitura + 6. cabeçalho que encolhe + 11. sublinhado do menu
+  const progresso = document.getElementById("progresso"), traco = document.getElementById("traco");
+  const links = [...document.querySelectorAll(".nav a")];
+  const secoes = links.map((a) => document.querySelector(a.getAttribute("href")));
+  function aoRolar() {
+    const y = window.scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    progresso.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
+    document.body.classList.toggle("rolou", y > 40);
+    let ativo = -1;
+    secoes.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= innerHeight * 0.45) ativo = i; });
+    if (ativo >= 0) { const a = links[ativo]; traco.style.left = a.offsetLeft + "px"; traco.style.width = a.offsetWidth + "px"; }
+    else traco.style.width = "0";
+    // 7. paralaxe da foto
+    const img = document.querySelector(".retrato img");
+    if (img && !semMovimento) { const r = img.parentElement.getBoundingClientRect(); const d = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; img.style.transform = "translateY(" + (d * -28).toFixed(1) + "px) scale(1.08)"; }
+  }
+  window.addEventListener("scroll", aoRolar, { passive: true }); window.addEventListener("resize", aoRolar); aoRolar();
+
+  // 5. números contando quando entram na tela
+  const ioNum = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return; ioNum.unobserve(e.target);
+    const el = e.target, alvo = Number(el.dataset.alvo), pre = el.dataset.prefixo || "", t0 = performance.now(), DUR = 1400;
+    const passo = (agora) => { const t = Math.min(1, (agora - t0) / DUR); const v = Math.round((1 - Math.pow(1 - t, 3)) * alvo); el.textContent = pre + v; if (t < 1) requestAnimationFrame(passo); };
+    semMovimento ? (el.textContent = pre + alvo) : requestAnimationFrame(passo);
+  }), { threshold: .6 });
+  document.querySelectorAll("[data-alvo]").forEach((el) => ioNum.observe(el));
+
+  if (comMouse && !semMovimento) {
+    // 2. cursor personalizado
+    const cursor = document.getElementById("cursor");
+    let cx = innerWidth / 2, cy = innerHeight / 2, mx = cx, my = cy;
+    document.body.classList.add("com-mouse");
+    window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    (function seguir() { cx += (mx - cx) * .22; cy += (my - cy) * .22; cursor.style.left = cx + "px"; cursor.style.top = cy + "px"; requestAnimationFrame(seguir); })();
+    document.querySelectorAll("a, button, summary").forEach((el) => {
+      el.addEventListener("pointerenter", () => document.body.classList.add("cursor-grande"));
+      el.addEventListener("pointerleave", () => document.body.classList.remove("cursor-grande"));
+    });
+
+    // 3. grade do fundo acompanhando o mouse
+    const hero = document.querySelector(".hero");
+    hero.addEventListener("pointermove", (e) => { const r = hero.getBoundingClientRect(); hero.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%"); hero.style.setProperty("--gy", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%"); }, { passive: true });
+
+    // 8. botões magnéticos
+    document.querySelectorAll(".magnetico").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2); b.style.transform = "translate(" + (dx * .22).toFixed(1) + "px," + (dy * .3).toFixed(1) + "px)"; });
+      b.addEventListener("pointerleave", () => { b.style.transition = "transform .5s cubic-bezier(.34,1.56,.64,1)"; b.style.transform = ""; setTimeout(() => (b.style.transition = ""), 500); });
+    });
+  }
 </script>
 </body>
 </html>
