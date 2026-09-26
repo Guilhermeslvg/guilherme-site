@@ -45,9 +45,14 @@
     .nav a:hover { color: var(--texto); }
 
     /* abertura */
-    .hero { padding: 96px 0 72px; position: relative; overflow: hidden; }
-    .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(60% 60% at 70% 30%, #000, transparent); opacity: .6; pointer-events: none; }
-    .hero .miolo { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
+    .hero { padding: 40px 28px 56px; position: relative; }
+    .hero .painel { position: relative; max-width: 1120px; margin: 0 auto; padding: 88px 56px 64px; border-radius: 32px; overflow: hidden; border: 1px solid rgba(255,255,255,.35); box-shadow: 0 40px 100px rgba(8,25,60,.35), inset 0 1px 0 rgba(255,255,255,.5); isolation: isolate; }
+    .hero .painel::before { content: ""; position: absolute; inset: 0; z-index: -2; background: url("img/setup.jpg") center 40% / cover no-repeat; transform: scale(1.06); transition: transform 8s ease-out; }
+    body.pronto .hero .painel::before { transform: scale(1); }
+    .hero .painel::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(219,234,254,.96) 0%, rgba(199,222,250,.9) 38%, rgba(120,165,230,.55) 68%, rgba(31,63,143,.35) 100%); }
+    .hero h1, .hero .lado p { color: var(--texto); }
+    .hero .painel .grade { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(rgba(255,255,255,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.28) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(60% 60% at 70% 30%, #000, transparent); opacity: .6; pointer-events: none; }
+    .hero .miolo { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; padding: 0; }
     .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11.5px; letter-spacing: .22em; color: var(--cinza); margin-bottom: 22px; }
     .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--texto); }
     h1 { font-size: clamp(38px, 6vw, 68px); font-weight: 600; line-height: 1.04; letter-spacing: -.035em; }
@@ -71,16 +76,6 @@
     .btn.vazado::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; background: linear-gradient(90deg, rgba(96,165,250,.14), rgba(244,114,182,.12), rgba(52,211,153,.14)); opacity: 0; transition: opacity .3s; }
     .btn.vazado:hover::before { opacity: 1; }
     @keyframes aurora { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(18deg) scale(1.12); } 100% { transform: rotate(-12deg) scale(1.05); } }
-
-    /* cartão flutuante com a imagem, no canto direito da abertura */
-    .hero { position: relative; }
-    @media (min-width: 1101px) { .hero .miolo { padding-right: 250px; grid-template-columns: 1.35fr 1fr; } .hero h1 { font-size: clamp(38px, 4.6vw, 58px); } }
-    .flutua { position: absolute; right: max(24px, calc((100vw - 1120px) / 2 - 10px)); top: 50%; width: 220px; transform: translateY(-50%) rotate(4deg); z-index: 3; border-radius: 22px; padding: 10px; background: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.6); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 30px 70px rgba(10,30,70,.28), inset 0 1px 0 rgba(255,255,255,.7); opacity: 0; animation: balanca 7s ease-in-out infinite; transition: transform .5s cubic-bezier(.22,1,.36,1); will-change: transform; }
-    body.pronto .flutua { opacity: 1; transition: opacity 1s .6s, transform .5s cubic-bezier(.22,1,.36,1); }
-    .flutua img { display: block; width: 100%; border-radius: 14px; }
-    .flutua span { position: absolute; left: 18px; bottom: 18px; padding: 6px 10px; font-size: 11px; font-weight: 500; letter-spacing: .06em; color: #fff; background: rgba(10,15,30,.55); border-radius: 999px; backdrop-filter: blur(6px); }
-    @keyframes balanca { 0%, 100% { margin-top: 0; } 50% { margin-top: -14px; } }
-    @media (max-width: 1100px) { .flutua { display: none; } }
 
     /* seções */
     section { padding: 80px 0; border-top: 1px solid var(--linha); }
@@ -165,7 +160,7 @@
     body.pronto .hero .lado > :nth-child(2) { transition-delay: .7s; }
 
     /* 3. grade do fundo acompanhando o mouse */
-    .hero::before { mask-image: radial-gradient(38% 55% at var(--gx, 70%) var(--gy, 30%), #000, transparent); -webkit-mask-image: radial-gradient(38% 55% at var(--gx, 70%) var(--gy, 30%), #000, transparent); transition: -webkit-mask-position .2s; }
+    .hero .grade { mask-image: radial-gradient(38% 55% at var(--gx, 70%) var(--gy, 30%), #000, transparent); -webkit-mask-image: radial-gradient(38% 55% at var(--gx, 70%) var(--gy, 30%), #000, transparent); }
 
     /* 6. cabeçalho que encolhe ao rolar */
     .topo .miolo, .quem .foto { transition: height .35s cubic-bezier(.22,1,.36,1), width .35s cubic-bezier(.22,1,.36,1); }
@@ -200,7 +195,9 @@
     @media (max-width: 820px) {
       .miolo { padding: 0 20px; }
       .nav { display: none; }
-      .hero { padding: 64px 0 52px; }
+      .hero { padding: 16px 12px 36px; }
+      .hero .painel { padding: 56px 24px 40px; border-radius: 22px; }
+      .hero .painel::after { background: linear-gradient(170deg, rgba(219,234,254,.96) 0%, rgba(199,222,250,.92) 55%, rgba(120,165,230,.7) 100%); }
       .hero .miolo, .cabeca, .sobre .miolo { grid-template-columns: 1fr; gap: 24px; }
       section { padding: 60px 0; }
       .linhas summary { grid-template-columns: 34px 1fr 36px; }
@@ -236,6 +233,7 @@
   </header>
 
   <section class="hero">
+    <div class="painel"><div class="grade"></div>
     <div class="miolo">
       <div>
         <div class="eyebrow">SITES • WHATSAPP • AUTOMAÇÃO</div>
@@ -249,7 +247,7 @@
         </div>
       </div>
     </div>
-    <div class="flutua" id="flutua"><img src="img/enter.jpg" alt="" /><span>É só apertar Enter.</span></div>
+    </div>
   </section>
 
   <section id="servicos">
@@ -410,12 +408,6 @@
   document.querySelectorAll("[data-alvo]").forEach((el) => ioNum.observe(el));
 
   if (comMouse && !semMovimento) {
-    // cartão flutuante inclina na direção do mouse
-    const fl = document.getElementById("flutua");
-    if (fl) {
-      fl.addEventListener("pointermove", (e) => { const r = fl.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; fl.style.transform = "translateY(-50%) rotate(4deg) perspective(700px) rotateY(" + (x * 16).toFixed(1) + "deg) rotateX(" + (-y * 12).toFixed(1) + "deg) scale(1.03)"; });
-      fl.addEventListener("pointerleave", () => { fl.style.transform = ""; });
-    }
     // 2. cursor personalizado
     const cursor = document.getElementById("cursor");
     let cx = innerWidth / 2, cy = innerHeight / 2, mx = cx, my = cy;
