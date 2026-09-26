@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- MODELO DE SITE DE UMA PÁGINA. Troque tudo que está entre [colchetes]. -->
+  <title>[Nome do Negócio] · [Serviço] em Timóteo</title>
+  <meta name="description" content="[Nome do Negócio]: [o que faz] em Timóteo, MG. Agende pelo WhatsApp." />
+  <style>
+    :root { --cor: #1f6feb; --fundo: #ffffff; --texto: #1a1d23; --suave: #626b78; --zap: #25d366; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--fundo); color: var(--texto); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.6; }
+    header { background: var(--cor); color: #fff; padding: 56px 20px 48px; text-align: center; }
+    header h1 { font-size: clamp(30px, 7vw, 46px); line-height: 1.1; }
+    header p { margin-top: 10px; opacity: .92; font-size: 18px; }
+    .zap { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 14px 24px; background: var(--zap); color: #06250f; font-weight: 700; border-radius: 999px; text-decoration: none; }
+    section { max-width: 760px; margin: 0 auto; padding: 40px 20px; }
+    h2 { font-size: 24px; margin-bottom: 14px; }
+    .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .item { padding: 16px; border: 1px solid #e6e8ec; border-radius: 12px; }
+    .item strong { display: block; }
+    .item span { color: var(--suave); }
+    .fotos { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+    .fotos img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; background: #eef0f3; }
+    .info p { color: var(--suave); margin: 4px 0; }
+    iframe { width: 100%; height: 260px; border: 0; border-radius: 12px; margin-top: 12px; }
+    footer { text-align: center; color: var(--suave); padding: 30px 20px 50px; font-size: 14px; }
+    .flutuante { position: fixed; right: 16px; bottom: 16px; width: 58px; height: 58px; border-radius: 50%; background: var(--zap); display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25); text-decoration: none; color: #fff; font-size: 26px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>[Nome do Negócio]</h1>
+    <p>[Frase curta: ex. "Corte, barba e sobrancelha, com hora marcada"]</p>
+    <!-- 55 + DDD + número, só dígitos -->
+    <a class="zap" href="https://wa.me/5531999999999?text=Oi%2C%20quero%20agendar">Agendar pelo WhatsApp</a>
+  </header>
+
+  <section>
+    <h2>Serviços</h2>
+    <div class="grade">
+      <div class="item"><strong>[Serviço 1]</strong><span>[R$ 00]</span></div>
+      <div class="item"><strong>[Serviço 2]</strong><span>[R$ 00]</span></div>
+      <div class="item"><strong>[Serviço 3]</strong><span>[R$ 00]</span></div>
+      <div class="item"><strong>[Serviço 4]</strong><span>[R$ 00]</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Fotos</h2>
+    <div class="fotos">
+      <img src="foto1.jpg" alt="[descrição]" />
+      <img src="foto2.jpg" alt="[descrição]" />
+      <img src="foto3.jpg" alt="[descrição]" />
+    </div>
+  </section>
+
+  <section class="info">
+    <h2>Onde e quando</h2>
+    <p><strong>Endereço:</strong> [Rua, número, bairro] · Timóteo, MG</p>
+    <p><strong>Horário:</strong> [seg a sex 9h às 19h · sáb 9h às 14h]</p>
+    <p><strong>Instagram:</strong> <a href="https://instagram.com/[perfil]">@[perfil]</a></p>
+    <!-- Google Maps: no Maps, "Compartilhar" > "Incorporar um mapa" > cole o src aqui -->
+    <iframe src="https://www.google.com/maps?q=Tim%C3%B3teo%2C%20MG&output=embed" loading="lazy" title="Mapa"></iframe>
+  </section>
+
+  <footer>[Nome do Negócio] · Timóteo, MG</footer>
+  <a class="flutuante" href="https://wa.me/5531999999999" aria-label="WhatsApp">✆</a>
+</body>
+</html>
