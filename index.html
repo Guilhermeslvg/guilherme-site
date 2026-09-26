@@ -166,6 +166,31 @@
     footer a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
     footer a:hover { border-color: currentColor; }
 
+    /* questionário rápido */
+    .quiz { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 20px; background: rgba(8,18,40,.45); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .quiz.aberto { opacity: 1; pointer-events: auto; }
+    .quiz-caixa { position: relative; width: min(560px, 100%); padding: 40px 40px 28px; border-radius: 28px; background: rgba(255,255,255,.88); border: 1px solid rgba(255,255,255,.9); box-shadow: 0 40px 100px rgba(8,25,60,.4); transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.22,1,.36,1); }
+    .quiz.aberto .quiz-caixa { transform: none; }
+    .quiz-fechar { position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--linha); background: #fff; font-size: 16px; cursor: pointer; }
+    .quiz-passos { display: flex; gap: 6px; margin-bottom: 26px; }
+    .quiz-passos i { flex: 1; height: 4px; border-radius: 2px; background: rgba(11,18,32,.12); transition: background .3s; }
+    .quiz-passos i.feito { background: var(--texto); }
+    .quiz-n { font-size: 11.5px; letter-spacing: .22em; color: var(--cinza-2); margin-bottom: 10px; }
+    .quiz-passo h3 { font-size: 26px; font-weight: 600; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 20px; }
+    .quiz-passo p { color: var(--cinza); font-size: 14.5px; margin: -8px 0 16px; }
+    .quiz-opcoes { display: grid; gap: 10px; }
+    .quiz-opcoes button { text-align: left; padding: 15px 18px; font: inherit; font-size: 15.5px; font-weight: 500; color: var(--texto); background: #fff; border: 1.5px solid var(--linha); border-radius: 14px; cursor: pointer; transition: border-color .2s, transform .2s, background .2s; }
+    .quiz-opcoes button:hover { border-color: var(--texto); transform: translateX(3px); }
+    .quiz-opcoes button.marcado { background: var(--texto); color: #fff; border-color: var(--texto); }
+    #quiz-ideia { width: 100%; padding: 14px 16px; font: inherit; font-size: 15px; border: 1.5px solid var(--linha); border-radius: 14px; background: #fff; resize: vertical; outline: none; margin-bottom: 16px; }
+    #quiz-ideia:focus { border-color: var(--texto); }
+    .quiz-enviar { width: 100%; justify-content: center; }
+    .quiz-pular { display: block; margin: 18px auto 0; background: none; border: none; font: inherit; font-size: 13px; color: var(--cinza-2); cursor: pointer; text-decoration: underline; }
+    .quiz-pular:hover { color: var(--texto); }
+    .quiz-passo.entra { animation: quizEntra .35s cubic-bezier(.22,1,.36,1); }
+    @keyframes quizEntra { from { opacity: 0; transform: translateX(18px); } }
+    @media (max-width: 520px) { .quiz-caixa { padding: 30px 22px 22px; } .quiz-passo h3 { font-size: 22px; } }
+
     /* contato */
     .contato { text-align: center; }
     .contato h2 { max-width: 20ch; margin: 0 auto; }
@@ -400,6 +425,48 @@
     Solicitar orçamento
   </a>
 
+<!-- questionário rápido antes do WhatsApp -->
+<div class="quiz" id="quiz" aria-hidden="true">
+  <div class="quiz-caixa">
+    <button class="quiz-fechar" id="quiz-fechar" aria-label="Fechar">✕</button>
+    <div class="quiz-passos"><i></i><i></i><i></i><i></i></div>
+
+    <section class="quiz-passo" data-passo="1">
+      <div class="quiz-n">1 de 4</div>
+      <h3>O que você precisa?</h3>
+      <div class="quiz-opcoes" data-chave="precisa">
+        <button type="button">Sistema</button><button type="button">Automação</button><button type="button">Site</button><button type="button">Ainda não sei</button>
+      </div>
+    </section>
+
+    <section class="quiz-passo" data-passo="2" hidden>
+      <div class="quiz-n">2 de 4</div>
+      <h3>Para quem é?</h3>
+      <div class="quiz-opcoes" data-chave="para">
+        <button type="button">Minha empresa</button><button type="button">Projeto pessoal</button><button type="button">Um negócio que estou começando</button>
+      </div>
+    </section>
+
+    <section class="quiz-passo" data-passo="3" hidden>
+      <div class="quiz-n">3 de 4</div>
+      <h3>Qual a pressa?</h3>
+      <div class="quiz-opcoes" data-chave="prazo">
+        <button type="button">Para ontem</button><button type="button">Nos próximos dias</button><button type="button">Sem pressa, quero conhecer</button>
+      </div>
+    </section>
+
+    <section class="quiz-passo" data-passo="4" hidden>
+      <div class="quiz-n">4 de 4</div>
+      <h3>Vamos conversar para entender melhor e buscar a melhor opção.</h3>
+      <p>Se quiser, conta em uma frase o que você imagina. Aí eu te chamo já sabendo por onde começar.</p>
+      <textarea id="quiz-ideia" rows="3" placeholder="ex.: quero parar de responder a mesma pergunta no WhatsApp toda hora"></textarea>
+      <a class="btn solido quiz-enviar" id="quiz-enviar" href="#" target="_blank" rel="noopener"><span class="rot" data-t="Conversar no WhatsApp">Conversar no WhatsApp</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
+    </section>
+
+    <button type="button" class="quiz-pular" id="quiz-pular">prefiro só chamar no WhatsApp</button>
+  </div>
+</div>
+
 <script>
   // Carregando: 0 -> 100% em 3 segundos, com aceleração natural
   (() => {
@@ -415,6 +482,50 @@
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); document.body.classList.add("pronto"); }
     else requestAnimationFrame(passo);
   })();
+
+  // Questionário: intercepta os botões de orçamento e monta a mensagem do WhatsApp
+  (() => {
+    const quiz = document.getElementById("quiz"), passos = [...quiz.querySelectorAll(".quiz-passo")], barras = [...quiz.querySelectorAll(".quiz-passos i")];
+    const ZAP = "https://wa.me/5531989165103?text=";
+    const resp = {};
+    let atual = 0;
+
+    const mostrar = (i) => {
+      atual = i;
+      passos.forEach((s, k) => { s.hidden = k !== i; s.classList.toggle("entra", k === i); });
+      barras.forEach((b, k) => b.classList.toggle("feito", k <= i));
+      if (i === 3) montarLink();
+    };
+    const abrir = () => { Object.keys(resp).forEach((k) => delete resp[k]); quiz.querySelectorAll(".marcado").forEach((b) => b.classList.remove("marcado")); document.getElementById("quiz-ideia").value = ""; mostrar(0); quiz.classList.add("aberto"); quiz.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; };
+    const fechar = () => { quiz.classList.remove("aberto"); quiz.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; };
+
+    function montarLink() {
+      const ideia = document.getElementById("quiz-ideia").value.trim();
+      const linhas = ["Oi Guilherme! Vi sua página.", "Preciso de: " + (resp.precisa || "ainda não sei"), "Para: " + (resp.para || "não informei"), "Prazo: " + (resp.prazo || "não informei")];
+      if (ideia) linhas.push("Ideia: " + ideia);
+      linhas.push("Bora conversar para entender melhor e buscar a melhor opção?");
+      document.getElementById("quiz-enviar").href = ZAP + encodeURIComponent(linhas.join("\n"));
+    }
+
+    quiz.querySelectorAll(".quiz-opcoes").forEach((grupo) => grupo.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+      grupo.querySelectorAll("button").forEach((o) => o.classList.remove("marcado")); b.classList.add("marcado");
+      resp[grupo.dataset.chave] = b.textContent.trim();
+      setTimeout(() => mostrar(atual + 1), 220);
+    })));
+    document.getElementById("quiz-ideia").addEventListener("input", montarLink);
+    document.getElementById("quiz-enviar").addEventListener("click", () => setTimeout(fechar, 300));
+    document.getElementById("quiz-fechar").addEventListener("click", fechar);
+    document.getElementById("quiz-pular").addEventListener("click", () => { window.open(ZAP + encodeURIComponent("Oi Guilherme, vi sua página e quero saber mais"), "_blank"); fechar(); });
+    quiz.addEventListener("click", (e) => { if (e.target === quiz) fechar(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && quiz.classList.contains("aberto")) fechar(); });
+
+    // Todo link de orçamento/WhatsApp da página abre o questionário (exceto os "Pedir orçamento" dos serviços, que já dizem o serviço)
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach((a) => {
+      if (a.closest(".linhas")) return;
+      a.addEventListener("click", (e) => { e.preventDefault(); abrir(); });
+    });
+  })();
+
 
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("vivo"); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll(".rev").forEach((el) => io.observe(el));
