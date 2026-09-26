@@ -129,6 +129,24 @@
     .pilula b { display: block; font-size: 22px; font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
     .pilula span { display: block; font-size: 13px; margin-top: 6px; opacity: .75; }
 
+    /* projetos pessoais: título com seta que abre o vídeo */
+    .projeto summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; }
+    .projeto summary::-webkit-details-marker { display: none; }
+    .projeto summary p { color: var(--cinza); max-width: 52ch; margin-top: 16px; }
+    .projeto .seta { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--linha); background: var(--vidro); backdrop-filter: blur(10px); display: grid; place-items: center; font-size: 26px; transition: transform .55s cubic-bezier(.34,1.56,.64,1), background .2s, color .2s; }
+    .projeto summary:hover .seta { background: var(--texto); color: #fff; }
+    .projeto[open] .seta { transform: rotate(180deg); background: var(--texto); color: #fff; }
+    .projeto-corpo { overflow: hidden; display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; margin-top: 36px; }
+    .video { position: relative; border-radius: 22px; overflow: hidden; background: #05070d; border: 1px solid rgba(255,255,255,.35); box-shadow: 0 30px 80px rgba(8,25,60,.35); aspect-ratio: 16/9; }
+    .video video { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .video-aviso { position: absolute; left: 14px; bottom: 14px; padding: 7px 12px; font-size: 12px; color: #fff; background: rgba(5,10,25,.6); border-radius: 999px; backdrop-filter: blur(6px); }
+    .video.tem-video .video-aviso { display: none; }
+    .projeto-notas { display: grid; gap: 10px; align-content: start; }
+    .projeto-notas div { padding: 16px 18px; border-radius: 16px; background: var(--vidro); border: 1px solid rgba(255,255,255,.5); backdrop-filter: blur(10px); }
+    .projeto-notas b { display: block; font-size: 15px; font-weight: 600; }
+    .projeto-notas span { font-size: 13.5px; color: var(--cinza); }
+    @media (max-width: 820px) { .projeto summary { grid-template-columns: 1fr auto; gap: 14px; } .projeto .seta { width: 48px; height: 48px; font-size: 20px; } .projeto-corpo { grid-template-columns: 1fr; margin-top: 24px; } }
+
     /* contato */
     .contato { text-align: center; }
     .contato h2 { max-width: 20ch; margin: 0 auto; }
@@ -312,18 +330,40 @@
         <h2>Prazer, sou <em>Guilherme.</em></h2>
         <p>Sou um jovem desenvolvedor em Timóteo, Minas Gerais. Crio sistemas, automações e sites para empresas e para projetos próprios, sempre com uma ideia em mente: tecnologia tem que facilitar a vida, não complicar.</p>
         <p>Meu jeito de trabalhar é simples: você me conta a ideia, eu digo o que dá para fazer e quanto custa, e a gente constrói junto.</p>
-        <div class="pilulas">
-          <div class="pilula rev" style="--i:1"><b>Timóteo, MG</b><span>atendo o Vale do Aço e online</span></div>
-          <div class="pilula preta rev" style="--i:2"><b>Sob medida</b><span>cada projeto do seu jeito</span></div>
-          <div class="pilula rev" style="--i:3"><b>Direto comigo</b><span>sem intermediário</span></div>
         </div>
       </div>
     </div>
   </section>
 
+  <section id="projetos">
+    <div class="miolo">
+      <details class="projeto rev" id="projeto-jarvis">
+        <summary>
+          <div><div class="rotulo">[ 03 ] PROJETOS PESSOAIS</div><h2>Jarvis, meu assistente por <em>voz</em>.</h2>
+          <p>Um assistente que ouve, responde falando e controla o computador: abre programas, mexe em arquivos, agenda lembretes e lembra do que você contou.</p></div>
+          <span class="seta" aria-hidden="true">↓</span>
+        </summary>
+        <div class="projeto-corpo">
+          <div class="video">
+            <video id="video-jarvis" poster="img/jarvis-poster.jpg" controls playsinline preload="none">
+              <source src="img/jarvis-demo.mp4" type="video/mp4" />
+            </video>
+            <div class="video-aviso" id="video-aviso">demonstração em vídeo em breve</div>
+          </div>
+          <div class="projeto-notas">
+            <div><b>Ativação por voz</b><span>Só liga quando ouve a frase secreta.</span></div>
+            <div><b>Fala e ouve</b><span>Conversa natural, com voz de verdade.</span></div>
+            <div><b>Mãos no computador</b><span>Abre, clica, digita, lê a tela e executa.</span></div>
+            <div><b>Memória e agenda</b><span>Lembra do que você contou e te avisa na hora.</span></div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
   <section id="contato" class="contato">
     <div class="miolo rev">
-      <div class="rotulo">[ 03 ] CONTATO</div>
+      <div class="rotulo">[ 04 ] CONTATO</div>
       <h2>Tem uma ideia? Bora tirar do papel.</h2>
       <p>Me chama no WhatsApp, conta o que você precisa, e eu te digo o caminho e o orçamento.</p>
       <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20vi%20sua%20p%C3%A1gina%20e%20quero%20saber%20mais"><span class="rot" data-t="Chamar no WhatsApp">Chamar no WhatsApp</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
@@ -397,6 +437,20 @@
     if (semMovimento) { d.open = false; return; }
     const a = corpo.animate([{ height: corpo.scrollHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }], { duration: 380, easing: "cubic-bezier(.22,1,.36,1)" });
     a.onfinish = () => { d.open = false; };
+  }
+
+  // projeto pessoal: abre com movimento; aviso some se o vídeo carregar
+  const proj = document.getElementById("projeto-jarvis");
+  if (proj) {
+    const corpo = proj.querySelector(".projeto-corpo"), vid = document.getElementById("video-jarvis");
+    proj.querySelector("summary").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (proj.open) { if (semMovimento) { proj.open = false; return; } const a = corpo.animate([{ height: corpo.scrollHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }], { duration: 420, easing: "cubic-bezier(.22,1,.36,1)" }); a.onfinish = () => { proj.open = false; }; return; }
+      proj.open = true;
+      if (!semMovimento) corpo.animate([{ height: "0px", opacity: 0 }, { height: corpo.scrollHeight + "px", opacity: 1 }], { duration: 600, easing: "cubic-bezier(.22,1,.36,1)" });
+      vid.preload = "metadata";
+    });
+    vid.addEventListener("loadedmetadata", () => vid.closest(".video").classList.add("tem-video"));
   }
 
   // 10. barra de progresso da leitura + 6. cabeçalho que encolhe + 11. sublinhado do menu
