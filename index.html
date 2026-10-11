@@ -154,7 +154,8 @@
     .painel-proj .legenda { position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; align-items: center; gap: 14px; transition: left .8s cubic-bezier(.22,1,.36,1); }
     .painel-proj:not(.ativo) .legenda { left: calc(50% - 26px); right: auto; }
     .painel-proj .icone { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: #1f3f8f; box-shadow: 0 8px 22px rgba(0,0,0,.28); transition: transform .4s; }
-    .painel-proj .icone svg { width: 22px; height: 22px; }
+    .painel-proj .icone { padding: 3px; }
+    .painel-proj .icone img { position: static; z-index: auto; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #161616; filter: none !important; animation: none !important; }
     .painel-proj:not(.ativo):hover .icone { transform: scale(1.08); }
     .painel-proj .txt { min-width: 0; white-space: nowrap; opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s; }
     .painel-proj.ativo .txt { opacity: 1; transform: none; transition: opacity .5s .35s, transform .5s .35s; }
@@ -175,7 +176,7 @@
       .painel-proj.ativo { border-radius: 26px; }
       .painel-proj .legenda { left: 14px; right: 14px; bottom: 14px; gap: 10px; }
       .painel-proj:not(.ativo) .legenda { left: calc(50% - 22px); }
-      .painel-proj .icone { width: 44px; height: 44px; } .painel-proj .icone svg { width: 19px; height: 19px; }
+      .painel-proj .icone { width: 44px; height: 44px; }
       .painel-proj .txt b { font-size: 16px; } .painel-proj .txt small { font-size: 12px; }
       .painel-proj .ver { display: none; }
       .painel-proj img { object-position: var(--foco-cel, center); }
@@ -480,7 +481,7 @@
            data-video="img/projeto-maison.mp4" data-poster="img/projeto-maison.jpg"
            data-itens="Frascos Rose Dorée e Lourée Noir em 3D|Toque no perfume para “borrifar” na tela|Som ambiente que liga e desliga|Carrinho e compra no próprio site">
           <img src="img/capa-maison.jpg" alt="Capa da Maison Lourée: frascos Rose Dorée e Lourée Noir sobre uma mesa de pedra escura" style="--foco: 60% 70%; --foco-cel: 88% 70%" draggable="false" />
-          <span class="legenda"><span class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v3h-4z"/><path d="M12 5v3"/><rect x="5" y="8" width="14" height="14" rx="4"/><path d="M9 15h6"/></svg></span><span class="txt"><b>Maison Lourée</b><small>Perfumaria em Timóteo, MG</small></span><span class="ver">Ver por dentro</span></span>
+          <span class="legenda"><span class="icone"><img src="img/logo-maison.png" alt="Logo da Maison Lourée" /></span><span class="txt"><b>Maison Lourée</b><small>Perfumaria em Timóteo, MG</small></span><span class="ver">Ver por dentro</span></span>
           <i class="tempo"></i>
         </a>
         <a class="painel-proj" href="https://protec.nexobg.com.br/" target="_blank" rel="noopener"
@@ -488,7 +489,7 @@
            data-video="img/projeto-rumogo.mp4" data-poster="img/projeto-rumogo.jpg"
            data-itens="Vídeo de um carro na estrada à noite na abertura|Recursos: posição ao vivo, bloqueio remoto, alertas|Como funciona em 4 passos e os planos|Entrada para o app e para a área do cliente">
           <img src="img/capa-rumogo.jpg" alt="Capa do Rumo'Go: carro com faróis acesos numa avenida à noite" style="--foco: 62% 55%; --foco-cel: 58% 55%" draggable="false" />
-          <span class="legenda"><span class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.4 7-12a7 7 0 0 0-14 0c0 5.6 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg></span><span class="txt"><b>Rumo'Go</b><small>Rastreamento veicular</small></span><span class="ver">Ver por dentro</span></span>
+          <span class="legenda"><span class="icone"><img src="img/logo-rumogo.png" alt="Logo do Rumo'Go" /></span><span class="txt"><b>Rumo'Go</b><small>Rastreamento veicular</small></span><span class="ver">Ver por dentro</span></span>
           <i class="tempo"></i>
         </a>
       </div>
