@@ -180,16 +180,17 @@
     .galeria-nav span { min-width: 64px; text-align: center; font-size: 13px; letter-spacing: .1em; color: var(--cinza); font-variant-numeric: tabular-nums; }
     @media (max-width: 820px) {
       .galeria { gap: 10px; height: 500px; }
-      .painel-proj { flex-basis: 64px; border-radius: 32px; }
+      .galeria { gap: 8px; }
+      .painel-proj { flex-basis: 52px; border-radius: 26px; }
       .painel-proj.ativo { border-radius: 26px; }
       .painel-proj .legenda { left: 14px; right: 14px; bottom: 14px; gap: 10px 10px; }
-      .painel-proj:not(.ativo) .legenda { left: calc(50% - 22px); }
-      .painel-proj .icone { width: 44px; height: 44px; }
-      .painel-proj .txt { flex-basis: 160px; }
+      .painel-proj:not(.ativo) .legenda { left: calc(50% - 20px); }
+      .painel-proj .icone { width: 40px; height: 40px; }
+      .painel-proj .txt { flex-basis: 100%; }
       .painel-proj .txt b { font-size: 16px; } .painel-proj .txt small { font-size: 11.5px; }
       .painel-proj .resolve { font-size: 13px; }
       .painel-proj .acoes { width: 100%; margin-left: 0; }
-      .painel-proj .ver, .painel-proj .abrir { flex: 1; justify-content: center; padding: 0 12px; }
+      .painel-proj .ver, .painel-proj .abrir { flex: 1; justify-content: center; padding: 0 10px; font-size: 12.5px; white-space: nowrap; }
       .painel-proj > img { object-position: var(--foco-cel, center); }
     }
     @media (prefers-reduced-motion: reduce) { .painel-proj, .painel-proj .legenda { transition: none; } .painel-proj.ativo > img, .painel-proj.ativo .txt, .painel-proj.ativo .acoes { animation: none; } }
@@ -511,8 +512,19 @@
             <span class="acoes"><button type="button" class="ver">Ver por dentro</button><a class="abrir" href="https://protec.nexobg.com.br/" target="_blank" rel="noopener">Abrir o site</a></span>
           </div>
         </div>
+        <div class="painel-proj"
+           data-tipo="Campanha de saúde · Clínica Dias" data-desc="Página da campanha Outubro Rosa da Clínica Dias: pacote promocional, por que fazer os exames, o time da clínica e agendamento pelo WhatsApp." data-dominio="outubrorosa.clinicadias.com"
+           data-video="img/projeto-rosa.mp4" data-poster="img/projeto-rosa.jpg"
+           data-itens="Abertura com a cruz e a fita rosa da campanha|Pacote promocional dos exames|Time da clínica com a camiseta da campanha|Painel que conta visitas e cliques no WhatsApp">
+          <img src="img/capa-rosa.jpg" alt="Capa do Outubro Rosa da Clínica Dias: cruz rosa com a fita da campanha dentro de um círculo" style="--foco: 80% 50%; --foco-cel: 76% 50%" draggable="false" />
+          <div class="legenda">
+            <span class="icone"><img src="img/logo-rosa.png" alt="Símbolo da Clínica Dias: cruz com a fita rosa" style="background: #fff" /></span>
+            <span class="txt"><b>Outubro Rosa</b><small>Campanha da Clínica Dias</small><span class="resolve">Divulga o pacote promocional da campanha e leva a paciente direto para agendar no WhatsApp.</span></span>
+            <span class="acoes"><button type="button" class="ver">Ver por dentro</button><a class="abrir" href="https://outubrorosa.clinicadias.com/" target="_blank" rel="noopener">Abrir o site</a></span>
+          </div>
+        </div>
       </div>
-      <div class="galeria-nav"><button type="button" id="gal-ant" aria-label="Projeto anterior">←</button><span id="gal-conta" aria-live="polite">01 / 02</span><button type="button" id="gal-prox" aria-label="Próximo projeto">→</button></div>
+      <div class="galeria-nav"><button type="button" id="gal-ant" aria-label="Projeto anterior">←</button><span id="gal-conta" aria-live="polite">01 / 03</span><button type="button" id="gal-prox" aria-label="Próximo projeto">→</button></div>
     </div>
   </section>
 
