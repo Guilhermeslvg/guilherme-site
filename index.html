@@ -136,7 +136,12 @@
     /* efeito de revelar na foto: o "lado dev" aparece embaixo do cursor */
     .retrato { position: relative; }
     .retrato-dev { position: absolute; inset: 0; background: #4353F0; isolation: isolate; pointer-events: none; -webkit-mask-image: radial-gradient(circle 0px at -999px -999px, #fff, transparent); mask-image: radial-gradient(circle 0px at -999px -999px, #fff, transparent); }
-    .retrato-dev img { filter: grayscale(1) contrast(1.2); mix-blend-mode: multiply; }
+    .retrato-dev img { position: absolute; inset: 0; filter: grayscale(1) contrast(1.2); mix-blend-mode: multiply; }
+    /* código atrás da foto: aparece no fundo branco, o rosto fica por cima */
+    .retrato-codigo { position: absolute; inset: 0; overflow: hidden; padding: 44px 16px 0; color: #dfe6ff; font: 500 11.5px/1.75 ui-monospace, Consolas, monospace; white-space: pre; }
+    .retrato-codigo pre { font: inherit; animation: codigo-sobe 60s linear infinite; }
+    @keyframes codigo-sobe { to { transform: translateY(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .retrato-codigo pre { animation: none; } }
     .retrato-dev::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px); background-size: 28px 28px; }
     .retrato-tag { position: absolute; z-index: 1; top: 16px; left: 16px; padding: 4px 8px; border-radius: 4px; background: #0b1220; color: #e8eefa; font: 500 12px/1 ui-monospace, Consolas, monospace; white-space: nowrap; }
     .sobre p { color: var(--cinza); margin-top: 16px; max-width: 52ch; }
@@ -579,7 +584,127 @@
 
   <section id="sobre" class="sobre">
     <div class="miolo">
-      <div class="retrato rev"><img src="img/guilherme.jpg" alt="Guilherme" /><div class="retrato-dev" aria-hidden="true"><img src="img/guilherme.jpg" alt="" /><span class="retrato-tag">div.guilherme · dev</span></div></div>
+      <div class="retrato rev"><img src="img/guilherme.jpg" alt="Guilherme" /><div class="retrato-dev" aria-hidden="true"><div class="retrato-codigo"><pre>// Carregando: anéis ondulados se abrem, o arco fecha junto com 0 -&gt; 1
+(() =&gt; {
+const tela = document.getElementById(&quot;carregando&quot;), pct = document.get
+const letras = document.getElementById(&quot;letras&quot;);
+letras.innerHTML = [...letras.textContent].map((c, k) =&gt; &#x27;&lt;i style=&quot;--
+let acabou = false;
+const terminar = () =&gt; {
+if (acabou) return; acabou = true;
+tela.classList.add(&quot;pronto&quot;); document.body.classList.remove(&quot;carregan
+try { sessionStorage.setItem(&quot;abertura-vista&quot;, &quot;1&quot;); } catch (e) {}
+};
+if (document.documentElement.classList.contains(&quot;sem-abertura&quot;)) { ter
+if (matchMedia(&quot;(prefers-reduced-motion: reduce)&quot;).matches) { terminar
+tela.addEventListener(&quot;click&quot;, terminar);   // quem já viu pode pular
+// anéis: cada um nasce no centro, cresce ondulando e some na borda
+const cv = document.getElementById(&quot;ondas&quot;), ctx = cv.getContext(&quot;2d&quot;)
+let w, h, dpr;
+const medir = () =&gt; { dpr = Math.min(2, devicePixelRatio || 1); w = in
+medir(); addEventListener(&quot;resize&quot;, medir);
+const N = 8, t0 = performance.now();
+function desenhar(agora) {
+if (acabou &amp;&amp; tela.classList.contains(&quot;pronto&quot;)) return;
+const t = (agora - t0) / 1000, cx = w / 2, cy = h / 2, alcance = Math.
+ctx.clearRect(0, 0, w, h);
+for (let i = 0; i &lt; N; i++) {
+const fase = ((t * .32 + i / N) % 1), r = 26 + fase * alcance;
+const a = Math.min(1, fase * 6) * (1 - fase) * .95;
+const g = ctx.createLinearGradient(0, cy - r, 0, cy + r);
+g.addColorStop(0, &quot;rgba(63,127,196,.06)&quot;); g.addColorStop(.5, &quot;rgba(79
+ctx.globalAlpha = a; ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.sha
+ctx.beginPath();
+for (let k = 0; k &lt;= 96; k++) {
+const th = k / 96 * Math.PI * 2;
+const rr = r * (1 + .055 * Math.sin(3 * th + t * .9 + i) + .035 * Math
+const x = cx + Math.cos(th) * rr, y = cy + Math.sin(th) * rr * .96;
+k ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+}
+ctx.stroke();
+}
+ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+requestAnimationFrame(desenhar);
+}
+requestAnimationFrame(desenhar);
+// porcentagem e arco: 0 -&gt; 100% em 2 s; depois logo (0,5 s), nome (1,
+const DUR = 2000, VOLTA = 144.5;
+const passo = (agora) =&gt; {
+if (acabou) return;
+const q = Math.min(1, (agora - t0) / DUR), v = 1 - Math.pow(1 - q, 2.2
+pct.textContent = Math.round(v * 100); arco.style.strokeDashoffset = (
+if (q &lt; 1) { requestAnimationFrame(passo); return; }
+setTimeout(() =&gt; tela.classList.add(&quot;logo&quot;), 150);
+setTimeout(() =&gt; tela.classList.add(&quot;nome&quot;), 650);
+setTimeout(terminar, 2300);
+};
+requestAnimationFrame(passo);
+})();
+// Questionário: intercepta os botões de orçamento e monta a mensagem 
+(() =&gt; {
+const quiz = document.getElementById(&quot;quiz&quot;), passos = [...quiz.queryS
+const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;
+
+// Carregando: anéis ondulados se abrem, o arco fecha junto com 0 -&gt; 1
+(() =&gt; {
+const tela = document.getElementById(&quot;carregando&quot;), pct = document.get
+const letras = document.getElementById(&quot;letras&quot;);
+letras.innerHTML = [...letras.textContent].map((c, k) =&gt; &#x27;&lt;i style=&quot;--
+let acabou = false;
+const terminar = () =&gt; {
+if (acabou) return; acabou = true;
+tela.classList.add(&quot;pronto&quot;); document.body.classList.remove(&quot;carregan
+try { sessionStorage.setItem(&quot;abertura-vista&quot;, &quot;1&quot;); } catch (e) {}
+};
+if (document.documentElement.classList.contains(&quot;sem-abertura&quot;)) { ter
+if (matchMedia(&quot;(prefers-reduced-motion: reduce)&quot;).matches) { terminar
+tela.addEventListener(&quot;click&quot;, terminar);   // quem já viu pode pular
+// anéis: cada um nasce no centro, cresce ondulando e some na borda
+const cv = document.getElementById(&quot;ondas&quot;), ctx = cv.getContext(&quot;2d&quot;)
+let w, h, dpr;
+const medir = () =&gt; { dpr = Math.min(2, devicePixelRatio || 1); w = in
+medir(); addEventListener(&quot;resize&quot;, medir);
+const N = 8, t0 = performance.now();
+function desenhar(agora) {
+if (acabou &amp;&amp; tela.classList.contains(&quot;pronto&quot;)) return;
+const t = (agora - t0) / 1000, cx = w / 2, cy = h / 2, alcance = Math.
+ctx.clearRect(0, 0, w, h);
+for (let i = 0; i &lt; N; i++) {
+const fase = ((t * .32 + i / N) % 1), r = 26 + fase * alcance;
+const a = Math.min(1, fase * 6) * (1 - fase) * .95;
+const g = ctx.createLinearGradient(0, cy - r, 0, cy + r);
+g.addColorStop(0, &quot;rgba(63,127,196,.06)&quot;); g.addColorStop(.5, &quot;rgba(79
+ctx.globalAlpha = a; ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.sha
+ctx.beginPath();
+for (let k = 0; k &lt;= 96; k++) {
+const th = k / 96 * Math.PI * 2;
+const rr = r * (1 + .055 * Math.sin(3 * th + t * .9 + i) + .035 * Math
+const x = cx + Math.cos(th) * rr, y = cy + Math.sin(th) * rr * .96;
+k ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+}
+ctx.stroke();
+}
+ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+requestAnimationFrame(desenhar);
+}
+requestAnimationFrame(desenhar);
+// porcentagem e arco: 0 -&gt; 100% em 2 s; depois logo (0,5 s), nome (1,
+const DUR = 2000, VOLTA = 144.5;
+const passo = (agora) =&gt; {
+if (acabou) return;
+const q = Math.min(1, (agora - t0) / DUR), v = 1 - Math.pow(1 - q, 2.2
+pct.textContent = Math.round(v * 100); arco.style.strokeDashoffset = (
+if (q &lt; 1) { requestAnimationFrame(passo); return; }
+setTimeout(() =&gt; tela.classList.add(&quot;logo&quot;), 150);
+setTimeout(() =&gt; tela.classList.add(&quot;nome&quot;), 650);
+setTimeout(terminar, 2300);
+};
+requestAnimationFrame(passo);
+})();
+// Questionário: intercepta os botões de orçamento e monta a mensagem 
+(() =&gt; {
+const quiz = document.getElementById(&quot;quiz&quot;), passos = [...quiz.queryS
+const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="img/guilherme.jpg" alt="" /><span class="retrato-tag">div.guilherme · dev</span></div></div>
       <div class="rev">
         <div class="rotulo">[ 03 ] SOBRE</div>
         <h2>Prazer, sou <em>Guilherme.</em></h2>
@@ -932,11 +1057,30 @@
     };
     const mover = (e) => { const r = foto.getBoundingClientRect(); x = e.clientX - r.left; y = e.clientY - r.top; alvo = RAIO; if (!pedido) pedido = requestAnimationFrame(pintar); };
     const sair = () => { alvo = 0; if (!pedido) pedido = requestAnimationFrame(pintar); };
-    foto.addEventListener("pointermove", mover);
-    foto.addEventListener("pointerdown", mover);
-    foto.addEventListener("pointerleave", sair);
-    foto.addEventListener("pointercancel", sair);
-    foto.addEventListener("pointerup", (e) => { if (e.pointerType !== "mouse") sair(); });
+    foto.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse") mover(e); });
+    foto.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") sair(); });
+
+    // celular: segue o dedo mesmo enquanto a página rola (touchmove continua chegando); some um pouco depois de soltar
+    let soltou = null, tocou = false;
+    const dedo = (e) => { const t = e.touches[0]; if (!t) return; tocou = true; parar(); clearTimeout(soltou); mover(t); };
+    foto.addEventListener("touchstart", dedo, { passive: true });
+    foto.addEventListener("touchmove", dedo, { passive: true });
+    foto.addEventListener("touchend", () => { clearTimeout(soltou); soltou = setTimeout(sair, 900); }, { passive: true });
+
+    // celular sem mouse: quando a foto aparece, o círculo passeia sozinho pelo fundo para mostrar o efeito
+    let passeio = null;
+    const parar = () => { if (passeio) { cancelAnimationFrame(passeio); passeio = null; } };
+    const passear = () => {
+      if (tocou || semMovimento || passeio) return;
+      const t0 = performance.now();
+      const passo = (agora) => {
+        const t = (agora - t0) / 1000, r = foto.getBoundingClientRect();
+        mover({ clientX: r.left + r.width * (.5 + .32 * Math.sin(t * .9)), clientY: r.top + r.height * (.3 + .14 * Math.sin(t * 1.7)) });
+        passeio = t < 5 ? requestAnimationFrame(passo) : (sair(), null);
+      };
+      passeio = requestAnimationFrame(passo);
+    };
+    if (!matchMedia("(pointer: fine)").matches) new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) passear(); else parar(); }), { threshold: .6 }).observe(foto);
   })();
 </script>
 </body>
