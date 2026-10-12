@@ -165,6 +165,11 @@
     .arm-led { animation: pisca 1.8s ease-in-out infinite; }
     html:not(.anima) .ab-armadura { display: none; }
     .ab-holo.real ~ .ab-armadura { display: none; }
+    /* vídeo da armadura (quadros em img/armadura): entra pela mesma linha de varredura e roda com a rolagem */
+    .ab-video { position: absolute; inset: 0; width: 100%; height: 100%; display: none; clip-path: inset(var(--corte, 100%) 0 0 0);
+      -webkit-mask-image: radial-gradient(80% 75% at 50% 62%, #000 62%, transparent 100%); mask-image: radial-gradient(80% 75% at 50% 62%, #000 62%, transparent 100%); }
+    html.com-video .ab-video { display: block; }
+    html.com-video .ab-holo, html.com-video .ab-armadura { display: none; }
     /* nome: letras com brilho que passa, pulam quando o mouse passa e se embaralham quando a armadura liga */
     .ab-letras b { display: inline-block; font-weight: inherit; transition: color .45s, text-shadow .45s; will-change: transform; }
     .ab-letras b.brilho { color: var(--ciano); text-shadow: 0 0 34px rgba(44,211,242,.55); }
@@ -752,6 +757,7 @@
             <img class="ab-foto" src="img/guilherme-recorte.webp" alt="Foto do Guilherme sorrindo, de camiseta preta" width="960" height="1280" fetchpriority="high" />
             <img class="ab-holo" id="ab-holo" src="img/guilherme-holo.webp" data-armadura="img/guilherme-armadura.webp" alt="" aria-hidden="true" width="960" height="1280" />
 <svg class="ab-armadura" id="ab-armadura" viewBox="0 0 960 1280" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><defs><linearGradient id="arm-placa" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#2a6fd6"/><stop offset=".28" stop-color="#0f3384"/><stop offset=".7" stop-color="#0a1f55"/><stop offset="1" stop-color="#06112b"/></linearGradient><radialGradient id="arm-nucleo"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#b8f3ff"/><stop offset=".7" stop-color="#2cd3f2"/><stop offset="1" stop-color="#2cd3f2" stop-opacity="0"/></radialGradient><filter id="arm-brilho" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g class="arm-peca arm-ombro-e"><polygon points="0,1040 70,996 160,958 250,932 304,928 322,972 276,1058 206,1150 96,1202 0,1218" fill="url(#arm-placa)" stroke="#2cd3f2" stroke-width="3" stroke-linejoin="round"/><polyline points="0,1040 70,996 160,958" fill="none" stroke="#d4eaff" stroke-opacity=".55" stroke-width="2"/></g><g class="arm-peca arm-ombro-d"><polygon points="1000,1040 930,996 840,958 750,932 696,928 678,972 724,1058 794,1150 904,1202 1000,1218" fill="url(#arm-placa)" stroke="#2cd3f2" stroke-width="3" stroke-linejoin="round"/><polyline points="1000,1040 930,996 840,958" fill="none" stroke="#d4eaff" stroke-opacity=".55" stroke-width="2"/></g><g class="arm-peca arm-peito-e"><polygon points="314,976 488,1056 488,1280 246,1280 236,1168 280,1066" fill="url(#arm-placa)" stroke="#2cd3f2" stroke-width="3" stroke-linejoin="round"/><polyline points="314,976 488,1056 488,1280" fill="none" stroke="#d4eaff" stroke-opacity=".55" stroke-width="2"/></g><g class="arm-peca arm-peito-d"><polygon points="686,976 512,1056 512,1280 754,1280 764,1168 720,1066" fill="url(#arm-placa)" stroke="#2cd3f2" stroke-width="3" stroke-linejoin="round"/><polyline points="686,976 512,1056 512,1280" fill="none" stroke="#d4eaff" stroke-opacity=".55" stroke-width="2"/></g><g class="arm-peca arm-gola-e"><polygon points="326,862 374,856 488,966 488,1034 310,952" fill="url(#arm-placa)" stroke="#2cd3f2" stroke-width="3" stroke-linejoin="round"/><polyline points="326,862 374,856 488,966" fill="none" stroke="#d4eaff" stroke-opacity=".55" stroke-width="2"/></g><g class="arm-peca arm-gola-d"><polygon points="674,862 626,856 512,966 512,1034 690,952" fill="url(#arm-placa)" stroke="#2cd3f2" stroke-width="3" stroke-linejoin="round"/><polyline points="674,862 626,856 512,966" fill="none" stroke="#d4eaff" stroke-opacity=".55" stroke-width="2"/></g><g class="arm-peca arm-espinha"><rect x="491" y="1050" width="18" height="230" rx="4" fill="#06112b" stroke="#2cd3f2" stroke-width="2"/></g><g class="arm-nucleo" filter="url(#arm-brilho)"><circle cx="500" cy="1150" r="70" fill="url(#arm-nucleo)" opacity=".55"/><polygon points="500,1110 535,1130 535,1170 500,1190 465,1170 465,1130" fill="#06112b" stroke="#2cd3f2" stroke-width="4"/><circle cx="500" cy="1150" r="17" fill="#b8f3ff"/></g><g class="arm-peca arm-orelha-e"><rect x="198" y="470" width="88" height="176" rx="34" fill="url(#arm-placa)" stroke="#2cd3f2" stroke-width="3"/><circle cx="242" cy="558" r="19" fill="none" stroke="#2cd3f2" stroke-width="3"/><circle class="arm-led" cx="242" cy="558" r="7" fill="#b8f3ff"/></g><g class="arm-peca arm-orelha-d"><rect x="692" y="448" width="88" height="176" rx="34" fill="url(#arm-placa)" stroke="#2cd3f2" stroke-width="3"/><circle cx="736" cy="536" r="19" fill="none" stroke="#2cd3f2" stroke-width="3"/><circle class="arm-led" cx="736" cy="536" r="7" fill="#b8f3ff"/></g><path class="arm-linha" d="M30 1088 L150 1030 L262 994" fill="none" stroke="#2cd3f2" stroke-width="2.5" stroke-linecap="round"/><path class="arm-linha" d="M40 1150 L150 1100 L236 1068" fill="none" stroke="#2cd3f2" stroke-width="2.5" stroke-linecap="round"/><path class="arm-linha" d="M300 1100 L452 1146 L452 1262" fill="none" stroke="#2cd3f2" stroke-width="2.5" stroke-linecap="round"/><path class="arm-linha" d="M338 904 L470 1006" fill="none" stroke="#2cd3f2" stroke-width="2.5" stroke-linecap="round"/><path class="arm-linha" d="M970 1088 L850 1030 L738 994" fill="none" stroke="#2cd3f2" stroke-width="2.5" stroke-linecap="round"/><path class="arm-linha" d="M960 1150 L850 1100 L764 1068" fill="none" stroke="#2cd3f2" stroke-width="2.5" stroke-linecap="round"/><path class="arm-linha" d="M700 1100 L548 1146 L548 1262" fill="none" stroke="#2cd3f2" stroke-width="2.5" stroke-linecap="round"/><path class="arm-linha" d="M662 904 L530 1006" fill="none" stroke="#2cd3f2" stroke-width="2.5" stroke-linecap="round"/></svg>
+            <canvas class="ab-video" id="ab-video" aria-hidden="true"></canvas>
             <i class="ab-scan" id="ab-scan" aria-hidden="true"></i>
           </div>
         </div>
@@ -1594,6 +1600,24 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         .fromTo(q(".arm-linha"), { strokeDasharray: 400, strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: .2, stagger: .015 }, .72)
         .to(fotos, { scale: 1.04, transformOrigin: "50% 100%", duration: 1 }, 0)
         .to(letras, { yPercent: -8, duration: 1 }, 0);
+
+      // vídeo da armadura: quando os quadros existem, eles substituem o holograma e a armadura desenhada
+      fetch("img/armadura/quadros.json").then((r) => r.ok ? r.json() : null).then((q) => {
+        if (!q || !q.n) return;
+        const cv = document.getElementById("ab-video"), ctx = cv.getContext("2d");
+        cv.width = q.w; cv.height = Math.round(q.w * 4 / 3);
+        const quadros = Array.from({ length: q.n }, (_, k) => { const im = new Image(); im.src = "img/armadura/q" + String(k + 1).padStart(3, "0") + ".webp"; return im; });
+        const estado = { f: 0 };
+        const desenhar = () => {
+          let k = Math.round(estado.f); while (k > 0 && !quadros[k].complete) k--;   // ainda carregando: usa o último quadro pronto
+          const im = quadros[k]; if (!im.complete || !im.naturalWidth) return;
+          const sh = Math.min(im.naturalHeight, im.naturalWidth * 4 / 3);           // corta para 3:4, alinhado embaixo
+          ctx.drawImage(im, 0, im.naturalHeight - sh, im.naturalWidth, sh, 0, 0, cv.width, cv.height);
+        };
+        quadros[0].onload = () => { html.classList.add("com-video"); desenhar(); };
+        tl.to(estado, { f: q.n - 1, duration: .62, ease: "none", onUpdate: desenhar }, .3);
+        ST.refresh();
+      }).catch(() => {});
 
       // brilho que passa pelas letras de tempos em tempos
       const onda = () => { bs.forEach((b, k) => { setTimeout(() => b.classList.add("brilho"), k * 70); setTimeout(() => b.classList.remove("brilho"), k * 70 + 420); }); g.delayedCall(5.5, onda); };
