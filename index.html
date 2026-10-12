@@ -196,7 +196,6 @@
     .ab-anatomia { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
     .anat { position: absolute; top: var(--y); display: flex; align-items: center; gap: 8px; white-space: nowrap; transform: translateY(-50%); opacity: 0;
       font: 600 10.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--bebe); transition: opacity .4s; }
-    .anat b { color: var(--ciano); font-weight: 600; }
     .anat em { font-style: normal; }
     .anat i { position: relative; width: clamp(60px, 9vw, 130px); height: 1px; background: linear-gradient(90deg, rgba(44,211,242,.15), var(--ciano)); transform: scaleX(0); transition: transform .6s cubic-bezier(.22,1,.36,1); }
     .anat i::after { content: ""; position: absolute; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--ciano); box-shadow: 0 0 12px var(--ciano); }
@@ -658,14 +657,8 @@
     body.noite .selo-canto { color: #7f9cc6; }
     @media (max-width: 1100px) { .selo-canto { display: none; } }
     /* frase da Hero (à esquerda, acima dos botões) */
-    .ab-frase { margin: 0 0 26px; padding-left: 18px; border-left: 2px solid rgba(44,211,242,.5); font-family: "Outfit", "Inter", sans-serif; font-weight: 700; font-size: clamp(24px, 2.4vw, 34px); line-height: 1.12; letter-spacing: -.02em; }
-    .ab-frase span { display: block; }
-    .ab-frase span:nth-child(1) { color: var(--texto); transition: color .6s; }
-    .ab-frase span:nth-child(2) { color: var(--cinza-2); font-weight: 500; transition: color .6s; }
-    .ab-frase span:nth-child(3) { background: linear-gradient(90deg, var(--claro), var(--ciano)); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .ab-texto { width: min(400px, 32vw); bottom: clamp(72px, 11vh, 110px); }
     .ab-texto .botoes { gap: 12px; }
-    .ab-frase { font-size: clamp(26px, 2.6vw, 36px); }
 
     /* ===== redesign: títulos das seções ===== */
     h2 { font-family: "Outfit", "Inter", sans-serif; font-weight: 800; letter-spacing: -.035em; line-height: 1.02; font-size: clamp(34px, 4.6vw, 60px); }
@@ -1056,10 +1049,10 @@
       <h1 class="ab-nome"><span class="ab-oi">Prazer, sou</span><span class="ab-letras" id="ab-letras">Guilherme</span></h1>
       <div class="ab-figura">
         <div class="ab-anatomia" aria-hidden="true">
-          <span class="anat anat-e" data-peca="03" style="--x:30%; --y:41%"><b>03</b><em>Capacete</em><i></i></span>
-          <span class="anat anat-d" data-peca="04" style="--x:60%; --y:36%"><b>04</b><em>Visão ciano</em><i></i></span>
-          <span class="anat anat-d" data-peca="02" style="--x:82%; --y:67%"><b>02</b><em>Ombreiras</em><i></i></span>
-          <span class="anat anat-e" data-peca="01" style="--x:40%; --y:79%"><b>01</b><em>Peitoral</em><i></i></span>
+          <span class="anat anat-e" data-peca="03" style="--x:30%; --y:41%"><em>Capacete</em><i></i></span>
+          <span class="anat anat-d" data-peca="04" style="--x:60%; --y:36%"><em>Visão ciano</em><i></i></span>
+          <span class="anat anat-d" data-peca="02" style="--x:82%; --y:67%"><em>Ombreiras</em><i></i></span>
+          <span class="anat anat-e" data-peca="01" style="--x:40%; --y:79%"><em>Peitoral</em><i></i></span>
         </div>
         <div class="ab-mover">
           <div class="ab-fotos" id="ab-fotos">
@@ -1072,7 +1065,6 @@
         </div>
       </div>
       <div class="ab-texto">
-        <p class="ab-frase"><span>Design e tecnologia</span><span>para ideias que</span><span>ganham vida.</span></p>
         <div class="botoes">
           <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20or%C3%A7amento"><span class="rot" data-t="Solicitar orçamento">Solicitar orçamento</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
           <a class="btn vazado magnetico" href="#projetos"><span class="rot" data-t="Ver projetos">Ver projetos</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
