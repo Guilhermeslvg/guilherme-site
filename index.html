@@ -498,6 +498,35 @@
     .projeto-notas span { font-size: 13.5px; color: var(--cinza); }
     @media (max-width: 820px) { #jarvis .projeto { padding: 22px 18px; border-radius: 22px; } .projeto summary { grid-template-columns: 1fr auto; gap: 14px; } .projeto .mini { display: none; } .projeto .seta { width: 52px; height: 52px; font-size: 22px; } .projeto-corpo { grid-template-columns: 1fr; margin-top: 24px; } }
 
+
+    /* Jarvis: painel escuro com comandos; a onda mexe enquanto ele "ouve" e "fala" */
+    .jarvis { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 22px; align-items: stretch; }
+    .jv-tela { display: flex; flex-direction: column; gap: 16px; padding: 24px; border-radius: 26px; color: #eaf4ff; background: radial-gradient(120% 90% at 0% 0%, #123a8c 0%, #0c2a6b 40%, #06112b 100%); box-shadow: 0 30px 80px rgba(6,17,43,.35); }
+    .jv-topo { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+    .jv-topo span:last-child { margin-left: auto; font: 600 10.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--ciano); }
+    .jv-esfera { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #2cd3f2 45%, #0c2a6b 100%); box-shadow: 0 0 18px rgba(44,211,242,.6); }
+    .jv-onda { display: flex; align-items: center; justify-content: center; gap: 4px; height: 56px; }
+    .jv-onda i { width: 4px; height: 100%; border-radius: 4px; background: linear-gradient(var(--ciano), var(--claro)); transform: scaleY(.08); transition: transform .3s; }
+    .jv-tela.ouvindo .jv-onda i, .jv-tela.falando .jv-onda i { animation: onda .9s ease-in-out infinite alternate; animation-delay: calc(var(--k) * -73ms); }
+    .jv-tela.ouvindo .jv-onda i { opacity: .55; }
+    @keyframes onda { 0% { transform: scaleY(.12); } 50% { transform: scaleY(.85); } 100% { transform: scaleY(.3); } }
+    .jv-log { flex: 1; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; font-size: 14.5px; }
+    .jv-log p { animation: chega .3s cubic-bezier(.22,1,.36,1); }
+    .jv-log .voce { color: #b3c8e6; }
+    .jv-log .voce::before { content: "Você  "; font: 600 10.5px ui-monospace, Consolas, monospace; letter-spacing: .14em; text-transform: uppercase; color: #7f9cc6; }
+    .jv-log .jv::before { content: "Jarvis  "; font: 600 10.5px ui-monospace, Consolas, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--ciano); }
+    .jv-log .acao { align-self: flex-start; padding: 5px 10px; border-radius: 8px; font: 600 11.5px ui-monospace, Consolas, monospace; color: var(--noite); background: var(--ciano); }
+    .jv-comandos { display: flex; flex-wrap: wrap; gap: 8px; }
+    .jv-comandos button { padding: 9px 14px; border-radius: 999px; font: 500 13.5px/1.2 "Inter", sans-serif; color: #eaf4ff; background: rgba(212,234,255,.08); border: 1px solid rgba(212,234,255,.22); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+    .jv-comandos button:hover { border-color: var(--ciano); }
+    .jv-comandos button.feito { color: var(--noite); background: var(--ciano); border-color: var(--ciano); }
+    .jv-comandos button:disabled { opacity: .45; cursor: default; }
+    .jv-comandos button:focus-visible { outline: 2px solid var(--ciano); outline-offset: 2px; }
+    .jv-nota { font-size: 12px; color: #7f9cc6; }
+    .jv-video { aspect-ratio: auto; min-height: 100%; }
+    @media (max-width: 820px) { .jarvis { grid-template-columns: 1fr; } .jv-video { aspect-ratio: 16 / 9; min-height: 0; } }
+    @media (prefers-reduced-motion: reduce) { .jv-tela .jv-onda i { animation: none !important; } }
+
     .ig { width: 18px; height: 18px; display: block; }
     .nav .insta { display: inline-flex; align-items: center; color: var(--cinza); }
     .nav .insta:hover { color: var(--texto); }
@@ -991,29 +1020,30 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
 
   <section id="jarvis">
     <div class="miolo">
-      <details class="projeto rev" id="projeto-jarvis">
-        <summary>
-          <div class="mini"><img src="img/jarvis-esfera.jpg" alt="Esfera de linhas que representa o Jarvis" /></div>
-          <div><div class="rotulo">PROJETOS PESSOAIS</div><h2>Jarvis, meu assistente por <em>voz</em>.</h2>
-          <p>Um assistente que ouve, responde falando e controla o computador: abre programas, mexe em arquivos, agenda lembretes e lembra do que você contou.</p>
-          <span class="chamada">Ver a demonstração em vídeo</span></div>
-          <span class="seta" aria-hidden="true">↓</span>
-        </summary>
-        <div class="projeto-corpo">
-          <div class="video">
-            <video id="video-jarvis" poster="img/jarvis-poster.jpg" controls playsinline preload="none">
-              <source src="img/jarvis-demo.mp4" type="video/mp4" />
-            </video>
-            <div class="video-aviso" id="video-aviso">demonstração em vídeo em breve</div>
+      <div class="cabeca rev">
+        <div><div class="rotulo">PROJETO PESSOAL</div><h2>Jarvis, meu assistente por <em>voz</em>.</h2></div>
+        <p>Ele ouve, responde falando e mexe no computador. Clique num comando para ver.</p>
+      </div>
+      <div class="jarvis rev">
+        <div class="jv-tela">
+          <div class="jv-topo"><span class="jv-esfera" aria-hidden="true"></span><b>Jarvis</b><span id="jv-estado">aguardando comando</span></div>
+          <div class="jv-onda" id="jv-onda" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i><i style="--k:12"></i><i style="--k:13"></i><i style="--k:14"></i><i style="--k:15"></i><i style="--k:16"></i><i style="--k:17"></i><i style="--k:18"></i><i style="--k:19"></i><i style="--k:20"></i><i style="--k:21"></i><i style="--k:22"></i><i style="--k:23"></i><i style="--k:24"></i><i style="--k:25"></i><i style="--k:26"></i><i style="--k:27"></i></div>
+          <div class="jv-log" id="jv-log" aria-live="polite"></div>
+          <div class="jv-comandos" id="jv-comandos">
+            <button type="button" data-diz="Abrindo o VS Code." data-faz="VS Code aberto">Jarvis, abre o VS Code</button>
+            <button type="button" data-diz="Pronto, te aviso hoje às 15h." data-faz="Lembrete salvo na agenda">Me lembra da reunião às 15h</button>
+            <button type="button" data-diz="Separei os arquivos por tipo: imagens, PDFs e instaladores." data-faz="Pasta Downloads organizada">Organiza a pasta Downloads</button>
+            <button type="button" data-diz="Você me disse que a Zion é a sua agência e que o painel dos sócios já está no ar." data-faz="Lido da memória">O que eu te contei da Zion?</button>
           </div>
-          <div class="projeto-notas">
-            <div><b>Ativação por voz</b><span>Só liga quando ouve a frase secreta.</span></div>
-            <div><b>Fala e ouve</b><span>Conversa natural, com voz de verdade.</span></div>
-            <div><b>Mãos no computador</b><span>Abre, clica, digita, lê a tela e executa.</span></div>
-            <div><b>Memória e agenda</b><span>Lembra do que você contou e te avisa na hora.</span></div>
-          </div>
+          <small class="jv-nota">Simulação das respostas. O vídeo mostra o Jarvis de verdade.</small>
         </div>
-      </details>
+        <div class="video jv-video">
+          <video id="video-jarvis" poster="img/jarvis-poster.jpg" controls playsinline preload="none">
+            <source src="img/jarvis-demo.mp4" type="video/mp4" />
+          </video>
+          <div class="video-aviso" id="video-aviso">demonstração em vídeo</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1459,6 +1489,29 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     lista.addEventListener("pointermove", (e) => { px(e.clientX); py(e.clientY); pr(Math.max(-12, Math.min(12, (e.clientX - ultimo) * .6))); ultimo = e.clientX; });
     lista.querySelectorAll("a").forEach((a) => a.addEventListener("pointerenter", () => { img.src = a.dataset.img; previa.classList.add("ver"); }));
     lista.addEventListener("pointerleave", () => { previa.classList.remove("ver"); pr(0); });
+  })();
+
+  // Jarvis: clique num comando, a onda "ouve", o texto é digitado, ele responde e mostra a ação
+  (() => {
+    const tela = document.querySelector(".jv-tela"); if (!tela) return;
+    const log = document.getElementById("jv-log"), estado = document.getElementById("jv-estado"), botoes = [...document.querySelectorAll("#jv-comandos button")];
+    const espera = (ms) => new Promise((r) => setTimeout(r, semMovimento ? 0 : ms));
+    let ocupado = false;
+    const linha = (cls, txt) => { const p = document.createElement("p"); p.className = cls; p.textContent = txt; log.append(p); while (log.children.length > 7) log.firstElementChild.remove(); return p; };
+    const digitar = async (p, txt, ms) => { if (semMovimento) { p.textContent = txt; return; } p.textContent = ""; for (const c of txt) { p.textContent += c; await espera(ms); } };
+    async function executar(b) {
+      if (ocupado) return; ocupado = true; botoes.forEach((x) => (x.disabled = x !== b));
+      tela.classList.add("ouvindo"); estado.textContent = "ouvindo";
+      await digitar(linha("voce", ""), b.textContent, 32);
+      await espera(350); tela.classList.remove("ouvindo"); tela.classList.add("falando"); estado.textContent = "respondendo";
+      await digitar(linha("jv", ""), b.dataset.diz, 22);
+      tela.classList.remove("falando"); linha("acao", "✓ " + b.dataset.faz); estado.textContent = "aguardando comando";
+      b.classList.add("feito"); botoes.forEach((x) => (x.disabled = false)); ocupado = false;
+    }
+    botoes.forEach((b) => b.addEventListener("click", () => executar(b)));
+    new IntersectionObserver((es, o) => es.forEach((e) => { if (e.isIntersecting) { o.disconnect(); setTimeout(() => executar(botoes[0]), 500); } }), { threshold: .5 }).observe(tela);
+    const vid = document.getElementById("video-jarvis");
+    vid.addEventListener("play", () => vid.closest(".video").classList.add("tem-video"));
   })();
 
   // dúvidas: perguntas abrem uma de cada vez
