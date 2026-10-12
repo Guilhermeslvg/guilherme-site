@@ -364,8 +364,6 @@
       .cartao-proj .acoes { width: 100%; margin-left: 0; }
       .cartao-proj .abrir { flex: 1; justify-content: center; padding: 0 10px; font-size: 12.5px; white-space: nowrap; }
       .cartao-fim { padding: 22px; }
-      .trilho-nav { grid-template-columns: 1fr auto; gap: 14px; white-space: nowrap; }
-      .trilho-nav > span:first-child { display: none; }
       html.proj-h .proj-palco { min-height: 100vh; min-height: 100svh; padding: 76px 0 28px; }
       html.proj-h .cartao-proj { width: auto; height: min(58svh, 108vw); }
       html.proj-h .proj-palco .cabeca p { display: none; }
@@ -708,6 +706,26 @@
     .serv-pontos button.on { background: var(--ciano); box-shadow: 0 0 0 4px rgba(44,211,242,.2); }
     @media (max-width: 820px) { .serv-grade { grid-template-columns: 1fr; } .serv-painel { display: none; } .servicos a { padding: 18px 14px; } .servicos li.ativo { background: transparent; box-shadow: none; } }
     .topo .quem span span, body.rolou .topo .quem span span { display: block; }
+
+    /* ===== redesign: painel "Faço ideias" ===== */
+    .hero .painel { box-shadow: 0 0 0 1px rgba(212,234,255,.7), 0 0 50px rgba(44,211,242,.22), 0 40px 100px rgba(6,17,43,.35), inset 0 1px 0 rgba(255,255,255,.5); }
+    .hero .lado.vidro { box-shadow: 0 0 0 1px rgba(255,255,255,.85), 0 24px 60px rgba(6,17,43,.2); }
+    /* ===== redesign: projetos ===== */
+    .cartao-proj:not(.cartao-fim) { box-shadow: 0 0 0 1px rgba(44,211,242,.28), 0 0 34px rgba(44,211,242,.12), 0 30px 70px rgba(6,17,43,.28); }
+    .cartao-proj .tec i { border-radius: 999px; padding: 6px 11px; font-family: "Inter", sans-serif; font-weight: 600; letter-spacing: 0; font-size: 11.5px; border-color: rgba(212,234,255,.3); }
+    .cartao-n .cartao-url::after { content: "↗"; margin-left: 7px; color: var(--bebe); }
+    .cartao-n span:first-child::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: var(--ciano); vertical-align: 1px; }
+    .cartao-n .cartao-url::before { display: none; }
+    .trilho-nav { grid-template-columns: auto auto auto 1fr; gap: 14px; }
+    .tn-seta { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; cursor: pointer; color: var(--escuro); background: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.9); box-shadow: 0 10px 24px rgba(12,42,107,.12); transition: background .3s, color .3s, transform .3s; }
+    .tn-seta.tn-prox { color: #fff; background: var(--escuro); border-color: var(--escuro); }
+    .tn-seta:hover { transform: translateY(-2px); } .tn-seta:focus-visible { outline: 2px solid var(--ciano); outline-offset: 3px; }
+    .tn-seta svg { width: 20px; height: 20px; }
+    .tn-conta { margin: 0 6px 0 10px; font: 600 12px/1 ui-monospace, Consolas, monospace; letter-spacing: .2em; color: var(--texto); }
+    .trilho-linha { margin: 0 8px; }
+    .trilho-linha b { position: absolute; top: -6px; left: calc(var(--p, 0) * 100%); width: 13px; height: 13px; margin-left: -6px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px var(--ciano), 0 0 14px var(--ciano); }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    @media (max-width: 820px) { .trilho-nav { grid-template-columns: auto auto auto 1fr; gap: 10px; } .tn-seta { width: 44px; height: 44px; } }
 
     /* contato: texto de um lado, a conversa no celular do outro */
     .contato { text-align: left; }
@@ -1149,10 +1167,11 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         </div>
       </div>
       <div class="miolo">
-        <div class="trilho-nav" aria-hidden="true">
-          <span id="trilho-rot">Projeto 01</span>
-          <div class="trilho-linha" id="trilho-linha"><i></i><img src="img/guilherme-mini.jpg" alt="" /></div>
-          <span id="gal-conta">01 / 03</span>
+        <div class="trilho-nav">
+          <button type="button" class="tn-seta" id="tn-ant" aria-label="Projeto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <button type="button" class="tn-seta tn-prox" id="tn-prox" aria-label="Próximo projeto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+          <span class="tn-conta" id="gal-conta" aria-live="polite">01 / 03</span><span class="sr" id="trilho-rot">Projeto 01</span>
+          <div class="trilho-linha" id="trilho-linha" aria-hidden="true"><i></i><b></b></div>
         </div>
       </div>
     </div>
@@ -1493,6 +1512,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       const meio = innerHeight * .5, dentro = (id) => { const el = document.getElementById(id); if (!el) return false; const r = el.getBoundingClientRect(); return r.top < meio && r.bottom > meio; };
       const novo = dentro("jarvis") ? "IA × Automação × Voz × Experimentação" : dentro("sobre") ? "Ideias • Design • Código • Resultados" : "UI/UX • Websites • Design systems • Automação";
       if (selo.textContent !== novo) selo.textContent = novo;
+      document.getElementById("selo-canto").style.opacity = dentro("projetos") ? "0" : "";   // não cobre as setas dos projetos
     }
     if (ativo >= 0) { const a = links[ativo]; traco.style.left = a.offsetLeft + "px"; traco.style.width = a.offsetWidth + "px"; }
     else traco.style.width = "0";
@@ -1829,9 +1849,10 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     const cartoes = [...trilho.querySelectorAll(".cartao-proj")], NP = cartoes.filter((c) => !c.classList.contains("cartao-fim")).length;
     const conta = document.getElementById("gal-conta"), rot = document.getElementById("trilho-rot");
     const dois = (n) => String(n).padStart(2, "0");
+    let atualProj = 0;
     const marcar = (p) => {
       linha.style.setProperty("--p", p.toFixed(4));
-      const i = Math.round(p * (cartoes.length - 1));
+      const i = Math.round(p * (cartoes.length - 1)); atualProj = i;
       conta.textContent = dois(Math.min(i + 1, NP)) + " / " + dois(NP);
       rot.textContent = i < NP ? "Projeto " + dois(i + 1) : "Seu projeto";
     };
@@ -1857,6 +1878,13 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       lenis ? lenis.scrollTo(y, { immediate: true }) : scrollTo(0, y);
     });
     marcar(0);
+    const irPara = (k) => {
+      k = Math.max(0, Math.min(cartoes.length - 1, k));
+      if (horiz) { const y = horiz.start + (k / (cartoes.length - 1)) * (horiz.end - horiz.start); lenis ? lenis.scrollTo(y, { duration: 1.1 }) : scrollTo({ top: y, behavior: "smooth" }); }
+      else janela.scrollTo({ left: cartoes[k].offsetLeft - (janela.clientWidth - cartoes[k].offsetWidth) / 2, behavior: semMovimento ? "auto" : "smooth" });
+    };
+    document.getElementById("tn-ant").addEventListener("click", () => irPara(atualProj - 1));
+    document.getElementById("tn-prox").addEventListener("click", () => irPara(atualProj + 1));
 
     // clicar em qualquer parte do cartão abre o site do projeto numa aba nova
     trilho.addEventListener("click", (e) => {
