@@ -727,6 +727,63 @@
     .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     @media (max-width: 820px) { .trilho-nav { grid-template-columns: auto auto auto 1fr; gap: 10px; } .tn-seta { width: 44px; height: 44px; } }
 
+    /* ===== redesign: Jarvis ===== */
+    .lab { gap: 8px; padding: 0; border: 0; }
+    .lab span { padding: 7px 14px; border-radius: 999px; font: 600 10.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .2em; text-transform: uppercase; color: var(--cinza); background: rgba(255,255,255,.45); border: 1px solid rgba(12,42,107,.18); }
+    .lab span:first-child { color: #fff; background: var(--escuro); border-color: var(--escuro); }
+    #jarvis .cabeca p { padding-left: 22px; border-left: 2px solid rgba(44,211,242,.5); }
+    .jv-tela { padding: 22px 22px 18px; gap: 14px; box-shadow: 0 0 0 1px rgba(44,211,242,.22), 0 0 40px rgba(44,211,242,.12), 0 30px 80px rgba(6,17,43,.35); }
+    .jv-topo { gap: 12px; padding-bottom: 14px; border-bottom: 1px solid rgba(212,234,255,.1); }
+    .jv-esfera { width: 40px; height: 40px; }
+    .jv-nome b { display: block; font-size: 16px; } .jv-nome small { display: block; margin-top: 3px; font: 600 9.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .22em; text-transform: uppercase; color: #7f9cc6; }
+    .jv-topo .jv-onda { margin-left: auto; height: 22px; gap: 2px; }
+    .jv-topo .jv-onda i { width: 2px; }
+    .jv-topo .jv-onda i:nth-child(n+15) { display: none; }
+    .jv-topo span#jv-estado { margin-left: 0; }
+    .jv-log { min-height: 230px; gap: 10px; }
+    .jv-msg { display: grid; grid-template-columns: 32px 1fr; column-gap: 10px; align-items: start; animation: chega .3s cubic-bezier(.22,1,.36,1); }
+    .jv-av { grid-row: span 2; width: 30px; height: 30px; border-radius: 50%; background: rgba(212,234,255,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b3c8e6' stroke-width='1.8'%3E%3Ccircle cx='12' cy='8' r='3.5'/%3E%3Cpath d='M5 20a7 7 0 0 1 14 0'/%3E%3C/svg%3E") center / 16px no-repeat; border: 1px solid rgba(212,234,255,.18); }
+    .jv-msg.jv .jv-av { background: radial-gradient(circle at 35% 30%, #fff, #2cd3f2 45%, #0c2a6b 100%); border: 0; box-shadow: 0 0 12px rgba(44,211,242,.5); }
+    .jv-msg small { font: 600 9.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; color: #7f9cc6; margin-bottom: 5px; }
+    .jv-msg.jv small { color: var(--ciano); }
+    .jv-msg p { justify-self: start; padding: 9px 14px; border-radius: 14px; border-top-left-radius: 4px; font-size: 14px; color: #eaf4ff; background: rgba(212,234,255,.1); border: 1px solid rgba(212,234,255,.14); }
+    .jv-msg.jv p { background: rgba(29,95,208,.55); border-color: rgba(44,211,242,.35); }
+    .jv-log .acao { margin-left: 42px; }
+    .jv-log .voce::before, .jv-log .jv::before { content: none; }
+    .jv-comandos button:first-child::before { content: ">_ "; font-family: ui-monospace, Consolas, monospace; font-size: 12px; opacity: .8; }
+    .jv-campo { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 14px; border-radius: 999px; background: rgba(212,234,255,.06); border: 1px solid rgba(212,234,255,.22); }
+    .jv-campo:focus-within { border-color: var(--ciano); box-shadow: 0 0 0 3px rgba(44,211,242,.15); }
+    .jv-campo > svg { width: 18px; height: 18px; flex: none; color: #7f9cc6; }
+    .jv-campo input { flex: 1; min-width: 0; height: 36px; border: 0; outline: none; font: inherit; font-size: 14px; color: #eaf4ff; background: transparent; }
+    .jv-campo input::placeholder { color: #7f9cc6; }
+    .jv-campo button { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; cursor: pointer; color: var(--noite); background: var(--ciano); }
+    .jv-campo button svg { width: 16px; height: 16px; }
+    .jv-campo button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .jv-video { box-shadow: 0 0 0 1px rgba(44,211,242,.22), 0 0 40px rgba(44,211,242,.12), 0 30px 80px rgba(6,17,43,.35); }
+    /* ===== redesign: Como funciona ===== */
+    .pr-passos { position: relative; gap: 10px; counter-reset: passo; }
+    .pr-passos::before { content: ""; position: absolute; left: 47px; top: 40px; bottom: 40px; width: 0; border-left: 2px dotted rgba(12,42,107,.22); }
+    .pr-passos li { display: grid; grid-template-columns: 54px 1fr; column-gap: 18px; align-items: center; padding: 18px 20px; border-radius: 24px; counter-increment: passo; transition: background .4s, box-shadow .4s, color .4s; }
+    .pr-passos li::before { content: "0" counter(passo); position: relative; inset: auto; grid-row: span 2; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: rgba(255,255,255,.75); border: 1px solid rgba(255,255,255,.95);
+      font: 700 15px/1 "Outfit", "Inter", sans-serif; color: var(--escuro); box-shadow: 0 8px 20px rgba(12,42,107,.12); transition: background .4s, color .4s, box-shadow .4s; }
+    .pr-passos li.on { background: rgba(255,255,255,.55); box-shadow: 0 0 0 1px rgba(255,255,255,.9), 0 20px 50px rgba(12,42,107,.14); }
+    .pr-passos li.on::before { color: #fff; background: radial-gradient(circle at 35% 30%, #6fb2f0, #1d5fd0); border-color: transparent; box-shadow: 0 0 0 6px rgba(44,211,242,.18), 0 0 24px rgba(44,211,242,.4); }
+    .pr-app { display: grid; grid-template-columns: 170px 1fr; background: #f7fafd; }
+    .pr-lado { padding: 16px 12px; border-right: 1px solid rgba(7,21,47,.07); background: #fbfdff; }
+    .pr-proj { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 16px; color: #07152f; }
+    .pr-proj span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; color: #fff; background: linear-gradient(135deg, #4c9be8, #1d5fd0); font: 700 12px/1 "Outfit", sans-serif; }
+    .pr-lado ul { list-style: none; display: grid; gap: 4px; }
+    .pr-lado li { padding: 8px 10px; border-radius: 9px; font-size: 13px; color: #3b4c6b; transition: background .3s, color .3s; }
+    .pr-lado li.on { color: #0c2a6b; font-weight: 600; background: #e3eefb; }
+    .pr-main { display: flex; flex-direction: column; min-width: 0; }
+    .pr-ferr { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgba(7,21,47,.07); }
+    .pr-ferr img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; margin-right: auto; }
+    .pr-btn { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; color: #3b4c6b; border: 1px solid rgba(7,21,47,.12); background: #fff; }
+    .pr-publicar { color: #fff; background: #1d7fe0; border-color: #1d7fe0; transition: background .3s; }
+    .pr-janela.noar .pr-publicar { background: #0c2a6b; border-color: #0c2a6b; }
+    .pr-main .pr-tela { margin: 12px; border-radius: 10px; box-shadow: 0 0 0 1px rgba(7,21,47,.08); }
+    @media (max-width: 820px) { .pr-app { grid-template-columns: 1fr; } .pr-lado { display: none; } .pr-passos::before { left: 37px; } .pr-passos li { grid-template-columns: 40px 1fr; padding: 12px 14px; } .pr-passos li::before { width: 40px; height: 40px; font-size: 13px; } }
+
     /* contato: texto de um lado, a conversa no celular do outro */
     .contato { text-align: left; }
     .contato-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: 64px; align-items: center; }
@@ -1181,13 +1238,12 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
   <section id="jarvis">
     <div class="miolo">
       <div class="cabeca rev">
-        <div><div class="lab"><span>Laboratório</span>Projeto experimental · em desenvolvimento</div><h2>Jarvis, meu assistente por <em>voz</em>.</h2></div>
+        <div><div class="lab"><span>Laboratório</span><span>Projeto experimental</span><span>Em desenvolvimento</span></div><h2>Jarvis, meu assistente por <em>voz</em>.</h2></div>
         <p>Um experimento pessoal em inteligência artificial, automação e novas formas de interação com a tecnologia. Um projeto em constante evolução, onde exploro ideias, testo funcionalidades e desenvolvo novas possibilidades.</p>
       </div>
       <div class="jarvis rev">
         <div class="jv-tela">
-          <div class="jv-topo"><span class="jv-esfera" aria-hidden="true"></span><b>Jarvis</b><span id="jv-estado">aguardando comando</span></div>
-          <div class="jv-onda" id="jv-onda" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i><i style="--k:12"></i><i style="--k:13"></i><i style="--k:14"></i><i style="--k:15"></i><i style="--k:16"></i><i style="--k:17"></i><i style="--k:18"></i><i style="--k:19"></i><i style="--k:20"></i><i style="--k:21"></i><i style="--k:22"></i><i style="--k:23"></i><i style="--k:24"></i><i style="--k:25"></i><i style="--k:26"></i><i style="--k:27"></i></div>
+          <div class="jv-topo"><span class="jv-esfera" aria-hidden="true"></span><span class="jv-nome"><b>Jarvis</b><small>Assistente por voz</small></span><div class="jv-onda" id="jv-onda" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i><i style="--k:12"></i><i style="--k:13"></i><i style="--k:14"></i><i style="--k:15"></i><i style="--k:16"></i><i style="--k:17"></i><i style="--k:18"></i><i style="--k:19"></i><i style="--k:20"></i><i style="--k:21"></i><i style="--k:22"></i><i style="--k:23"></i><i style="--k:24"></i><i style="--k:25"></i><i style="--k:26"></i><i style="--k:27"></i></div><span id="jv-estado">aguardando comando</span></div>
           <div class="jv-log" id="jv-log" aria-live="polite"></div>
           <div class="jv-comandos" id="jv-comandos">
             <button type="button" data-diz="Abrindo o VS Code." data-faz="VS Code aberto">Jarvis, abre o VS Code</button>
@@ -1195,6 +1251,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
             <button type="button" data-diz="Separei os arquivos por tipo: imagens, PDFs e instaladores." data-faz="Pasta Downloads organizada">Organiza a pasta Downloads</button>
             <button type="button" data-diz="Você me disse que a Zion é a sua agência e que o painel dos sócios já está no ar." data-faz="Lido da memória">O que eu te contei da Zion?</button>
           </div>
+          <form class="jv-campo" id="jv-campo" autocomplete="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><input id="jv-texto" type="text" maxlength="80" placeholder="Fale com o Jarvis…" aria-label="Escreva um comando para o Jarvis" /><button type="submit" aria-label="Enviar comando"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></button></form>
           <small class="jv-nota">Simulação das respostas. O vídeo mostra o Jarvis de verdade.</small>
         </div>
         <div class="video jv-video">
@@ -1221,6 +1278,10 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         </div>
         <div class="pr-janela" id="pr-janela" aria-hidden="true">
           <div class="pr-barra"><i></i><i></i><i></i><span class="pr-url"><em id="pr-url"></em><b class="pr-noar">no ar</b></span></div>
+          <div class="pr-app">
+            <aside class="pr-lado"><b class="pr-proj"><span>M</span>Maison Lourée</b><ul id="pr-lado"><li class="on">Briefing</li><li>Telas</li><li>Publicar</li></ul></aside>
+            <div class="pr-main">
+              <div class="pr-ferr"><img src="img/guilherme-mini.jpg" alt="" /><span class="pr-btn">Compartilhar</span><span class="pr-btn pr-publicar" id="pr-publicar">Publicar</span></div>
           <div class="pr-tela">
             <div class="pr-fase pr-chat">
               <p class="pr-msg cli">Oi Guilherme! Quero um site pra minha perfumaria.</p>
@@ -1234,6 +1295,8 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
               <span class="nota n1">Título · Outfit 64</span><span class="nota n2">Botão principal</span><span class="nota n3">Foto do produto</span>
             </div>
             <div class="pr-fase pr-site"><img src="img/capa-maison.jpg" alt="" loading="lazy" /></div>
+          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1512,7 +1575,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       const meio = innerHeight * .5, dentro = (id) => { const el = document.getElementById(id); if (!el) return false; const r = el.getBoundingClientRect(); return r.top < meio && r.bottom > meio; };
       const novo = dentro("jarvis") ? "IA × Automação × Voz × Experimentação" : dentro("sobre") ? "Ideias • Design • Código • Resultados" : "UI/UX • Websites • Design systems • Automação";
       if (selo.textContent !== novo) selo.textContent = novo;
-      document.getElementById("selo-canto").style.opacity = dentro("projetos") ? "0" : "";   // não cobre as setas dos projetos
+      document.getElementById("selo-canto").style.opacity = dentro("projetos") || dentro("jarvis") ? "0" : "";   // não cobre as setas dos projetos nem o painel do Jarvis
     }
     if (ativo >= 0) { const a = links[ativo]; traco.style.left = a.offsetLeft + "px"; traco.style.width = a.offsetWidth + "px"; }
     else traco.style.width = "0";
@@ -1659,7 +1722,8 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     const janela = document.getElementById("pr-janela"); if (!janela) return;
     const passos = [...document.querySelectorAll("#pr-passos li")], url = document.getElementById("pr-url");
     const DOMINIO = "maisonlouree.com.br";
-    const marcar = (k) => passos.forEach((li, i) => li.classList.toggle("on", i === k));
+    const lado = [...document.querySelectorAll("#pr-lado li")], publicar = document.getElementById("pr-publicar");
+    const marcar = (k) => { passos.forEach((li, i) => li.classList.toggle("on", i === k)); lado.forEach((li, i) => li.classList.toggle("on", i === k)); };
     const g = window.gsap;
     if (!g || !window.ScrollTrigger || semMovimento) {   // sem animação: mostra o site pronto
       janela.querySelectorAll(".pr-chat, .pr-rascunho").forEach((f) => (f.style.display = "none"));
@@ -1673,7 +1737,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     g.set(q(".pr-site"), { clipPath: "inset(100% 0 0 0)" });
     const estado = { letras: 0 };
     const tl = g.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: "#pr-palco", start: "top top", end: "+=220%", pin: true, scrub: 1,
-      onUpdate: (s) => { marcar(s.progress < .36 ? 0 : s.progress < .7 ? 1 : 2); janela.classList.toggle("noar", s.progress > .93); } } });
+      onUpdate: (s) => { marcar(s.progress < .36 ? 0 : s.progress < .7 ? 1 : 2); janela.classList.toggle("noar", s.progress > .93); publicar.textContent = s.progress > .93 ? "No ar ✓" : "Publicar"; } } });
     tl.to(q(".pr-msg"), { opacity: 1, y: 0, duration: .08, stagger: .07 }, .02)
       .to(q(".pr-rascunho"), { opacity: 1, duration: .05 }, .36)
       .to(q(".wf"), { scaleX: 1, duration: .1, stagger: .025, ease: "power2.out" }, .38)
@@ -1705,7 +1769,18 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     const log = document.getElementById("jv-log"), estado = document.getElementById("jv-estado"), botoes = [...document.querySelectorAll("#jv-comandos button")];
     const espera = (ms) => new Promise((r) => setTimeout(r, semMovimento ? 0 : ms));
     let ocupado = false;
-    const linha = (cls, txt) => { const p = document.createElement("p"); p.className = cls; p.textContent = txt; log.append(p); while (log.children.length > 7) log.firstElementChild.remove(); return p; };
+    const hora = () => new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    const linha = (cls, txt) => {
+      let alvo;
+      if (cls === "acao") { alvo = document.createElement("p"); alvo.className = "acao"; log.append(alvo); }
+      else {
+        const m = document.createElement("div"); m.className = "jv-msg " + cls;
+        const av = document.createElement("span"); av.className = "jv-av"; av.setAttribute("aria-hidden", "true");
+        const meta = document.createElement("small"); meta.textContent = (cls === "voce" ? "Você" : "Jarvis") + "  " + hora();
+        alvo = document.createElement("p"); m.append(av, meta, alvo); log.append(m);
+      }
+      alvo.textContent = txt; while (log.children.length > 6) log.firstElementChild.remove(); return alvo;
+    };
     const digitar = async (p, txt, ms) => { if (semMovimento) { p.textContent = txt; return; } p.textContent = ""; for (const c of txt) { p.textContent += c; await espera(ms); } };
     async function executar(b) {
       if (ocupado) return; ocupado = true; botoes.forEach((x) => (x.disabled = x !== b));
@@ -1717,6 +1792,16 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       b.classList.add("feito"); botoes.forEach((x) => (x.disabled = false)); ocupado = false;
     }
     botoes.forEach((b) => b.addEventListener("click", () => executar(b)));
+    // campo de comando: se o texto bate com um atalho, roda ele; senão, avisa que ainda está no laboratório
+    const campo = document.getElementById("jv-campo"), texto = document.getElementById("jv-texto");
+    const simples = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    campo.addEventListener("submit", (e) => {
+      e.preventDefault(); const v = texto.value.trim(); if (!v || ocupado) return; texto.value = "";
+      const chaves = [["vs code", "code", "abre"], ["reuniao", "lembra", "15h"], ["download", "organiza", "pasta"], ["zion"]];
+      const k = chaves.findIndex((ws) => ws.some((w) => simples(v).includes(w)));
+      if (k >= 0) { executar(Object.assign(Object.create(null), { textContent: v, dataset: botoes[k].dataset, classList: botoes[k].classList })); return; }
+      executar({ textContent: v, dataset: { diz: "Esse comando ainda está no laboratório. Tente um dos atalhos acima.", faz: "Anotado para a próxima versão" }, classList: { add() {} } });
+    });
     new IntersectionObserver((es, o) => es.forEach((e) => { if (e.isIntersecting) { o.disconnect(); setTimeout(() => executar(botoes[0]), 500); } }), { threshold: .5 }).observe(tela);
     const vid = document.getElementById("video-jarvis");
     vid.addEventListener("play", () => vid.closest(".video").classList.add("tem-video"));
