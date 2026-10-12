@@ -72,8 +72,6 @@
     .abertura { padding: 0; border-top: 0; }
     .ab-palco { position: relative; height: 100vh; height: 100svh; min-height: 600px; overflow: hidden; isolation: isolate; }
     .ab-noite { position: absolute; inset: 0; z-index: -1; opacity: 0; background: radial-gradient(70% 80% at 50% 70%, #123a8c 0%, #0c2a6b 30%, #06112b 70%); }
-    .ab-aneis { position: absolute; left: 50%; top: 62%; width: 160vmax; height: 160vmax; margin: -80vmax 0 0 -80vmax; border-radius: 50%; opacity: 0;
-      background: repeating-radial-gradient(circle, rgba(44,211,242,0) 0 46px, rgba(44,211,242,.16) 47px 48px, rgba(44,211,242,0) 49px 92px); }
     .ab-nome { position: absolute; left: 0; right: 0; top: clamp(88px, 13vh, 132px); z-index: 1; text-align: center; font-weight: 400; }
     .ab-oi { display: block; font-size: 12.5px; font-weight: 500; letter-spacing: .42em; text-transform: uppercase; color: var(--cinza); transition: color .6s; }
     .ab-letras { display: block; margin-top: 6px; font-family: "Outfit", "Inter", sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -.035em; line-height: .84;
@@ -88,9 +86,6 @@
     .ab-fotos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom; display: block; }
     .ab-holo { clip-path: inset(var(--corte, 100%) 0 0 0); }
     .ab-scan { position: absolute; left: 4%; right: 4%; top: var(--corte, 100%); height: 2px; margin-top: -1px; opacity: 0; background: var(--ciano); box-shadow: 0 0 14px 2px rgba(44,211,242,.8), 0 0 60px 8px rgba(44,211,242,.35); }
-    .ab-dica { position: absolute; right: var(--borda); bottom: clamp(110px, 16vh, 140px); z-index: 3; padding: 7px 14px; border-radius: 999px; white-space: nowrap;
-      font: 600 10.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .22em; text-transform: uppercase; color: var(--bebe); background: rgba(6,17,43,.8); border: 1px solid rgba(44,211,242,.35); }
-    .ab-dica::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 9px; border-radius: 50%; background: var(--ciano); vertical-align: 1px; animation: pisca 1.6s ease-in-out infinite; }
     @keyframes pisca { 50% { opacity: .25; } }
     .ab-texto, .ab-provas { position: absolute; z-index: 3; bottom: clamp(32px, 7vh, 64px); opacity: 0; transform: translateY(14px); transition: opacity .8s .6s, transform .8s .6s cubic-bezier(.22,1,.36,1), color .6s; }
     body.pronto .ab-texto, body.pronto .ab-provas { opacity: 1; transform: none; }
@@ -108,9 +103,7 @@
       .ab-oi { font-size: 11px; letter-spacing: .32em; }
       .ab-letras { font-size: 15.4vw; }
       .ab-figura { bottom: 290px; height: min(40svh, 84vw); }
-      .ab-dica { left: 50%; right: auto; top: 76px; bottom: auto; transform: translateX(-50%); font-size: 9.5px; }
-      .ab-texto { left: 20px; right: 20px; width: auto; bottom: 96px; }
-      .ab-texto .btn.vazado { display: none; }
+        .ab-texto .btn.vazado { display: none; }
       .ab-texto p { font-size: 15px; margin-bottom: 14px; }
       .ab-texto .eyebrow { margin-bottom: 8px; }
       .ab-provas { display: none; }
@@ -177,8 +170,7 @@
     body.noite .ab-letras b.brilho { color: #ffffff; text-shadow: 0 0 30px rgba(44,211,242,.9), 0 0 80px rgba(44,211,242,.45); }
     .ab-letras b.codigo { color: var(--ciano); }
     /* Hero escura desde o início; a faixa de projetos passa atrás da foto (o nome fica atrás de tudo) */
-    .ab-palco { background: radial-gradient(80% 70% at 50% 75%, #0f2f78 0%, #081a45 45%, #040b1f 100%); }
-    .ab-noite { background: radial-gradient(70% 80% at 50% 72%, #4c9be8 0%, #1d5fd0 32%, #0c2a6b 70%, #06112b 100%); }
+    .ab-noite { background: radial-gradient(70% 80% at 50% 70%, #12347e 0%, #0a1f55 45%, #06112b 100%); }
     .ab-vitrine { position: absolute; left: 0; right: 0; top: 37%; z-index: 1; overflow: hidden; padding: 14px 0;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
     .ab-vitrine-trilho { display: flex; gap: 18px; width: max-content; animation: vitrine 46s linear infinite; }
@@ -195,15 +187,12 @@
     html.com-video .ab-video { clip-path: none; }
     html.com-video .ab-foto, html.com-video .ab-scan { display: none; }
     /* o fundo da Hero acompanha o azul-noite do vídeo; ao rolar ficam só os anéis ciano, e as laterais do vídeo somem no fundo */
-    html.com-video .ab-palco { background: radial-gradient(60% 55% at 50% 62%, #0c214a 0%, #0a1a3a 45%, #08112c 100%); }
-    html.com-video .ab-noite { background: radial-gradient(45% 50% at 50% 62%, rgba(44,211,242,.16) 0%, rgba(44,211,242,0) 70%); }
     html.com-video .ab-video { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%); }
     /* grade de prancheta: parada no fundo; a versão ciano acende em círculo a partir da pessoa (--luz vai de 0 a 100) */
     .ab-grade { position: absolute; inset: 0; z-index: 0; --luz: 0; pointer-events: none;
       background-image: linear-gradient(rgba(212,234,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(212,234,255,.055) 1px, transparent 1px); background-size: 64px 64px; background-position: center top; }
     .ab-grade::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(44,211,242,.2) 1px, transparent 1px), linear-gradient(90deg, rgba(44,211,242,.2) 1px, transparent 1px); background-size: inherit; background-position: inherit;
-      -webkit-mask-image: radial-gradient(circle at 50% 64%, #000 calc(var(--luz) * 1vmax), transparent calc(var(--luz) * 1vmax + 14vmax)); mask-image: radial-gradient(circle at 50% 64%, #000 calc(var(--luz) * 1vmax), transparent calc(var(--luz) * 1vmax + 14vmax)); }
-    .ab-aneis { display: none; }
+      opacity: var(--luz); }
     /* anatomia da armadura: rótulo + linha + ponto na peça; acende quando a peça encaixa */
     .ab-anatomia { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
     .anat { position: absolute; top: var(--y); display: flex; align-items: center; gap: 8px; white-space: nowrap; transform: translateY(-50%); opacity: 0;
@@ -795,7 +784,7 @@
   <section class="abertura" id="inicio" aria-label="Apresentação">
     <div class="ab-palco" id="ab-palco">
       <div class="ab-grade" id="ab-grade" aria-hidden="true"></div>
-      <div class="ab-noite" id="ab-noite" aria-hidden="true"><i class="ab-aneis" id="ab-aneis"></i></div>
+      <div class="ab-noite" id="ab-noite" aria-hidden="true"></div>
       <h1 class="ab-nome"><span class="ab-oi">Prazer, sou</span><span class="ab-letras" id="ab-letras">Guilherme</span></h1>
       <div class="ab-figura">
         <div class="ab-anatomia" aria-hidden="true">
@@ -814,10 +803,7 @@
           </div>
         </div>
       </div>
-      <span class="ab-dica" id="ab-dica" aria-hidden="true">Role para ativar</span>
       <div class="ab-texto">
-        <div class="eyebrow">DESIGNER DE INTERFACES • FRONT-END</div>
-        <p>Landing pages, sites e design systems. De Timóteo, MG, para o Brasil.</p>
         <div class="botoes">
           <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20or%C3%A7amento"><span class="rot" data-t="Solicitar orçamento">Solicitar orçamento</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
           <a class="btn vazado magnetico" href="#projetos"><span class="rot" data-t="Ver projetos">Ver projetos</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
@@ -1391,7 +1377,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     if (ativo >= 0) { const a = links[ativo]; traco.style.left = a.offsetLeft + "px"; traco.style.width = a.offsetWidth + "px"; }
     else traco.style.width = "0";
     // escuro: abertura ativada (enquanto ainda ocupa a tela) ou do contato para baixo
-    const escuro = abPalco.getBoundingClientRect().bottom > innerHeight * .5 || contato.getBoundingClientRect().top < innerHeight * .6;
+    const escuro = (heroAtivo && abPalco.getBoundingClientRect().bottom > innerHeight * .5) || contato.getBoundingClientRect().top < innerHeight * .6;
     document.body.classList.toggle("noite", escuro);
     // 7. paralaxe da foto
     const img = document.querySelector(".retrato img");
@@ -1598,7 +1584,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     document.getElementById("voltar-topo").addEventListener("click", () => lenis ? lenis.scrollTo(0, { duration: 1.6 }) : scrollTo({ top: 0, behavior: semMovimento ? "auto" : "smooth" }));
 
     // abertura: nome letra por letra; ao rolar, o holograma sobe pela foto e as peças da armadura voam até o corpo
-    const letras = document.getElementById("ab-letras"), dica = document.getElementById("ab-dica"), holo = document.getElementById("ab-holo");
+    const letras = document.getElementById("ab-letras"), holo = document.getElementById("ab-holo");
     const NOME = letras.textContent.trim();
     letras.closest("h1").setAttribute("aria-label", "Prazer, sou Guilherme");
     letras.innerHTML = [...NOME].map((c, k) => '<i style="--k:' + k + '"><b>' + c + "</b></i>").join("");
@@ -1621,19 +1607,19 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       html.classList.add("anima");
       const fotos = document.getElementById("ab-fotos"), scan = document.getElementById("ab-scan"), q = (s) => "#ab-armadura " + s;
       g.set(q(".arm-peca, .arm-nucleo"), { transformOrigin: "50% 50%" });
-      const tl = g.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: abPalco, start: "top top", end: "+=170%", pin: true, scrub: .7,
+      const tl = g.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: abPalco, start: "top top", end: "+=320%", pin: true, scrub: 1.1,
         onUpdate(s) {
-          const a = s.progress > .3;
-          if (a !== heroAtivo) { heroAtivo = a; dica.textContent = a ? "Armadura ativada" : "Role para ativar"; embaralhar(); }
+          const a = s.progress > .2 && s.progress < .9;   // tela escura só no meio da transformação
+          if (a !== heroAtivo) { heroAtivo = a; embaralhar(); }
           // anatomia: cada rótulo acende quando a peça dele encaixa no vídeo
-          document.querySelectorAll(".anat").forEach((r) => { const quando = { "01": .27, "02": .33, "03": .6, "04": .74 }[r.dataset.peca]; r.classList.toggle("on", s.progress > quando); });
+          document.querySelectorAll(".anat").forEach((r) => { const quando = { "01": .3, "02": .45, "03": .66, "04": .77 }[r.dataset.peca]; r.classList.toggle("on", s.progress > quando); });
           aoRolar();
         } } });
       tl.fromTo(fotos, { "--corte": "100%" }, { "--corte": "0%", duration: .4 }, 0)
         .fromTo(scan, { opacity: 0 }, { opacity: 1, duration: .02 }, .01)
         .to(scan, { opacity: 0, duration: .04 }, .37)
-        .fromTo("#ab-noite", { opacity: 0 }, { opacity: 1, duration: .35 }, .05)
-        .fromTo("#ab-aneis", { opacity: 0, scale: .5 }, { opacity: 1, scale: 1, duration: .7 }, .1)
+        .fromTo("#ab-noite", { opacity: 0 }, { opacity: 1, duration: .25 }, .1)
+        .to("#ab-noite", { opacity: 0, duration: .14 }, .86)
         // peças: ombros de fora para dentro, gola e peito de baixo, orelhas de lado
         .from(q(".arm-ombro-e"), { x: -260, y: -60, rotation: -14, opacity: 0, duration: .22, ease: "power3.out" }, .32)
         .from(q(".arm-ombro-d"), { x: 260, y: -60, rotation: 14, opacity: 0, duration: .22, ease: "power3.out" }, .35)
@@ -1644,7 +1630,8 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         .from(q(".arm-nucleo"), { scale: 0, opacity: 0, duration: .12, ease: "back.out(2)" }, .68)
         .fromTo(q(".arm-linha"), { strokeDasharray: 400, strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: .2, stagger: .015 }, .72)
         .to(fotos, { scale: 1.04, transformOrigin: "50% 100%", duration: 1 }, 0)
-        .fromTo("#ab-grade", { "--luz": 0 }, { "--luz": 100, duration: .55 }, .25)
+        .fromTo("#ab-grade", { "--luz": 0 }, { "--luz": 1, duration: .3 }, .2)
+        .to("#ab-grade", { "--luz": 0, duration: .14 }, .86)
         .to(letras, { yPercent: -8, duration: 1 }, 0);
 
       // vídeo da armadura: quando os quadros existem, eles substituem o holograma e a armadura desenhada
@@ -1672,10 +1659,10 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       // mouse: cada letra pula quando o mouse passa; nome e anéis se deslocam um pouco (profundidade)
       if (comMouse) {
         bs.forEach((b) => b.addEventListener("pointerenter", () => { g.fromTo(b, { yPercent: 0 }, { yPercent: -16, duration: .22, ease: "power2.out", yoyo: true, repeat: 1, overwrite: true }); b.classList.add("brilho"); setTimeout(() => b.classList.remove("brilho"), 500); }));
-        const nx = g.quickTo(".ab-nome", "x", { duration: .9, ease: "power3" }), ax2 = g.quickTo("#ab-aneis", "x", { duration: 1.2, ease: "power3" }), ay2 = g.quickTo("#ab-aneis", "y", { duration: 1.2, ease: "power3" });
-        abPalco.addEventListener("pointermove", (e) => { const dx = e.clientX / innerWidth - .5, dy = e.clientY / innerHeight - .5; nx(dx * -24); ax2(dx * 40); ay2(dy * 30); });
+        const nx = g.quickTo(".ab-nome", "x", { duration: .9, ease: "power3" });
+        abPalco.addEventListener("pointermove", (e) => nx((e.clientX / innerWidth - .5) * -24));
       }
-    } else dica.hidden = true;
+    }
 
     // painel do setup: entra quando aparece; a grade do fundo acompanha o mouse
     const painel = document.querySelector(".hero");
