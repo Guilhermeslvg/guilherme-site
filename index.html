@@ -1438,7 +1438,8 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     const terminar = () => {
       if (acabou) return; acabou = true;
       tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); document.body.classList.add("pronto");
-      setTimeout(() => document.getElementById("ab-letras").classList.add("livres"), 1600);   // depois que as letras sobem, o brilho pode passar da caixa window.lenis?.start();
+      setTimeout(() => document.getElementById("ab-letras").classList.add("livres"), 1600);   // depois que as letras sobem, o brilho pode passar da caixa
+      window.lenis?.start();   // a rolagem macia fica parada durante a abertura
       try { sessionStorage.setItem("abertura-vista", "1"); } catch (e) {}
     };
     if (document.documentElement.classList.contains("sem-abertura")) { terminar(); return; }   // já viu nesta sessão
