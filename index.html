@@ -626,6 +626,17 @@
     body.noite .selo-canto { color: #7f9cc6; }
     @media (max-width: 1100px) { .selo-canto { display: none; } }
     /* frase da Hero (à esquerda, acima dos botões) */
+    /* frase embaixo do nome: mesma letra do nome, menor, com o brilho dos títulos passando */
+    .ab-sub { display: block; max-width: min(92vw, 980px); margin: 16px auto 0; font-family: "Outfit", "Inter", sans-serif; font-weight: 800; font-size: clamp(22px, 2.2vw, 32px);
+      letter-spacing: -.025em; line-height: 1.12; text-transform: none; text-wrap: balance;
+      background: linear-gradient(180deg, #07152f 0%, #07152f 42%, #0c2a6b 48%, #2cd3f2 53%, #4c9be8 57%, #07152f 66%, #07152f 100%); background-size: 100% 220%;
+      -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .06em;
+      opacity: 0; transform: translateY(12px); transition: opacity .9s .9s, transform .9s .9s cubic-bezier(.22,1,.36,1); animation: faixa 7s ease-in-out infinite alternate; }
+    body.noite .ab-sub { background-image: linear-gradient(180deg, #eaf4ff 0%, #eaf4ff 42%, #6fb2f0 48%, #2cd3f2 53%, #ffffff 57%, #eaf4ff 66%, #eaf4ff 100%); }
+    body.pronto .ab-sub { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .ab-sub { animation: none; } }
+    /* no computador a foto desce um pouco para a frase não ficar atrás da cabeça */
+    @media (min-width: 821px) { .ab-figura { height: min(66svh, 700px); } }
     .ab-texto { left: clamp(24px, 5vw, 80px); width: min(400px, 32vw); bottom: clamp(72px, 11vh, 110px); }   /* mais longe da foto */
     .ab-texto .botoes { gap: 12px; }
 
@@ -1006,7 +1017,7 @@
   <section class="abertura" id="inicio" aria-label="Apresentação">
     <div class="ab-palco" id="ab-palco">
       <div class="ab-noite" id="ab-noite" aria-hidden="true"></div>
-      <h1 class="ab-nome"><span class="ab-oi">Prazer, sou</span><span class="ab-letras" id="ab-letras">Guilherme</span><span class="ab-oi" style="margin-top:14px">Sites, sistemas e anúncios que trazem cliente</span></h1>
+      <h1 class="ab-nome"><span class="ab-oi">Prazer, sou</span><span class="ab-letras" id="ab-letras">Guilherme</span><span class="ab-sub">um web designer que vai te ajudar a tirar a sua ideia do papel.</span></h1>
       <div class="ab-figura">
         <div class="ab-mover">
           <div class="ab-fotos" id="ab-fotos">
@@ -1947,7 +1958,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     // abertura: nome letra por letra; ao rolar, o holograma sobe pela foto e as peças da armadura voam até o corpo
     const letras = document.getElementById("ab-letras"), holo = document.getElementById("ab-holo");
     const NOME = letras.textContent.trim();
-    letras.closest("h1").setAttribute("aria-label", "Prazer, sou Guilherme");
+    letras.closest("h1").setAttribute("aria-label", "Prazer, sou Guilherme, um web designer que vai te ajudar a tirar a sua ideia do papel");
     letras.innerHTML = [...NOME].map((c, k) => '<i style="--k:' + k + '"><b>' + c + "</b></i>").join("");
     const bs = [...letras.querySelectorAll("b")];
     // letras se embaralham em símbolos e voltam ao nome, da esquerda para a direita
