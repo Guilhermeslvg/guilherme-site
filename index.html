@@ -666,6 +666,13 @@
     /* ===== redesign: painel "Faço ideias" ===== */
     .hero .painel { box-shadow: 0 0 0 1px rgba(212,234,255,.7), 0 0 50px rgba(44,211,242,.22), 0 40px 100px rgba(6,17,43,.35), inset 0 1px 0 rgba(255,255,255,.5); }
     .hero .lado.vidro { box-shadow: 0 0 0 1px rgba(255,255,255,.85), 0 24px 60px rgba(6,17,43,.2); }
+    /* painel mais baixo: menos respiro em cima e embaixo e o cartão de vidro mais justo */
+    @media (min-width: 821px) {
+      .hero .painel { padding: 48px 56px 40px; }
+      .hero .lado.vidro { padding: 22px 24px 20px; }
+      .hero .lado.vidro p { margin-bottom: 12px; }
+      .hero .provas { gap: 6px; margin-bottom: 16px; padding-top: 12px; }
+    }
     /* ===== redesign: projetos ===== */
     .cartao-proj:not(.cartao-fim) { box-shadow: 0 0 0 1px rgba(44,211,242,.28), 0 0 34px rgba(44,211,242,.12), 0 30px 70px rgba(6,17,43,.28); }
     .cartao-proj .tec i { border-radius: 999px; padding: 6px 11px; font-family: "Inter", sans-serif; font-weight: 600; letter-spacing: 0; font-size: 11.5px; border-color: rgba(212,234,255,.3); }
@@ -848,6 +855,10 @@
     .nome-rodape { display: flex; justify-content: space-between; padding: 40px var(--borda) 0; font-family: "Outfit", "Inter", sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -.03em; line-height: .78;
       font-size: min(15.4vw, 182px); color: var(--claro); overflow: hidden; user-select: none; }
     .nome-rodape i { display: block; font-style: normal; padding-bottom: .06em; }
+    /* o brilho dos títulos passa pelo nome letra por letra, como uma onda */
+    .nome-rodape i { background: linear-gradient(180deg, var(--claro) 0%, var(--claro) 38%, #d4eaff 47%, #ffffff 51%, var(--ciano) 57%, var(--claro) 66%, var(--claro) 100%); background-size: 100% 240%;
+      -webkit-background-clip: text; background-clip: text; color: transparent; animation: faixa 3.2s ease-in-out infinite alternate; animation-delay: calc(var(--k) * -.22s); }
+    @media (prefers-reduced-motion: reduce) { .nome-rodape i { animation: none; } }
     .rodape-fim { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0 96px; font: 500 11px/1.5 ui-monospace, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--cinza-2); }
     .rodape-fim button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--texto); background: none; border: 0; cursor: pointer; }
     .rodape-fim button:hover { color: var(--ciano); }
@@ -2029,7 +2040,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
 
     // nome gigante no rodapé
     const nome = document.getElementById("nome-rodape");
-    nome.innerHTML = [...nome.textContent].map((c) => "<i>" + c + "</i>").join("");
+    nome.innerHTML = [...nome.textContent].map((c, k) => '<i style="--k:' + k + '">' + c + "</i>").join("");
     if (!anima) return;
     g.from(nome.children, { yPercent: 100, ease: "none", stagger: .08, scrollTrigger: { trigger: nome, start: "top bottom", end: "bottom bottom", scrub: .8 } });
 
