@@ -775,7 +775,6 @@
   <section class="abertura" id="inicio" aria-label="Apresentação">
     <div class="ab-palco" id="ab-palco">
       <div class="ab-noite" id="ab-noite" aria-hidden="true"><i class="ab-aneis" id="ab-aneis"></i></div>
-      <div class="ab-vitrine" aria-hidden="true"><div class="ab-vitrine-trilho" id="ab-vitrine"><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>01 // Perfumaria</span></figcaption><img src="img/capa-maison.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>02 // Rastreamento</span></figcaption><img src="img/capa-rumogo.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>03 // Campanha</span></figcaption><img src="img/capa-rosa.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>04 // Design System</span></figcaption><img src="img/servico-ds.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>05 // Assistente</span></figcaption><img src="img/jarvis-esfera.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>01 // Perfumaria</span></figcaption><img src="img/capa-maison.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>02 // Rastreamento</span></figcaption><img src="img/capa-rumogo.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>03 // Campanha</span></figcaption><img src="img/capa-rosa.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>04 // Design System</span></figcaption><img src="img/servico-ds.jpg" alt="" loading="lazy" /></figure><figure class="vitrine-cartao"><figcaption><i></i><i></i><i></i><span>05 // Assistente</span></figcaption><img src="img/jarvis-esfera.jpg" alt="" loading="lazy" /></figure></div></div>
       <h1 class="ab-nome"><span class="ab-oi">Prazer, sou</span><span class="ab-letras" id="ab-letras">Guilherme</span></h1>
       <div class="ab-figura">
         <div class="ab-mover">
@@ -1599,7 +1598,6 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         onUpdate(s) {
           const a = s.progress > .3;
           if (a !== heroAtivo) { heroAtivo = a; dica.textContent = a ? "Armadura ativada" : "Role para ativar"; embaralhar(); }
-          const va = document.getElementById("ab-vitrine").getAnimations()[0]; if (va) va.playbackRate = 1 + s.progress * 5;   // a faixa acelera
           aoRolar();
         } } });
       tl.fromTo(fotos, { "--corte": "100%" }, { "--corte": "0%", duration: .4 }, 0)
