@@ -198,6 +198,26 @@
     html.com-video .ab-palco { background: radial-gradient(60% 55% at 50% 62%, #0c214a 0%, #0a1a3a 45%, #08112c 100%); }
     html.com-video .ab-noite { background: radial-gradient(45% 50% at 50% 62%, rgba(44,211,242,.16) 0%, rgba(44,211,242,0) 70%); }
     html.com-video .ab-video { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%); }
+    /* grade de prancheta: parada no fundo; a versão ciano acende em círculo a partir da pessoa (--luz vai de 0 a 100) */
+    .ab-grade { position: absolute; inset: 0; z-index: 0; --luz: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(212,234,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(212,234,255,.055) 1px, transparent 1px); background-size: 64px 64px; background-position: center top; }
+    .ab-grade::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(44,211,242,.2) 1px, transparent 1px), linear-gradient(90deg, rgba(44,211,242,.2) 1px, transparent 1px); background-size: inherit; background-position: inherit;
+      -webkit-mask-image: radial-gradient(circle at 50% 64%, #000 calc(var(--luz) * 1vmax), transparent calc(var(--luz) * 1vmax + 14vmax)); mask-image: radial-gradient(circle at 50% 64%, #000 calc(var(--luz) * 1vmax), transparent calc(var(--luz) * 1vmax + 14vmax)); }
+    .ab-aneis { display: none; }
+    /* anatomia da armadura: rótulo + linha + ponto na peça; acende quando a peça encaixa */
+    .ab-anatomia { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+    .anat { position: absolute; top: var(--y); display: flex; align-items: center; gap: 8px; white-space: nowrap; transform: translateY(-50%); opacity: 0;
+      font: 600 10.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--bebe); transition: opacity .4s; }
+    .anat b { color: var(--ciano); font-weight: 600; }
+    .anat em { font-style: normal; }
+    .anat i { position: relative; width: clamp(60px, 9vw, 130px); height: 1px; background: linear-gradient(90deg, rgba(44,211,242,.15), var(--ciano)); transform: scaleX(0); transition: transform .6s cubic-bezier(.22,1,.36,1); }
+    .anat i::after { content: ""; position: absolute; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--ciano); box-shadow: 0 0 12px var(--ciano); }
+    .anat-e { right: calc(100% - var(--x)); flex-direction: row; }
+    .anat-e i { transform-origin: right; } .anat-e i::after { right: -3px; }
+    .anat-d { left: var(--x); flex-direction: row-reverse; }
+    .anat-d i { transform-origin: left; background: linear-gradient(270deg, rgba(44,211,242,.15), var(--ciano)); } .anat-d i::after { left: -3px; }
+    .anat.on { opacity: 1; } .anat.on i { transform: scaleX(1); }
+    @media (max-width: 820px) { .ab-anatomia { display: none; } .ab-grade { background-size: 44px 44px; } }
     h1 { font-size: clamp(38px, 6vw, 68px); font-weight: 600; line-height: 1.04; letter-spacing: -.035em; }
     h1 em { font-style: italic; font-weight: 400; color: var(--cinza); }
     .botoes { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -774,9 +794,16 @@
 
   <section class="abertura" id="inicio" aria-label="Apresentação">
     <div class="ab-palco" id="ab-palco">
+      <div class="ab-grade" id="ab-grade" aria-hidden="true"></div>
       <div class="ab-noite" id="ab-noite" aria-hidden="true"><i class="ab-aneis" id="ab-aneis"></i></div>
       <h1 class="ab-nome"><span class="ab-oi">Prazer, sou</span><span class="ab-letras" id="ab-letras">Guilherme</span></h1>
       <div class="ab-figura">
+        <div class="ab-anatomia" aria-hidden="true">
+          <span class="anat anat-e" data-peca="03" style="--x:30%; --y:21%"><b>03</b><em>Capacete</em><i></i></span>
+          <span class="anat anat-d" data-peca="04" style="--x:64%; --y:29%"><b>04</b><em>Visão ciano</em><i></i></span>
+          <span class="anat anat-d" data-peca="02" style="--x:86%; --y:67%"><b>02</b><em>Ombreiras</em><i></i></span>
+          <span class="anat anat-e" data-peca="01" style="--x:38%; --y:80%"><b>01</b><em>Peitoral</em><i></i></span>
+        </div>
         <div class="ab-mover">
           <div class="ab-fotos" id="ab-fotos">
             <img class="ab-foto" src="img/guilherme-recorte.webp" alt="Foto do Guilherme sorrindo, de camiseta preta" width="960" height="1280" fetchpriority="high" />
@@ -1598,6 +1625,8 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         onUpdate(s) {
           const a = s.progress > .3;
           if (a !== heroAtivo) { heroAtivo = a; dica.textContent = a ? "Armadura ativada" : "Role para ativar"; embaralhar(); }
+          // anatomia: cada rótulo acende quando a peça dele encaixa no vídeo
+          document.querySelectorAll(".anat").forEach((r) => { const quando = { "01": .27, "02": .33, "03": .6, "04": .74 }[r.dataset.peca]; r.classList.toggle("on", s.progress > quando); });
           aoRolar();
         } } });
       tl.fromTo(fotos, { "--corte": "100%" }, { "--corte": "0%", duration: .4 }, 0)
@@ -1615,6 +1644,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         .from(q(".arm-nucleo"), { scale: 0, opacity: 0, duration: .12, ease: "back.out(2)" }, .68)
         .fromTo(q(".arm-linha"), { strokeDasharray: 400, strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: .2, stagger: .015 }, .72)
         .to(fotos, { scale: 1.04, transformOrigin: "50% 100%", duration: 1 }, 0)
+        .fromTo("#ab-grade", { "--luz": 0 }, { "--luz": 100, duration: .55 }, .25)
         .to(letras, { yPercent: -8, duration: 1 }, 0);
 
       // vídeo da armadura: quando os quadros existem, eles substituem o holograma e a armadura desenhada
