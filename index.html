@@ -1631,7 +1631,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       fetch("img/armadura/quadros.json").then((r) => r.ok ? r.json() : null).then((q) => {
         if (!q || !q.n) return;
         const cv = document.getElementById("ab-video"), ctx = cv.getContext("2d");
-        cv.width = q.w; cv.height = q.h;
+        cv.width = q.w; cv.height = q.h; ctx.imageSmoothingQuality = "high";
         const quadros = Array.from({ length: q.n }, (_, k) => { const im = new Image(); im.src = "img/armadura/q" + String(k + 1).padStart(3, "0") + ".webp"; return im; });
         const estado = { f: 0 };
         const desenhar = () => {
