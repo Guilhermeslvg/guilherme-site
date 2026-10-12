@@ -165,8 +165,12 @@
     .ab-video { position: absolute; inset: 0; width: 100%; height: 100%; display: none; clip-path: inset(var(--corte, 100%) 0 0 0);
       -webkit-mask-image: radial-gradient(80% 75% at 50% 62%, #000 62%, transparent 100%); mask-image: radial-gradient(80% 75% at 50% 62%, #000 62%, transparent 100%); }
     html.com-video .ab-video { display: block; }
-    html.com-video .ab-fotos { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%), linear-gradient(#000 86%, transparent 100%); -webkit-mask-composite: source-in;
-      mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%), linear-gradient(#000 86%, transparent 100%); mask-composite: intersect; }
+    /* a armadura encosta nas laterais e na base do quadro: os ombros somem num degradê
+       largo (um terço de cada lado) e a base some aos poucos, então não aparece linha reta nem caixa */
+    html.com-video .ab-fotos { --busto: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.12) 6%, rgba(0,0,0,.45) 16%, rgba(0,0,0,.85) 27%, #000 34%, #000 66%, rgba(0,0,0,.85) 73%, rgba(0,0,0,.45) 84%, rgba(0,0,0,.12) 94%, transparent 100%);
+      -webkit-mask-image: var(--busto), linear-gradient(#000 82%, rgba(0,0,0,.5) 92%, transparent); -webkit-mask-composite: source-in;
+      mask-image: var(--busto), linear-gradient(#000 82%, rgba(0,0,0,.5) 92%, transparent); mask-composite: intersect; }
+    html.com-video .ab-video { -webkit-mask-image: none; mask-image: none; }
     html.com-video .ab-holo, html.com-video .ab-armadura { display: none; }
     /* nome: letras com brilho que passa, pulam quando o mouse passa e se embaralham quando a armadura liga */
     .ab-letras b { display: inline-block; font-weight: inherit; transition: color .45s, text-shadow .45s; will-change: transform; }
@@ -644,7 +648,7 @@
     body.noite .selo-canto { color: #7f9cc6; }
     @media (max-width: 1100px) { .selo-canto { display: none; } }
     /* frase da Hero (à esquerda, acima dos botões) */
-    .ab-texto { width: min(400px, 32vw); bottom: clamp(72px, 11vh, 110px); }
+    .ab-texto { left: clamp(24px, 5vw, 80px); width: min(400px, 32vw); bottom: clamp(72px, 11vh, 110px); }   /* mais longe da foto */
     .ab-texto .botoes { gap: 12px; }
 
     /* ===== redesign: títulos das seções ===== */
