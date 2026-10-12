@@ -255,7 +255,7 @@
 
     /* sobre */
     .sobre .miolo { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
-    .retrato { aspect-ratio: 4/5; border-radius: 28px; overflow: hidden; background: radial-gradient(90% 70% at 50% 30%, #6fb2f0 0%, #1d5fd0 48%, #0c2a6b 100%); box-shadow: 0 30px 80px rgba(10,30,70,.28); }
+    .retrato { aspect-ratio: 4/5; border-radius: 24px; overflow: hidden; background: #f4f4f4; box-shadow: 0 30px 80px rgba(10,30,70,.25); }
     .retrato img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
     /* efeito de revelar na foto: o "lado dev" aparece embaixo do cursor */
     .retrato { position: relative; }
@@ -269,11 +269,6 @@
     .retrato-dev::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px); background-size: 28px 28px; }
     .retrato-tag { position: absolute; z-index: 1; top: 16px; left: 16px; padding: 4px 8px; border-radius: 4px; background: var(--noite); color: var(--ciano); font: 500 12px/1 ui-monospace, Consolas, monospace; white-space: nowrap; }
     .sobre p { color: var(--cinza); margin-top: 16px; max-width: 50ch; font-size: 16.5px; line-height: 1.6; }
-    .sobre-dados { margin-top: 30px; border-top: 1px solid var(--linha); max-width: 520px; }
-    .sobre-dados div { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--linha); }
-    .sobre-dados dt { font: 600 10.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--cinza-2); }
-    .sobre-dados dd { font-size: 15px; font-weight: 500; color: var(--texto); }
-    @media (max-width: 520px) { .sobre-dados div { grid-template-columns: 1fr; gap: 6px; } }
     .pilulas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 30px; }
     .pilula { padding: 22px 20px; border-radius: 22px; background: var(--vidro); border: 1px solid rgba(255,255,255,.5); backdrop-filter: blur(10px); }
     .pilula.preta { background: var(--escuro); color: #fff; }
@@ -881,7 +876,7 @@
 
   <section id="sobre" class="sobre">
     <div class="miolo">
-      <div class="retrato rev"><img src="img/guilherme-recorte.webp" alt="Foto do Guilherme sorrindo" /><div class="retrato-dev" aria-hidden="true"><div class="retrato-codigo"><pre>// Carregando: anéis ondulados se abrem, o arco fecha junto com 0 -&gt; 1
+      <div class="retrato rev"><img src="img/guilherme.jpg" alt="Guilherme" /><div class="retrato-dev" aria-hidden="true"><div class="retrato-codigo"><pre>// Carregando: anéis ondulados se abrem, o arco fecha junto com 0 -&gt; 1
 (() =&gt; {
 const tela = document.getElementById(&quot;carregando&quot;), pct = document.get
 const letras = document.getElementById(&quot;letras&quot;);
@@ -1001,16 +996,12 @@ requestAnimationFrame(passo);
 // Questionário: intercepta os botões de orçamento e monta a mensagem 
 (() =&gt; {
 const quiz = document.getElementById(&quot;quiz&quot;), passos = [...quiz.queryS
-const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="img/guilherme-recorte.webp" alt="" /><span class="retrato-tag">div.guilherme · dev</span></div></div>
+const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="img/guilherme.jpg" alt="" /><span class="retrato-tag">div.guilherme · dev</span></div></div>
       <div class="rev">
         <div class="rotulo">[ 01 ] SOBRE</div>
         <h2>Quem desenha o seu site é quem <em>coloca ele no ar.</em></h2>
         <p>Sou o Guilherme, designer de interfaces aqui de Timóteo. Antes de abrir qualquer programa, quero entender o seu negócio e quem compra de você.</p>
         <p>Depois eu desenho cada tela, monto o design system e escrevo o código. Como tudo passa pela mesma mão, nada se perde entre a ideia e o site pronto.</p>
-        <dl class="sobre-dados">
-          <div><dt>Ferramentas</dt><dd>GSAP · Three.js · Lenis · Vite · Node.js</dd></div>
-          <div><dt>Atendo</dt><dd>Timóteo, Coronel Fabriciano, Ipatinga e online</dd></div>
-        </dl>
       </div>
     </div>
   </section>
