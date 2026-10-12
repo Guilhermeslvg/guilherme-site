@@ -839,6 +839,32 @@
       .so-mouse { display: none; }
     }
 
+    /* projetos: faixa curva com as capas passando (porta do TiltedGridHero) */
+    #projetos { padding: 0; }
+    .proj-arco { position: relative; height: 100vh; height: 100svh; min-height: 620px; max-height: 1000px; overflow: hidden; container-type: size; }
+    .arco-faixa { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .5s; }
+    .arco-faixa.pronta { opacity: 1; }
+    .arco-capa { position: absolute; transform-style: preserve-3d; }
+    .arco-tira { position: absolute; top: 0; overflow: hidden; background: var(--noite); }
+    .arco-tira.ini { border-radius: 14px 0 0 14px; } .arco-tira.fim { border-radius: 0 14px 14px 0; }
+    .arco-tira img { position: absolute; top: 0; max-width: none; object-fit: cover; display: block; }
+    .arco-conteudo { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 20px; padding: 104px 20px 44px; text-align: center; pointer-events: none; }
+    .arco-conteudo > * { pointer-events: auto; }
+    .arco-topo p { margin-top: 12px; color: var(--cinza); }
+    .arco-topo .rotulo { margin-bottom: 12px; }
+    .arco-links { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 980px; }
+    .arco-links a { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 7px 18px 7px 7px; border-radius: 999px; text-align: left; text-decoration: none; color: var(--texto);
+      background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); box-shadow: 0 12px 30px rgba(12,42,107,.14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: transform .3s, box-shadow .3s; }
+    .arco-links a:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(44,211,242,.5), 0 16px 34px rgba(12,42,107,.18); }
+    .arco-links a:focus-visible { outline: 2px solid var(--ciano); outline-offset: 3px; }
+    .arco-links img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; background: #161616; flex: none; }
+    .arco-links b { display: block; font-size: 14.5px; font-weight: 700; line-height: 1.2; }
+    .arco-links small { display: block; font-size: 12px; color: var(--cinza); }
+    .arco-links a::after { content: "↗"; margin-left: 4px; color: var(--claro); font-weight: 700; }
+    .arco-links .cta a { padding-left: 20px; color: #fff; background: var(--escuro); border-color: var(--escuro); }
+    .arco-links .cta small { color: var(--bebe); } .arco-links .cta a::after { content: "→"; color: var(--ciano); }
+    @media (max-width: 820px) { .proj-arco { min-height: 680px; } .arco-conteudo { padding: 88px 16px 28px; } .arco-links { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 8px; } .arco-links a { min-height: 48px; padding-right: 12px; } .arco-links b { font-size: 13px; } .arco-links small { font-size: 11px; } }
+
     /* contato: texto de um lado, a conversa no celular do outro */
     .contato { text-align: left; }
     .contato-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: 64px; align-items: center; }
@@ -1234,57 +1260,20 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
   </section>
 
   <section id="projetos">
-    <div class="proj-palco" id="proj-palco">
-      <div class="miolo">
-        <div class="cabeca rev">
-          <div><div class="rotulo">[ <b>03</b> ] PROJETOS</div><h2>Meus projetos no <em>ar.</em></h2></div>
+    <div class="proj-arco" id="proj-arco">
+      <div class="arco-faixa" id="arco-faixa" aria-hidden="true"></div>
+      <div class="arco-conteudo">
+        <div class="arco-topo">
+          <div class="rotulo">[ <b>03</b> ] PROJETOS</div>
+          <h2>Meus projetos no <em>ar.</em></h2>
           <p>Sites que fiz e que estão funcionando agora.</p>
         </div>
-      </div>
-      <div class="trilho-janela" id="trilho-janela">
-        <div class="trilho" id="trilho" aria-label="Meus projetos no ar">
-          <article class="cartao-proj" data-tec="Three.js|Vite|Lenis|Anime.js" data-cursor="Abrir o site">
-            <img src="img/capa-maison.jpg" alt="Capa da Maison Lourée: frascos Rose Dorée e Lourée Noir sobre uma mesa de pedra escura" style="--foco: 60% 70%; --foco-cel: 88% 70%" draggable="false" />
-            <div class="cartao-n"><span>Perfumaria</span><span class="cartao-url">maisonlouree.com.br</span></div>
-            <div class="legenda">
-              <span class="icone"><img src="img/logo-maison.png" alt="Logo da Maison Lourée" /></span>
-              <span class="txt"><b>Maison Lourée</b><small>Loja de perfumes</small><span class="tec"><i>Three.js</i><i>Vite</i><i>Lenis</i><i>Anime.js</i></span><span class="resolve">Apresenta os dois perfumes da marca e leva o cliente direto para a compra.</span></span>
-              <span class="acoes"><a class="abrir" href="https://maisonlouree.com.br/" target="_blank" rel="noopener">Abrir o site</a></span>
-            </div>
-          </article>
-          <article class="cartao-proj" data-tec="" data-cursor="Abrir o site">
-            <img src="img/capa-rumogo.jpg" alt="Capa do Rumo'Go: carro com faróis acesos numa avenida à noite" style="--foco: 62% 55%; --foco-cel: 58% 55%" draggable="false" />
-            <div class="cartao-n"><span>Rastreamento veicular</span><span class="cartao-url">protec.nexobg.com.br</span></div>
-            <div class="legenda">
-              <span class="icone"><img src="img/logo-rumogo.png" alt="Logo do Rumo'Go" /></span>
-              <span class="txt"><b>Rumo'Go</b><small>Rastreamento veicular</small><span class="resolve">Apresenta os planos de rastreamento e leva o cliente direto para o app.</span></span>
-              <span class="acoes"><a class="abrir" href="https://protec.nexobg.com.br/" target="_blank" rel="noopener">Abrir o site</a></span>
-            </div>
-          </article>
-          <article class="cartao-proj" data-tec="Node.js|SQLite|Lenis" data-cursor="Abrir o site">
-            <img src="img/capa-rosa.jpg" alt="Capa do Outubro Rosa da Clínica Dias: cruz rosa com a fita da campanha dentro de um círculo" style="--foco: 80% 50%; --foco-cel: 76% 50%" draggable="false" />
-            <div class="cartao-n"><span>Campanha de saúde</span><span class="cartao-url">outubrorosa.clinicadias.com</span></div>
-            <div class="legenda">
-              <span class="icone"><img src="img/logo-rosa.png" alt="Símbolo da Clínica Dias: cruz com a fita rosa" style="background: #fff" /></span>
-              <span class="txt"><b>Outubro Rosa</b><small>Campanha da Clínica Dias</small><span class="tec"><i>Node.js</i><i>SQLite</i><i>Lenis</i></span><span class="resolve">Divulga o pacote promocional da campanha e leva a paciente direto para agendar no WhatsApp.</span></span>
-              <span class="acoes"><a class="abrir" href="https://outubrorosa.clinicadias.com/" target="_blank" rel="noopener">Abrir o site</a></span>
-            </div>
-          </article>
-          <article class="cartao-proj cartao-fim">
-            <div class="cartao-n"><span>Próximo projeto</span></div>
-            <h3>O próximo site no ar pode ser o seu.</h3>
-            <p>Me conta a ideia e eu te mando prazo e preço fechado.</p>
-            <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20or%C3%A7amento"><span class="rot" data-t="Pedir orçamento">Pedir orçamento</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
-          </article>
-        </div>
-      </div>
-      <div class="miolo">
-        <div class="trilho-nav">
-          <button type="button" class="tn-seta" id="tn-ant" aria-label="Projeto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-          <button type="button" class="tn-seta tn-prox" id="tn-prox" aria-label="Próximo projeto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-          <span class="tn-conta" id="gal-conta" aria-live="polite">01 / 03</span><span class="sr" id="trilho-rot">Projeto 01</span>
-          <div class="trilho-linha" id="trilho-linha" aria-hidden="true"><i></i><b></b></div>
-        </div>
+        <ul class="arco-links">
+          <li><a href="https://maisonlouree.com.br/" target="_blank" rel="noopener"><img src="img/logo-maison.png" alt="" /><span><b>Maison Lourée</b><small>Loja de perfumes</small></span></a></li>
+          <li><a href="https://protec.nexobg.com.br/" target="_blank" rel="noopener"><img src="img/logo-rumogo.png" alt="" /><span><b>Rumo'Go</b><small>Rastreamento veicular</small></span></a></li>
+          <li><a href="https://outubrorosa.clinicadias.com/" target="_blank" rel="noopener"><img src="img/logo-rosa.png" alt="" style="background: #fff" /><span><b>Outubro Rosa</b><small>Campanha da Clínica Dias</small></span></a></li>
+          <li class="cta"><a href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20or%C3%A7amento"><span><b>O próximo pode ser o seu</b><small>Pedir orçamento</small></span></a></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -1806,6 +1795,71 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     requestAnimationFrame(() => { ScrollTrigger.sort(); ScrollTrigger.refresh(); });   // as travas da Hero e dos projetos são criadas depois: reordena pela posição na página
   })();
 
+  // projetos: faixa curva. As capas passam da direita para a esquerda por dentro de um cilindro; o centro fica de frente
+  // e as pontas curvam na direção de quem vê e somem nas bordas. Cada capa é cortada em tiras verticais (uma caixa CSS
+  // não curva), cada tira girada alguns graus em volta do eixo; a capa inteira gira junto, então as tiras nunca se separam.
+  (() => {
+    const caixa = document.getElementById("proj-arco"), faixa = document.getElementById("arco-faixa");
+    if (!caixa || !faixa || !("ResizeObserver" in window)) return;
+    const IMAGENS = ["img/capa-maison.jpg", "img/capa-rumogo.jpg", "img/capa-rosa.jpg"];
+    const TIRAS = 16, CAMERA = 1.6, LARG_MAX = 55;            // tiras por capa; câmera em raios do cilindro; capa nunca passa de 55% da largura
+    const VEL = 4, ALTURA = 30, ASPECTO = 16 / 10, VAO = 6, EIXO = 52, CURVA = 76, FADE = 11;
+    const curva = (Math.min(85, Math.max(5, CURVA)) * Math.PI) / 180;
+    // raio do cilindro, em fração da largura, que põe a borda da tela `b` radianos em volta do arco
+    const arco = (b) => (CAMERA - 1 + Math.cos(b)) / (2 * CAMERA * Math.sin(b));
+    function medir(w, h) {
+      const alt = Math.min((ALTURA / 100) * h, ((LARG_MAX / 100) * w) / ASPECTO), raio = w * arco(curva);
+      if (!(alt > 0) || !(raio > 0)) return { colunas: 2, volta: 0, unidade: 0, limite: 0 };
+      const graus = (r) => (r * 180) / Math.PI, arred = (n) => +n.toFixed(4);
+      const unidade = graus(alt / raio), passo = (ASPECTO + VAO / 100) * unidade, limite = graus(curva) + (ASPECTO * unidade) / 2;
+      const colunas = Math.min(60, Math.max(2, Math.ceil((2 * limite) / passo)));
+      const volta = arred((colunas * passo) / 2);
+      return { colunas, volta, unidade: arred(unidade), limite: arred(Math.min(volta, limite)) };
+    }
+    IMAGENS.forEach((s) => { new Image().src = s; });
+    const u = (n) => `calc(${+n.toFixed(4)} * min(${ALTURA}cqh, ${+(LARG_MAX / ASPECTO).toFixed(4)}cqw))`;
+    const r = 100 * arco(curva), raio = `${+r.toFixed(3)}cqw`;
+    const girar = (g) => `translateZ(${raio}) rotateY(${+g.toFixed(4)}deg) translateZ(-${raio})`;
+    const mascara = `linear-gradient(90deg,transparent,#000 ${FADE}%,#000 ${100 - FADE}%,transparent)`;
+    Object.assign(faixa.style, { perspective: `${+(r * CAMERA).toFixed(3)}cqw`, perspectiveOrigin: `50% ${EIXO}%`, maskImage: mascara, webkitMaskImage: mascara });
+    const estilo = document.createElement("style"); document.head.append(estilo);
+    let atual = null;
+    function montar({ colunas, volta, unidade, limite }) {
+      const some = +(((volta - limite) / (2 * volta || 1)) * 100).toFixed(4);   // fora da tela a capa fica escondida (é onde ela recomeça)
+      estilo.textContent = `@keyframes arco-giro{from{transform:${girar(-volta)}}to{transform:${girar(volta)}}` +
+        `0%,${some}%,${100 - some}%,100%{visibility:hidden}${some + .001}%,${100 - some - .001}%{visibility:visible}}` +
+        `@media(prefers-reduced-motion:reduce){.arco-capa{animation-play-state:paused}}`;
+      const fatia = ASPECTO / TIRAS, duracao = colunas * VEL;
+      faixa.replaceChildren();
+      for (let c = 0; c < colunas; c++) {
+        const primeira = colunas - 1 - c;
+        const capa = document.createElement("div"); capa.className = "arco-capa";
+        Object.assign(capa.style, { left: `calc(50% - ${u(ASPECTO / 2)})`, top: `calc(${EIXO}% - ${u(.5)})`, width: u(ASPECTO), height: u(1), animation: `arco-giro ${duracao}s linear ${-c * VEL}s infinite` });
+        const imgs = [];
+        for (let k = 0; k < TIRAS; k++) {
+          const tira = document.createElement("div");
+          tira.className = "arco-tira" + (k === 0 ? " ini" : "") + (k === TIRAS - 1 ? " fim" : "");
+          Object.assign(tira.style, { left: u((ASPECTO - fatia) / 2), width: k === TIRAS - 1 ? u(fatia) : `calc(${u(fatia)} + 1px)`, height: u(1), transform: girar((ASPECTO / 2 - (k + .5) * fatia) * unidade) });
+          const im = document.createElement("img"); im.src = IMAGENS[primeira % IMAGENS.length]; im.alt = ""; im.draggable = false;
+          Object.assign(im.style, { left: u(-k * fatia), width: u(ASPECTO), height: u(1) });
+          tira.append(im); capa.append(tira); imgs.push(im);
+        }
+        // quando a capa dá a volta (fora da tela), recebe a próxima imagem da lista
+        capa.addEventListener("animationiteration", (e) => {
+          const src = IMAGENS[(Math.round(e.elapsedTime / duracao) * colunas + primeira) % IMAGENS.length];
+          imgs.forEach((im) => { if (im.getAttribute("src") !== src) im.src = src; });
+        });
+        faixa.append(capa);
+      }
+      faixa.classList.add("pronta");
+    }
+    new ResizeObserver(([e]) => {
+      const n = medir(e.contentRect.width, e.contentRect.height);
+      if (atual && atual.colunas === n.colunas && atual.volta === n.volta && atual.unidade === n.unidade) return;
+      atual = n; montar(n);
+    }).observe(caixa);
+  })();
+
   // serviços: o item ativo mostra o exemplo no painel da direita (mouse, foco ou pontinhos)
   (() => {
     const lista = document.getElementById("servicos-lista"), img = document.getElementById("serv-img"), url = document.getElementById("serv-url"), pontos = [...document.querySelectorAll("#serv-pontos button")];
@@ -1986,55 +2040,6 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       new IntersectionObserver((es, o) => es.forEach((e) => { if (e.isIntersecting) { painel.classList.add("vivo"); o.disconnect(); } }), { threshold: .25 }).observe(painel);
       if (comMouse && !semMovimento) painel.addEventListener("pointermove", (e) => { const r = painel.getBoundingClientRect(); painel.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%"); painel.style.setProperty("--gy", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%"); }, { passive: true });
     }
-
-    // projetos: no computador a seção trava e a fila anda para o lado; no celular é arrastar com o dedo
-    const janela = document.getElementById("trilho-janela"), trilho = document.getElementById("trilho"), linha = document.getElementById("trilho-linha");
-    const cartoes = [...trilho.querySelectorAll(".cartao-proj")], NP = cartoes.filter((c) => !c.classList.contains("cartao-fim")).length;
-    const conta = document.getElementById("gal-conta"), rot = document.getElementById("trilho-rot");
-    const dois = (n) => String(n).padStart(2, "0");
-    let atualProj = 0;
-    const marcar = (p) => {
-      linha.style.setProperty("--p", p.toFixed(4));
-      const i = Math.round(p * (cartoes.length - 1)); atualProj = i;
-      conta.textContent = dois(Math.min(i + 1, NP)) + " / " + dois(NP);
-      rot.textContent = i < NP ? "Projeto " + dois(i + 1) : "Seu projeto";
-    };
-    let horiz = null;
-    const dist = () => Math.max(0, trilho.scrollWidth - janela.clientWidth);
-    if (anima) {
-      g.matchMedia().add("all", () => {
-        html.classList.add("proj-h"); janela.scrollLeft = 0;
-        const tw = g.to(trilho, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: "#proj-palco", start: "top top", end: () => "+=" + dist(), pin: true, scrub: .6, invalidateOnRefresh: true, onUpdate: (s) => marcar(s.progress) } });
-        cartoes.forEach((c) => { const im = c.querySelector(":scope > img"); if (im) g.fromTo(im, { xPercent: -4 }, { xPercent: 4, ease: "none", scrollTrigger: { trigger: c, containerAnimation: tw, start: "left right", end: "right left", scrub: true } }); });
-        horiz = tw.scrollTrigger;
-        return () => { html.classList.remove("proj-h"); horiz = null; };
-      });
-    }
-    janela.addEventListener("scroll", () => { if (!horiz) marcar(janela.scrollLeft / Math.max(1, janela.scrollWidth - janela.clientWidth)); }, { passive: true });
-    // teclado: ao focar um botão de um cartão fora da tela, rola a página até ele aparecer
-    janela.addEventListener("focusin", (e) => {
-      if (!horiz) return;
-      const c = e.target.closest(".cartao-proj"); if (!c) return;
-      janela.scrollLeft = 0;
-      const q = Math.min(1, Math.max(0, (c.offsetLeft - (janela.clientWidth - c.offsetWidth) / 2) / Math.max(1, dist())));
-      const y = horiz.start + q * (horiz.end - horiz.start);
-      lenis ? lenis.scrollTo(y, { immediate: true }) : scrollTo(0, y);
-    });
-    marcar(0);
-    const irPara = (k) => {
-      k = Math.max(0, Math.min(cartoes.length - 1, k));
-      if (horiz) { const y = horiz.start + (k / (cartoes.length - 1)) * (horiz.end - horiz.start); lenis ? lenis.scrollTo(y, { duration: 1.1 }) : scrollTo({ top: y, behavior: "smooth" }); }
-      else janela.scrollTo({ left: cartoes[k].offsetLeft - (janela.clientWidth - cartoes[k].offsetWidth) / 2, behavior: semMovimento ? "auto" : "smooth" });
-    };
-    document.getElementById("tn-ant").addEventListener("click", () => irPara(atualProj - 1));
-    document.getElementById("tn-prox").addEventListener("click", () => irPara(atualProj + 1));
-
-    // clicar em qualquer parte do cartão abre o site do projeto numa aba nova
-    trilho.addEventListener("click", (e) => {
-      const p = e.target.closest(".cartao-proj");
-      if (!p || p.classList.contains("cartao-fim") || e.target.closest("a")) return;
-      const a = p.querySelector(".abrir"); if (a) window.open(a.href, "_blank", "noopener");
-    });
 
     // o questionário também trava a rolagem macia enquanto está aberto
     const quiz = document.getElementById("quiz");
