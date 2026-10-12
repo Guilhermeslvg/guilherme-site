@@ -948,7 +948,8 @@
     @media (max-width: 820px) {
       .miolo { padding: 0 20px; }
       .nav { display: none; }
-      .cabeca, .sobre .miolo { grid-template-columns: 1fr; gap: 24px; }
+      .cabeca, .sobre .miolo { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+      .lab { flex-wrap: wrap; }
       section { padding: 60px 0; }
       .linhas summary { grid-template-columns: 34px 1fr 36px; }
       .linhas .p { display: none; }
@@ -963,6 +964,7 @@
     @media (prefers-reduced-motion: reduce) { .rev { opacity: 1; transform: none; } }
   </style>
   <script>try { if (sessionStorage.getItem("abertura-vista")) document.documentElement.classList.add("sem-abertura"); } catch (e) {}</script>
+  <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";   // recarregar volta ao topo: a Hero presa não se perde no meio</script>
 </head>
 <body class="carregando-ativo">
   <div class="fundo" aria-hidden="true"><i></i><canvas class="fundo-metal" id="fundo-metal"></canvas><b id="toque"></b></div>
@@ -1937,7 +1939,6 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     letras.closest("h1").setAttribute("aria-label", "Prazer, sou Guilherme");
     letras.innerHTML = [...NOME].map((c, k) => '<i style="--k:' + k + '"><b>' + c + "</b></i>").join("");
     const bs = [...letras.querySelectorAll("b")];
-    const arm = new Image(); arm.onload = () => { holo.src = arm.src; holo.classList.add("real"); }; arm.src = holo.dataset.armadura;   // foto com armadura de verdade, quando existir em img/
     // letras se embaralham em símbolos e voltam ao nome, da esquerda para a direita
     const SIMBOLOS = "01<>/{}[]#=+*%&$";
     let embaralhando = null;
@@ -1955,7 +1956,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       html.classList.add("anima");
       const fotos = document.getElementById("ab-fotos"), scan = document.getElementById("ab-scan"), q = (s) => "#ab-armadura " + s;
       g.set(q(".arm-peca, .arm-nucleo"), { transformOrigin: "50% 50%" });
-      const tl = g.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: abPalco, start: "top top", end: "+=320%", pin: true, scrub: 1.1,
+      const tl = g.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: abPalco, start: "top top", end: "+=320%", pin: true, scrub: 1.1, anticipatePin: 1,
         onUpdate(s) {
           const a = s.progress > .2 && s.progress < .9;   // tela escura só no meio da transformação
           if (a !== heroAtivo) { heroAtivo = a; embaralhar(); }
@@ -1984,16 +1985,21 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         const cv = document.getElementById("ab-video"), ctx = cv.getContext("2d");
         cv.width = q.w; cv.height = q.h; ctx.imageSmoothingQuality = "high";
         const quadros = Array.from({ length: q.n }, (_, k) => { const im = new Image(); im.src = "img/armadura/q" + String(k + 1).padStart(3, "0") + ".webp"; return im; });
-        const estado = { f: 0 };
+        // o quadro sai direto do ponto da linha do tempo (0,04 a 0,79), então foto e armadura sempre batem com a rolagem,
+        // indo, voltando ou recarregando no meio
+        const pronto = (k) => quadros[k].complete && quadros[k].naturalWidth > 0;
+        let ultimo = -1;
         const desenhar = () => {
-          let k = Math.round(estado.f); while (k > 0 && !quadros[k].complete) k--;   // ainda carregando: usa o último quadro pronto
-          const im = quadros[k]; if (!im.complete || !im.naturalWidth) return;
+          const alvo = Math.round(Math.min(1, Math.max(0, (tl.time() - .04) / .75)) * (q.n - 1));
+          let k = alvo;
+          if (!pronto(k)) for (let d = 1; d < q.n; d++) { if (alvo - d >= 0 && pronto(alvo - d)) { k = alvo - d; break; } if (alvo + d < q.n && pronto(alvo + d)) { k = alvo + d; break; } }
+          if (!pronto(k) || k === ultimo) return;
+          ultimo = k;
           ctx.clearRect(0, 0, cv.width, cv.height);
-          ctx.drawImage(im, 0, 0, cv.width, cv.height);
+          ctx.drawImage(quadros[k], 0, 0, cv.width, cv.height);
         };
-        quadros[0].onload = () => { html.classList.add("com-video"); desenhar(); };
-        tl.to(estado, { f: q.n - 1, duration: .75, ease: "none", onUpdate: desenhar }, .04);
-        ST.refresh();
+        quadros.forEach((im, k) => { im.onload = () => { if (k === 0) html.classList.add("com-video"); ultimo = -1; desenhar(); }; });
+        tl.eventCallback("onUpdate", desenhar);
       }).catch(() => {});
 
       // brilho que passa pelas letras de tempos em tempos
@@ -2035,7 +2041,9 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
 
     // Jarvis e dúvidas abrem e mudam a altura da página: recalcula as posições
     let espera = null;
-    new ResizeObserver(() => { clearTimeout(espera); espera = setTimeout(() => ST.refresh(), 250); }).observe(document.querySelector("main") || document.body);
+    // recalcular no meio da rolagem faz a página pular: espera ela parar
+    const recalcular = () => { if (window.lenis?.isScrolling) { espera = setTimeout(recalcular, 200); return; } ST.refresh(); };
+    new ResizeObserver(() => { clearTimeout(espera); espera = setTimeout(recalcular, 250); }).observe(document.querySelector("main") || document.body);
 
     if (!comMouse) return;
     // 2. cursor: ponto na hora, anel com atraso; texto em cima dos projetos
