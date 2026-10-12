@@ -587,6 +587,9 @@
     .zap-barra input:disabled { opacity: .6; }
     .como { grid-template-columns: 1fr; }
     .como-texto ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 32px; }
+    .como-texto ol li { grid-template-columns: 1fr; gap: 10px; padding: 24px 0; }
+    .como-texto ol li::before { font: 800 clamp(44px, 5vw, 64px)/1 "Outfit", sans-serif; letter-spacing: -.04em; color: var(--claro); padding: 0; }
+    .como-texto ol li b { font-size: 18px; margin-bottom: 4px; }
     @media (max-width: 820px) { .contato-grade { grid-template-columns: 1fr; gap: 36px; } .como-texto ol { grid-template-columns: 1fr; } }
 
     /* contato */
@@ -1061,19 +1064,10 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
           <h2>Do primeiro “oi” ao site no ar.</h2>
           <p>Três passos, tudo pelo WhatsApp.</p>
           <ol id="etapas">
-            <li><span><b>Conversa e orçamento</b>Você conta a ideia e recebe prazo e preço fechado.</span></li>
-            <li><span><b>Sinal e mão na massa</b>Aprovou, paga o sinal e eu começo. Você opina no caminho.</span></li>
-            <li><span><b>No ar e aprovado</b>Você confere tudo no ar e só então paga o restante.</span></li>
+            <li><span><b>Conversa e orçamento</b>Prazo e preço fechados antes de começar.</span></li>
+            <li><span><b>Sinal e mão na massa</b>Você acompanha e opina no caminho.</span></li>
+            <li><span><b>No ar e aprovado</b>O restante só depois de tudo no ar.</span></li>
           </ol>
-        </div>
-      </div>
-      <div class="duvidas rev">
-        <div><h3>Dúvidas rápidas</h3><p>O que quase todo mundo pergunta antes de começar.</p><a class="zap-duvida" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20tenho%20uma%20d%C3%BAvida">Perguntar outra coisa no WhatsApp</a></div>
-        <div class="perguntas" id="perguntas">
-          <details><summary>Quanto tempo leva?<i aria-hidden="true"></i></summary><div class="resp"><p>Depende do tamanho do projeto. Os mais simples ficam prontos em poucos dias, e o prazo certo já vem escrito no orçamento.</p></div></details>
-          <details><summary>Como é o pagamento?<i aria-hidden="true"></i></summary><div class="resp"><p>Um sinal quando você aprova o orçamento e o restante só quando estiver no ar e aprovado por você.</p></div></details>
-          <details><summary>Domínio e hospedagem ficam por minha conta?<i aria-hidden="true"></i></summary><div class="resp"><p>Eu cuido de registrar o domínio e colocar o site no ar. O que tiver de custo com isso já entra no orçamento, para você não ter surpresa.</p></div></details>
-          <details><summary>Dá para mudar alguma coisa depois?<i aria-hidden="true"></i></summary><div class="resp"><p>Dá. Ajustes de texto, foto ou preço depois de pronto é só me chamar no WhatsApp.</p></div></details>
         </div>
       </div>
     </div>
