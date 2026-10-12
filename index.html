@@ -319,10 +319,21 @@
     .cartao-proj:not(.cartao-fim) { transition: translate .5s cubic-bezier(.22,1,.36,1), box-shadow .5s; outline: 1px solid rgba(212,234,255,.1); outline-offset: -1px; }
     .cartao-proj:not(.cartao-fim):hover { translate: 0 -6px; box-shadow: 0 40px 80px rgba(6,17,43,.35), 0 0 0 1px rgba(44,211,242,.35); }
     .cartao-proj:hover > img { scale: 1.04; filter: saturate(1.2) contrast(1.06); }
+    /* topo do cartão: ramo do negócio e o endereço real do site */
+    .cartao-n { align-items: center; font: 600 10.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .14em; }
+    .cartao-n span:first-child { padding: 6px 10px; border-radius: 999px; color: #fff; background: rgba(6,17,43,.55); border: 1px solid rgba(212,234,255,.2); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    .cartao-n .cartao-url { letter-spacing: .02em; text-transform: none; font-weight: 500; color: rgba(255,255,255,.82); }
+    .cartao-n .cartao-url::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: var(--ciano); vertical-align: 1px; }
+    /* celular que sobe de dentro do cartão tocando o site (só com mouse) */
+    .cartao-cel { position: absolute; right: 26px; top: 12%; z-index: 1; height: 62%; aspect-ratio: 390 / 844; padding: 5px; border-radius: 22px; background: #040915; pointer-events: none;
+      box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(212,234,255,.18); opacity: 0; transform: translateY(40px) rotate(4deg); transition: opacity .45s, transform .7s cubic-bezier(.22,1,.36,1); }
+    .cartao-cel video { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; border-radius: 17px; background: #000; }
+    .cartao-proj:hover .cartao-cel, .cartao-proj:focus-within .cartao-cel { opacity: 1; transform: translateY(0) rotate(-3deg); }
+    @media (max-width: 820px), (pointer: coarse) { .cartao-cel { display: none; } }
+    @media (prefers-reduced-motion: reduce) { .cartao-cel { transition: none; } }
     .cartao-proj .tec { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .cartao-proj .tec i { font: 600 10.5px/1 ui-monospace, Consolas, monospace; font-style: normal; letter-spacing: .08em; padding: 5px 8px; border-radius: 6px; color: var(--bebe); background: rgba(212,234,255,.1); border: 1px solid rgba(212,234,255,.18); }
     .cartao-n { position: absolute; top: 20px; left: 24px; right: 24px; display: flex; justify-content: space-between; font: 600 11px/1 ui-monospace, Consolas, monospace; letter-spacing: .2em; text-transform: uppercase; color: var(--bebe); }
-    .cartao-n span:last-child { color: var(--ciano); }
     .cartao-proj .legenda { position: absolute; left: 24px; right: 24px; bottom: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
     .cartao-proj .icone { flex: none; width: 52px; height: 52px; padding: 3px; border-radius: 50%; display: grid; place-items: center; background: #fff; box-shadow: 0 8px 22px rgba(0,0,0,.28); }
     .cartao-proj .icone img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #161616; display: block; }
@@ -1076,7 +1087,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
              data-video="img/projeto-maison.mp4" data-poster="img/projeto-maison.jpg"
              data-itens="Frascos Rose Dorée e Lourée Noir em 3D|Toque no perfume para “borrifar” na tela|Som ambiente que liga e desliga|Carrinho e compra no próprio site">
             <img src="img/capa-maison.jpg" alt="Capa da Maison Lourée: frascos Rose Dorée e Lourée Noir sobre uma mesa de pedra escura" style="--foco: 60% 70%; --foco-cel: 88% 70%" draggable="false" />
-            <div class="cartao-n"><span>01 // Perfumaria</span><span>no ar</span></div>
+            <div class="cartao-n"><span>Perfumaria</span><span class="cartao-url">maisonlouree.com.br</span></div><div class="cartao-cel" aria-hidden="true"><video muted loop playsinline preload="none" poster="img/projeto-maison.jpg" data-src="img/projeto-maison.mp4" data-inicio="4.5"></video></div>
             <div class="legenda">
               <span class="icone"><img src="img/logo-maison.png" alt="Logo da Maison Lourée" /></span>
               <span class="txt"><b>Maison Lourée</b><small>Perfumaria em Timóteo, MG</small><span class="tec"><i>Three.js</i><i>Vite</i><i>Lenis</i><i>Anime.js</i></span><span class="resolve">Apresenta os dois perfumes da marca e leva o cliente direto para a compra.</span></span>
@@ -1088,7 +1099,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
              data-video="img/projeto-rumogo.mp4" data-poster="img/projeto-rumogo.jpg"
              data-itens="Vídeo de um carro na estrada à noite na abertura|Recursos: posição ao vivo, bloqueio remoto, alertas|Como funciona em 4 passos e os planos|Entrada para o app e para a área do cliente">
             <img src="img/capa-rumogo.jpg" alt="Capa do Rumo'Go: carro com faróis acesos numa avenida à noite" style="--foco: 62% 55%; --foco-cel: 58% 55%" draggable="false" />
-            <div class="cartao-n"><span>02 // Rastreamento</span><span>no ar</span></div>
+            <div class="cartao-n"><span>Rastreamento veicular</span><span class="cartao-url">protec.nexobg.com.br</span></div><div class="cartao-cel" aria-hidden="true"><video muted loop playsinline preload="none" poster="img/projeto-rumogo.jpg" data-src="img/projeto-rumogo.mp4"></video></div>
             <div class="legenda">
               <span class="icone"><img src="img/logo-rumogo.png" alt="Logo do Rumo'Go" /></span>
               <span class="txt"><b>Rumo'Go</b><small>Rastreamento veicular</small><span class="resolve">Apresenta os planos de rastreamento e leva o cliente direto para o app.</span></span>
@@ -1100,7 +1111,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
              data-video="img/projeto-rosa.mp4" data-poster="img/projeto-rosa.jpg"
              data-itens="Abertura com a cruz e a fita rosa da campanha|Pacote promocional dos exames|Time da clínica com a camiseta da campanha|Painel que conta visitas e cliques no WhatsApp">
             <img src="img/capa-rosa.jpg" alt="Capa do Outubro Rosa da Clínica Dias: cruz rosa com a fita da campanha dentro de um círculo" style="--foco: 80% 50%; --foco-cel: 76% 50%" draggable="false" />
-            <div class="cartao-n"><span>03 // Campanha</span><span>no ar</span></div>
+            <div class="cartao-n"><span>Campanha de saúde</span><span class="cartao-url">outubrorosa.clinicadias.com</span></div><div class="cartao-cel" aria-hidden="true"><video muted loop playsinline preload="none" poster="img/projeto-rosa.jpg" data-src="img/projeto-rosa.mp4"></video></div>
             <div class="legenda">
               <span class="icone"><img src="img/logo-rosa.png" alt="Símbolo da Clínica Dias: cruz com a fita rosa" style="background: #fff" /></span>
               <span class="txt"><b>Outubro Rosa</b><small>Campanha da Clínica Dias</small><span class="tec"><i>Node.js</i><i>SQLite</i><i>Lenis</i></span><span class="resolve">Divulga o pacote promocional da campanha e leva a paciente direto para agendar no WhatsApp.</span></span>
@@ -1108,7 +1119,7 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
             </div>
           </article>
           <article class="cartao-proj cartao-fim">
-            <div class="cartao-n"><span>04 // Próximo</span><span>em aberto</span></div>
+            <div class="cartao-n"><span>Próximo projeto</span></div>
             <h3>O próximo site no ar pode ser o seu.</h3>
             <p>Me conta a ideia e eu te mando prazo e preço fechado.</p>
             <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Guilherme%2C%20quero%20um%20or%C3%A7amento"><span class="rot" data-t="Pedir orçamento">Pedir orçamento</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
@@ -1638,6 +1649,16 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
       .to(estado, { letras: DOMINIO.length, duration: .08, onUpdate: () => { url.textContent = DOMINIO.slice(0, Math.round(estado.letras)); } }, .86)
       .to({}, { duration: .06 });
     requestAnimationFrame(() => { ScrollTrigger.sort(); ScrollTrigger.refresh(); });   // as travas da Hero e dos projetos são criadas depois: reordena pela posição na página
+  })();
+
+  // cartões: ao passar o mouse, o celular do cartão toca a gravação do site
+  (() => {
+    if (!matchMedia("(pointer: fine)").matches) return;
+    document.querySelectorAll(".cartao-proj").forEach((c) => {
+      const v = c.querySelector(".cartao-cel video"); if (!v) return;
+      c.addEventListener("pointerenter", () => { if (!v.src) v.src = v.dataset.src; v.currentTime = +(v.dataset.inicio || 0); if (!semMovimento) v.play().catch(() => {}); });
+      c.addEventListener("pointerleave", () => v.pause());
+    });
   })();
 
   // serviços: a prévia segue o mouse e inclina conforme a velocidade
