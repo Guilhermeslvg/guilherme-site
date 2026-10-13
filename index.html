@@ -828,6 +828,33 @@
     .fundo.com-metal b { z-index: 3; }
     html.com-metal .ab-noite { display: none; }   /* a Hero escura agora vem do próprio fundo */
 
+    /* miniatura do efeito na metade de cima do card */
+    .vt-trilho .vt-card { padding: 0; }
+    .vt-card .vt-card-en { transition: opacity .4s; } .vt-card:not(.on) .vt-card-en { opacity: 0; }
+    .vt-card-prev { position: relative; flex: none; display: grid; place-items: center; height: calc(var(--card-h) / 2); overflow: hidden; isolation: isolate;
+      background: radial-gradient(90% 80% at 50% 30%, color-mix(in srgb, var(--acento) 70%, transparent), transparent 75%), #06112b; }
+    .vt-card-prev .vt-card-n { position: absolute; top: 10px; left: 12px; }
+    .vt-card-nome { margin: 12px 12px 0; }
+    .vt-card-en { left: 12px; }
+    .vp-txt { font-family: "Outfit", "Inter", sans-serif; font-weight: 900; font-size: calc(var(--card-w) * .34); letter-spacing: -.04em; line-height: 1; --brilho-base: #d4eaff; --brilho-luz: #2cd3f2; }
+    .vp-mono { font-size: calc(var(--card-w) * .22); letter-spacing: .04em; }
+    .vp-peq { font-size: calc(var(--card-w) * .17); }
+    .vp-linhas { display: grid; gap: 7px; width: 62%; }
+    .vp-linhas i { height: 9px; border-radius: 9px; background: #d4eaff; animation: vp-sobe 2.6s cubic-bezier(.22,1,.36,1) infinite; }
+    .vp-linhas i:nth-child(2) { width: 82%; animation-delay: .12s; } .vp-linhas i:nth-child(3) { width: 58%; animation-delay: .24s; }
+    @keyframes vp-sobe { 0% { transform: translateY(14px); opacity: 0; } 25%, 80% { transform: none; opacity: 1; } 100% { opacity: 0; } }
+    .vp-botao { padding: 9px 18px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #06112b; background: linear-gradient(90deg, #d4eaff, #2cd3f2); box-shadow: 0 0 22px rgba(44,211,242,.5); animation: vp-puxa 2.4s ease-in-out infinite; }
+    @keyframes vp-puxa { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(8px, -5px); } 70% { transform: translate(-6px, 3px); } }
+    .vp-caixa { width: 58%; height: 58%; border-radius: 12px; background: rgba(212,234,255,.07); --borda-cor: #2cd3f2; }
+    .vp-luz { background: radial-gradient(60% 60% at 30% 30%, rgba(44,211,242,.35), transparent 70%), rgba(212,234,255,.06); box-shadow: inset 0 0 0 1.5px rgba(111,220,245,.55); animation: vp-luz 3s ease-in-out infinite alternate; background-size: 200% 200%; }
+    @keyframes vp-luz { to { background-position: 100% 100%; } }
+    .vp-tilt { background: linear-gradient(150deg, #1d5fd0, #0c2a6b); transform: perspective(300px) rotateY(-18deg) rotateX(8deg); box-shadow: 0 14px 28px rgba(0,0,0,.4); animation: vp-tilt 3s ease-in-out infinite alternate; }
+    @keyframes vp-tilt { to { transform: perspective(300px) rotateY(18deg) rotateX(-6deg); } }
+    .vp-cheio { position: absolute; inset: 0; z-index: -1; --aurora-fundo: #06112b; }
+    .vp-metal { background: radial-gradient(40% 30% at 30% 35%, #ffffff, transparent 70%), radial-gradient(50% 40% at 70% 65%, #4c9be8, transparent 70%), radial-gradient(60% 50% at 40% 80%, #0c2a6b, transparent 70%), #06112b; filter: blur(6px); animation: vp-metal 6s ease-in-out infinite alternate; }
+    @keyframes vp-metal { to { transform: scale(1.3) rotate(12deg); } }
+    @media (prefers-reduced-motion: reduce) { .vp-linhas i, .vp-botao, .vp-luz, .vp-tilt, .vp-metal { animation: none; } }
+
     /* efeitos: palco de tela inteira; o efeito em foco roda no fundo e a faixa de cards fica embaixo */
     #efeitos { padding: 0; border-top: 0; }
     .vt { --w: 1440px; --h: 900px; --card-h: 238px; --card-w: 178px; --vao: 8px; --pad: 24px;
@@ -1270,8 +1297,8 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
 
 
   <section id="efeitos">
-    <div class="vt" id="vt" tabindex="0" role="group" aria-roledescription="carrossel" aria-label="Biblioteca de efeitos">
-      <h2 class="sr">Biblioteca de efeitos</h2>
+    <div class="vt" id="vt" tabindex="0" role="group" aria-roledescription="carrossel" aria-label="Framework de efeitos">
+      <h2 class="sr">Framework de efeitos</h2>
       <div class="vt-fundos">
         <div class="vt-fundo on" style="--acento:#1d5fd0"><div class="vt-demo"><span class="vt-grande" data-efeito="brilho">Brilho</span></div></div>
         <div class="vt-fundo" style="--acento:#1aa5c9"><div class="vt-demo"><span class="vt-grande vt-mono" data-efeito="embaralhar" data-gatilho="sempre">GUILHERME</span></div></div>
@@ -1285,23 +1312,23 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
         <div class="vt-fundo" style="--acento:#5ec8f0"><div class="vt-cheio" data-efeito="metal" data-cores="#06112b,#0c2a6b,#4c9be8,#ffffff" data-veu=".9"></div></div>
       </div>
       <div class="vt-veu" aria-hidden="true"></div>
-      <div class="vt-topo"><span class="vt-rot">[ 03 ] EFEITOS</span><span class="vt-marca">guilherme/efeitos</span><a class="vt-link" href="https://github.com/Guilhermeslvg/efeitos" target="_blank" rel="noopener">Abrir a biblioteca ↗</a></div>
+      <div class="vt-topo"><span class="vt-rot">[ 03 ] EFEITOS</span><span class="vt-marca">guilherme/efeitos</span><a class="vt-link" href="https://github.com/Guilhermeslvg/efeitos" target="_blank" rel="noopener">Abrir a framework ↗</a></div>
       <div class="vt-cabeca">
         <div class="vt-nome" id="vt-nome" aria-live="polite"></div>
         <p class="vt-credito" id="vt-credito"></p>
         <div class="vt-meta" id="vt-meta"></div>
       </div>
       <div class="vt-faixa"><div class="vt-trilho" id="vt-trilho">
-          <button type="button" class="vt-card on" style="--acento:#1d5fd0" aria-label="Brilho no texto" aria-current="true"><span class="vt-card-n">01</span><span class="vt-card-nome">Brilho<br>no texto</span><span class="vt-card-en">text shimmer</span></button>
-          <button type="button" class="vt-card" style="--acento:#1aa5c9" aria-label="Letras embaralhando"><span class="vt-card-n">02</span><span class="vt-card-nome">Letras<br>embaralhando</span><span class="vt-card-en">text scramble</span></button>
-          <button type="button" class="vt-card" style="--acento:#3b6fe0" aria-label="Revelar palavras"><span class="vt-card-n">03</span><span class="vt-card-nome">Revelar<br>palavras</span><span class="vt-card-en">text reveal</span></button>
-          <button type="button" class="vt-card" style="--acento:#12347e" aria-label="Máquina de escrever"><span class="vt-card-n">04</span><span class="vt-card-nome">Máquina de<br>escrever</span><span class="vt-card-en">typewriter</span></button>
-          <button type="button" class="vt-card" style="--acento:#2cd3f2" aria-label="Botão magnético"><span class="vt-card-n">05</span><span class="vt-card-nome">Botão<br>magnético</span><span class="vt-card-en">magnetic button</span></button>
-          <button type="button" class="vt-card" style="--acento:#4c9be8" aria-label="Borda girando"><span class="vt-card-n">06</span><span class="vt-card-nome">Borda<br>girando</span><span class="vt-card-en">animated border</span></button>
-          <button type="button" class="vt-card" style="--acento:#2a8fd6" aria-label="Cartão com brilho"><span class="vt-card-n">07</span><span class="vt-card-nome">Cartão<br>com brilho</span><span class="vt-card-en">spotlight card</span></button>
-          <button type="button" class="vt-card" style="--acento:#0c2a6b" aria-label="Inclinar em 3D"><span class="vt-card-n">08</span><span class="vt-card-nome">Inclinar<br>em 3D</span><span class="vt-card-en">tilt card</span></button>
-          <button type="button" class="vt-card" style="--acento:#6fb2f0" aria-label="Fundo aurora"><span class="vt-card-n">09</span><span class="vt-card-nome">Fundo<br>aurora</span><span class="vt-card-en">aurora background</span></button>
-          <button type="button" class="vt-card" style="--acento:#5ec8f0" aria-label="Metal líquido"><span class="vt-card-n">10</span><span class="vt-card-nome">Metal<br>líquido</span><span class="vt-card-en">liquid metal shader</span></button>
+          <button type="button" class="vt-card on" style="--acento:#1d5fd0" aria-label="Brilho no texto" aria-current="true"><span class="vt-card-prev" aria-hidden="true"><span class="vp-txt" data-efeito="brilho">Aa</span><span class="vt-card-n">01</span></span><span class="vt-card-nome">Brilho<br>no texto</span><span class="vt-card-en">text shimmer</span></button>
+          <button type="button" class="vt-card" style="--acento:#1aa5c9" aria-label="Letras embaralhando"><span class="vt-card-prev" aria-hidden="true"><span class="vp-txt vp-mono" data-efeito="embaralhar" data-gatilho="sempre">GUI</span><span class="vt-card-n">02</span></span><span class="vt-card-nome">Letras<br>embaralhando</span><span class="vt-card-en">text scramble</span></button>
+          <button type="button" class="vt-card" style="--acento:#3b6fe0" aria-label="Revelar palavras"><span class="vt-card-prev" aria-hidden="true"><span class="vp-linhas"><i></i><i></i><i></i></span><span class="vt-card-n">03</span></span><span class="vt-card-nome">Revelar<br>palavras</span><span class="vt-card-en">text reveal</span></button>
+          <button type="button" class="vt-card" style="--acento:#12347e" aria-label="Máquina de escrever"><span class="vt-card-prev" aria-hidden="true"><span class="vp-txt vp-peq" data-efeito="maquina" data-frases="Sites|Apps|Lojas">Sites</span><span class="vt-card-n">04</span></span><span class="vt-card-nome">Máquina de<br>escrever</span><span class="vt-card-en">typewriter</span></button>
+          <button type="button" class="vt-card" style="--acento:#2cd3f2" aria-label="Botão magnético"><span class="vt-card-prev" aria-hidden="true"><span class="vp-botao">Botão</span><span class="vt-card-n">05</span></span><span class="vt-card-nome">Botão<br>magnético</span><span class="vt-card-en">magnetic button</span></button>
+          <button type="button" class="vt-card" style="--acento:#4c9be8" aria-label="Borda girando"><span class="vt-card-prev" aria-hidden="true"><span class="vp-caixa" data-efeito="borda"></span><span class="vt-card-n">06</span></span><span class="vt-card-nome">Borda<br>girando</span><span class="vt-card-en">animated border</span></button>
+          <button type="button" class="vt-card" style="--acento:#2a8fd6" aria-label="Cartão com brilho"><span class="vt-card-prev" aria-hidden="true"><span class="vp-caixa vp-luz"></span><span class="vt-card-n">07</span></span><span class="vt-card-nome">Cartão<br>com brilho</span><span class="vt-card-en">spotlight card</span></button>
+          <button type="button" class="vt-card" style="--acento:#0c2a6b" aria-label="Inclinar em 3D"><span class="vt-card-prev" aria-hidden="true"><span class="vp-caixa vp-tilt"></span><span class="vt-card-n">08</span></span><span class="vt-card-nome">Inclinar<br>em 3D</span><span class="vt-card-en">tilt card</span></button>
+          <button type="button" class="vt-card" style="--acento:#6fb2f0" aria-label="Fundo aurora"><span class="vt-card-prev" aria-hidden="true"><span class="vp-cheio" data-efeito="aurora"></span><span class="vt-card-n">09</span></span><span class="vt-card-nome">Fundo<br>aurora</span><span class="vt-card-en">aurora background</span></button>
+          <button type="button" class="vt-card" style="--acento:#5ec8f0" aria-label="Metal líquido"><span class="vt-card-prev" aria-hidden="true"><span class="vp-cheio vp-metal"></span><span class="vt-card-n">10</span></span><span class="vt-card-nome">Metal<br>líquido</span><span class="vt-card-en">liquid metal shader</span></button>
       </div></div>
       <div class="vt-trilha" aria-hidden="true"><div class="vt-cont"><span id="vt-atual">01</span><span>10</span></div><div class="vt-barra"><i id="vt-marcador"></i></div></div>
     </div>
