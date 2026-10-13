@@ -10,29 +10,38 @@ precision highp float;
 varying vec2 v_uv;
 uniform vec2 u_res, u_mouse; uniform float u_forca, u_t, u_veu;
 uniform vec3 u_fundo, u_base, u_metal, u_reflexo;
-float h(vec2 p){ p = fract(p * vec2(123.34, 345.45)); p += dot(p, p + 34.345); return fract(p.x * p.y); }
-float n(vec2 p){ vec2 i = floor(p), f = fract(p), u = f * f * (3. - 2. * f);
-  return mix(mix(h(i), h(i + vec2(1., 0.)), u.x), mix(h(i + vec2(0., 1.)), h(i + 1.), u.x), u.y); }
-float fbm(vec2 p){ float v = 0., w = .52; mat2 r = mat2(.8, -.6, .6, .8);
-  for (int k = 0; k < 4; k++) { v += n(p) * w; p = r * p * 2.03 + 17.17; w *= .5; } return v; }
-float campo(vec2 p, float t){
-  vec2 d = vec2(t * .045, -t * .032);
-  vec2 a = vec2(fbm(p * .72 + d), fbm(p * .76 + vec2(5.2, 1.3) - d.yx));
-  vec2 b = vec2(fbm(p * .78 + a * 2.7 + vec2(1.7, 9.2) + d * 1.3), fbm(p * .74 + a * 2.5 + vec2(8.3, 2.8) - d * 1.1));
-  return fbm(p * .68 + b * 1.65);
+// sorteio por célula: vira um ângulo, e o ângulo vira a direção do gradiente
+vec2 dir(vec2 c){ float a = fract(sin(dot(c, vec2(27.619, 57.583))) * 29871.137) * 6.2831853; return vec2(cos(a), sin(a)); }
+// ruído de gradiente com curva de quinto grau (sem quinas)
+float ruido(vec2 p){ vec2 i = floor(p), f = fract(p), u = f * f * f * (f * (f * 6. - 15.) + 10.);
+  float a = dot(dir(i), f), b = dot(dir(i + vec2(1., 0.)), f - vec2(1., 0.));
+  float c = dot(dir(i + vec2(0., 1.)), f - vec2(0., 1.)), d = dot(dir(i + 1.), f - 1.);
+  return mix(mix(a, b, u.x), mix(c, d, u.x), u.y); }
+// 5 camadas, cada uma girada ~31° e quase o dobro do tamanho
+float camadas(vec2 p){ float s = 0., amp = .5; mat2 gira = mat2(.857, .515, -.515, .857);
+  for (int k = 0; k < 5; k++) { s += amp * ruido(p); p = gira * p * 1.93 + vec2(3.7, -1.9); amp *= .42; } return s; }
+// uma etapa de distorção somada a ondas senoidais que escorrem
+float liquido(vec2 p, float t){
+  vec2 deriva = vec2(t * .06, -t * .045);
+  vec2 q = vec2(camadas(p * .55 + deriva), camadas(p * .55 + vec2(-6.1, 2.4) - deriva * .8));
+  vec2 onda = vec2(sin(p.y * 1.3 + t * .5 + q.x * 2.5), cos(p.x * 1.1 - t * .42 + q.y * 2.5)) * .3;
+  return camadas((p + q * 2.2 + onda) * .45 - deriva * .5) + length(q) * .5;
 }
 void main(){
   float asp = u_res.x / max(u_res.y, 1.);
   vec2 p = (v_uv - .5) * vec2(asp, 1.) * 1.6, m = (u_mouse - .5) * vec2(asp, 1.) * 1.6, dl = p - m;
-  p += dl / max(length(dl), .001) * exp(-dot(dl, dl) * 2.6) * .096 * u_forca;
-  float f = .5 + .5 * sin(campo(p, u_t) * 13. + u_t * .25);
-  vec3 c = mix(u_fundo, u_base, smoothstep(.18, .42, f));
-  c = mix(c, u_metal, smoothstep(.38, .64, f) * .88);
-  c = mix(c, u_reflexo, smoothstep(.60, .82, f) * .94);
+  p -= dl * exp(-dot(dl, dl) * 3.2) * .3 * u_forca; // o mouse estufa o metal
+  // dobra o valor em faixas: onda triangular, depois afina a parte clara
+  float v = liquido(p, u_t), dobra = abs(fract(v * 6. + u_t * .03) * 2. - 1.);
+  float f = pow(smoothstep(0., 1., dobra), 2.2);
+  float eco = pow(abs(fract(v * 2.3 + .37) * 2. - 1.), 6.) * .35; // reflexo fraco e largo nas partes escuras
+  vec3 c = mix(u_fundo, u_base, smoothstep(.04, .3, f));
+  c = mix(c, u_metal, max(smoothstep(.2, .55, f) * .9, eco));
+  c = mix(c, u_reflexo, smoothstep(.62, .99, f) * .94);
   c = mix(u_fundo, c, u_veu);
   gl_FragColor = vec4(clamp(c, 0., 1.), 1.);
 }`;
-  const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hex = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16) / 255);
   function iniciar(el) {
     if (el.dataset.efMetal) return; el.dataset.efMetal = "1";
