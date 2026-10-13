@@ -1,6 +1,5 @@
 /* guilherme/efeitos · metal líquido (liquid metal shader)
    Fundo de metal derretido se movendo devagar, feito em WebGL; deforma de leve onde o mouse passa.
-   Inspirado no LiquidMetalShader publicado no 21st.dev; reescrito do zero em JavaScript puro.
    Uso: <section data-efeito="metal">...</section>
    Opções: data-cores="fundo,base,metal,reflexo" em hexadecimal (padrão "#030916,#06112b,#1d5fd0,#ffffff")
            data-veu="0.6" quanto o metal aparece (0 a 1) · data-velocidade="0.72" */

@@ -1,6 +1,5 @@
 /* guilherme/efeitos · cartão com brilho (spotlight card / glow card)
    Uma luz segue o mouse por dentro do cartão e acende a borda mais perto dele; a luz passa de um cartão para o outro.
-   Inspirado no GlowCard publicado no 21st.dev; reescrito do zero em JavaScript puro.
    Uso: <div class="cartao" data-efeito="cartao-brilho">...</div>   (o elemento precisa de border-radius próprio)
    Ajustes (CSS): --luz-cor (borda), --luz-fundo (brilho de dentro), --luz-tamanho */
 (() => {
