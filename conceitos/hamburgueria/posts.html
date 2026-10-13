@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bigode Burger · posts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Bowlby+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ketchup: #C8321F;
+    --ketchup-esc: #9E2414;
+    --mostarda: #F2B33D;
+    --mostarda-cl: #F8CF72;
+    --chapa: #24160F;
+    --chapa-2: #3A261C;
+    --papel: #FFF6E6;
+    --picles: #5F7A26;
+    --apagado: #7A5A44;
+    --pao: #E59A45;
+    --pao-esc: #B9692A;
+    --carne: #4A2516;
+    --carne-borda: #2C140A;
+    --f-display: "Bowlby One", "Arial Black", sans-serif;
+    --f-texto: "Archivo", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 40px; background: #1a100b; font-family: var(--f-texto); display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+  h1, h2, h3, p { margin: 0; font-weight: 400; }
+
+  .peca { position: relative; overflow: hidden; flex: none; color: var(--chapa); }
+  .post { width: 1080px; height: 1080px; }
+  .story { width: 1080px; height: 1920px; }
+  .d { font-family: var(--f-display); text-transform: uppercase; line-height: .9; }
+  .rot { font-weight: 800; font-stretch: 85%; text-transform: uppercase; letter-spacing: .08em; font-size: 30px; }
+  .assina { position: absolute; left: 72px; bottom: 64px; display: flex; align-items: center; gap: 14px; font: 400 34px/1 var(--f-display); }
+  .assina svg { width: 76px; height: 34px; }
+  .k { background: var(--ketchup); color: var(--papel); }
+  .m { background: var(--mostarda); }
+  .c { background: var(--chapa); color: var(--papel); }
+  .p { background: var(--papel); }
+  .selo {
+    position: absolute; border-radius: 50%; display: grid; place-content: center; text-align: center;
+    background: var(--mostarda); color: var(--chapa); border: 6px solid var(--chapa);
+  }
+  .selo small { display: block; font: 800 26px/1.1 var(--f-texto); font-stretch: 80%; text-transform: uppercase; letter-spacing: .05em; }
+  .selo b { display: block; font: 400 84px/1 var(--f-display); }
+
+  /* post 1 */
+  #post-1 .rot { position: absolute; left: 72px; top: 72px; color: var(--mostarda); }
+  #post-1 h2 { position: absolute; left: 72px; top: 130px; font-size: 128px; }
+  #post-1 h2 em { font-style: normal; color: var(--mostarda); }
+  #post-1 .lanche { position: absolute; right: -70px; bottom: 40px; width: 760px; }
+  #post-1 .desc { position: absolute; left: 72px; top: 560px; width: 340px; font-size: 32px; line-height: 1.3; color: #FBE3D2; }
+  #post-1 .selo { width: 230px; height: 230px; right: 80px; top: 110px; transform: rotate(10deg); }
+
+  /* post 2 */
+  #post-2 .rot { position: absolute; left: 72px; top: 72px; }
+  #post-2 .preco { position: absolute; left: 66px; top: 120px; font-size: 300px; }
+  #post-2 .preco span { font-size: 110px; vertical-align: 160px; margin-right: 22px; }
+  #post-2 .itens { position: absolute; left: 72px; top: 440px; font: 700 44px/1.25 var(--f-texto); font-stretch: 90%; }
+  #post-2 .itens span { color: var(--ketchup); }
+  #post-2 .ate { position: absolute; left: 72px; top: 640px; font-size: 30px; font-weight: 600; color: var(--chapa-2); }
+  #post-2 .arte { position: absolute; right: -20px; bottom: 30px; width: 620px; }
+  #post-2 .assina { bottom: 64px; }
+
+  /* post 3 */
+  #post-3 .rot { position: absolute; left: 72px; top: 72px; color: var(--mostarda); }
+  #post-3 h2 { position: absolute; left: 72px; top: 130px; font-size: 138px; color: var(--mostarda); white-space: nowrap; }
+  #post-3 h2 span { color: var(--papel); display: block; }
+  #post-3 .lanche { position: absolute; left: 30px; bottom: 120px; width: 540px; }
+  #post-3 .selo { width: 400px; height: 400px; right: 70px; bottom: 150px; background: var(--ketchup); color: var(--papel); border-color: var(--mostarda); transform: rotate(-8deg); }
+  #post-3 .selo b { font-size: 104px; white-space: nowrap; } #post-3 .selo small { font-size: 28px; }
+  #post-3 .selo s { font: 700 34px/1 var(--f-texto); color: #F4C3B2; margin-top: 8px; display: block; }
+  #post-3 .nota { position: absolute; right: 72px; bottom: 70px; font-size: 28px; color: #CDB8A6; }
+  #post-3 .assina { color: var(--papel); bottom: 60px; }
+
+  /* post 4 */
+  #post-4 .chapa-arte { position: absolute; left: 0; top: 0; width: 1080px; height: 560px; }
+  #post-4 h2 { position: absolute; left: 72px; top: 612px; font-size: 80px; line-height: .98; }
+  #post-4 h2 span { color: var(--ketchup); }
+  #post-4 .desc { position: absolute; left: 72px; top: 880px; font-size: 32px; color: var(--apagado); width: 720px; line-height: 1.3; }
+  #post-4 .assina { left: auto; right: 72px; bottom: 72px; }
+
+  /* post 5 */
+  #post-5 .placa { position: absolute; left: 110px; right: 110px; top: 200px; background: var(--mostarda); color: var(--chapa); border-radius: 28px; padding: 60px 64px; border: 8px solid var(--chapa-2); box-shadow: 0 0 0 6px var(--mostarda); }
+  #post-5 .fio { position: absolute; top: 40px; left: 540px; width: 6px; height: 0; }
+  #post-5 .cordao { position: absolute; left: 0; top: 0; width: 1080px; height: 220px; }
+  #post-5 .placa .rot { font-size: 28px; }
+  #post-5 .placa h2 { font-size: 104px; margin-top: 14px; white-space: nowrap; }
+  #post-5 .placa .h { font: 400 64px/1 var(--f-display); margin-top: 40px; }
+  #post-5 .placa p { font-size: 32px; font-weight: 600; margin-top: 18px; }
+  #post-5 .placa .seg { margin-top: 40px; padding-top: 28px; border-top: 4px dashed rgba(36,22,15,.35); font-size: 30px; font-weight: 600; display: flex; justify-content: space-between; }
+  #post-5 .assina { color: var(--mostarda); left: 50%; transform: translateX(-50%); bottom: 90px; }
+  #post-5 .assina svg use { fill: var(--mostarda); }
+
+  /* post 6 */
+  #post-6 h2 { position: absolute; left: 72px; top: 80px; font-size: 120px; }
+  #post-6 h2 em { font-style: normal; color: var(--mostarda); }
+  #post-6 .chat { position: absolute; left: 72px; right: 72px; top: 420px; display: grid; gap: 22px; }
+  #post-6 .bal { max-width: 700px; padding: 26px 32px 22px; border-radius: 30px; font-size: 34px; line-height: 1.3; font-weight: 500; }
+  #post-6 .bal small { display: block; text-align: right; font-size: 22px; opacity: .6; margin-top: 6px; }
+  #post-6 .eu { justify-self: end; background: var(--papel); color: var(--chapa); border-bottom-right-radius: 6px; }
+  #post-6 .eles { justify-self: start; background: var(--chapa); color: var(--papel); border-bottom-left-radius: 6px; }
+  #post-6 .cta { position: absolute; left: 72px; bottom: 64px; display: inline-flex; align-items: center; gap: 18px; background: var(--mostarda); color: var(--chapa); border-radius: 999px; padding: 26px 40px; font: 800 36px/1 var(--f-texto); font-stretch: 90%; box-shadow: 0 8px 0 var(--chapa); }
+  #post-6 .cta svg { width: 44px; height: 44px; }
+  #post-6 .marca { position: absolute; right: 72px; bottom: 80px; width: 110px; }
+
+  /* story 1 */
+  #story-1 .rot { position: absolute; left: 80px; top: 200px; color: var(--mostarda); font-size: 36px; }
+  #story-1 h2 { position: absolute; left: 80px; top: 270px; font-size: 210px; color: var(--papel); }
+  #story-1 h2 em { font-style: normal; color: var(--mostarda); }
+  #story-1 .lanche { position: absolute; left: 110px; top: 880px; width: 860px; }
+  #story-1 .selo { width: 340px; height: 340px; right: 60px; top: 790px; background: var(--ketchup); color: var(--papel); border-color: var(--mostarda); transform: rotate(9deg); }
+  #story-1 .selo b { font-size: 92px; white-space: nowrap; }
+  #story-1 .linha { position: absolute; left: 80px; right: 80px; top: 1610px; font-size: 38px; color: #CDB8A6; text-align: center; }
+  #story-1 .link { position: absolute; left: 50%; transform: translateX(-50%); top: 1700px; display: inline-flex; align-items: center; gap: 18px; background: var(--papel); color: var(--chapa); border-radius: 20px; padding: 28px 44px; font: 800 42px/1 var(--f-texto); font-stretch: 90%; white-space: nowrap; }
+  #story-1 .link svg { width: 50px; height: 50px; color: var(--ketchup); }
+
+  /* story 2 */
+  #story-2 .topo { position: absolute; left: 80px; right: 80px; top: 180px; display: flex; justify-content: space-between; align-items: center; }
+  #story-2 .topo svg { width: 120px; height: 53px; }
+  #story-2 .topo .rot { font-size: 32px; }
+  #story-2 h2 { position: absolute; left: 80px; top: 300px; font-size: 150px; }
+  #story-2 .menu { position: absolute; left: 80px; right: 80px; top: 640px; background: var(--chapa); color: var(--papel); border-radius: 28px; padding: 56px 60px; }
+  #story-2 .menu h3 { font: 400 40px/1 var(--f-display); color: var(--mostarda); text-transform: uppercase; padding-bottom: 20px; border-bottom: 3px dashed #6B4C3B; margin-bottom: 10px; }
+  #story-2 .menu h3:not(:first-child) { margin-top: 44px; }
+  #story-2 .menu .l { display: flex; align-items: baseline; gap: 16px; font-size: 42px; font-weight: 700; font-stretch: 92%; padding: 14px 0; }
+  #story-2 .menu .l i { flex: 1; border-bottom: 3px dotted #6B4C3B; transform: translateY(-10px); }
+  #story-2 .menu .l b { color: var(--mostarda); font-variant-numeric: tabular-nums; }
+  #story-2 .pe { position: absolute; left: 80px; right: 80px; bottom: 150px; font: 700 40px/1.3 var(--f-texto); font-stretch: 90%; }
+  #story-2 .pe span { color: var(--ketchup); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="bigode" viewBox="0 0 100 44">
+      <path d="M50 16c-5-9-17-12-26-6-6 4-9 12-16 13-3 1-6-1-7-4-2 9 6 17 17 17 13 0 24-7 32-13 8 6 19 13 32 13 11 0 19-8 17-17-1 3-4 5-7 4-7-1-10-9-16-13-9-6-21-3-26 6z"/>
+    </symbol>
+    <symbol id="zap" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.5 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.4-.2z"/>
+    </symbol>
+    <symbol id="burger" viewBox="0 0 440 400">
+      <path d="M62 300h316c8 0 12 6 10 14-6 30-50 50-168 50S58 344 52 314c-2-8 2-14 10-14z" fill="#E59A45"/>
+      <path d="M60 300h320c6 0 9 4 8 9l-1 4H53l-1-4c-1-5 2-9 8-9z" fill="#F6C98A"/>
+      <path d="M80 342c40 14 90 18 140 18s100-4 140-18c-20 14-64 22-140 22s-120-8-140-22z" fill="#B9692A"/>
+      <path d="M52 284c-14 4-16 16-4 20 6 3 10 0 16 2 8 3 18 4 30 4h252c12 0 22-1 30-4 6-2 10 1 16-2 12-4 10-16-4-20-8-2-12 0-18-4-6-3-14-6-28-6H98c-14 0-22 3-28 6-6 4-10 2-18 4z" fill="#4A2516"/>
+      <path d="M44 296c6 2 10-2 16 0M380 296c6 2 10-2 16 0M70 290c4-3 8-2 12-4M358 290c4-3 8-2 12-4" stroke="#2C140A" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <path d="M100 286h240" stroke="#6E3A22" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 14"/>
+      <path d="M74 266h292l-6 12c-4 6-10 6-14 0l-4-6-14 30c-3 7-11 7-14 0l-10-24h-60l-8 16c-3 6-10 6-13 0l-8-16H128l-16 40c-3 8-12 8-15 0l-8-22c-6 8-16 4-15-6z" fill="#F7A21B"/>
+      <path d="M56 236c-14 4-14 16-2 20 6 2 10 0 16 2 8 3 18 4 30 4h240c12 0 22-1 30-4 6-2 10 0 16-2 12-4 12-16-2-20-8-2-12 0-18-4-6-3-14-6-28-6H102c-14 0-22 3-28 6-6 4-10 2-18 4z" fill="#4A2516"/>
+      <path d="M48 248c6 2 10-2 16 0M376 248c6 2 10-2 16 0M74 242c4-3 8-2 12-4M354 242c4-3 8-2 12-4" stroke="#2C140A" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <path d="M104 238h232" stroke="#6E3A22" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 14"/>
+      <path d="M80 218h280l-8 14c-4 6-10 6-13 0l-5-8-10 26c-3 7-11 7-14 0l-8-20h-70l-10 22c-3 6-10 6-13 0l-8-22h-52l-12 32c-3 8-12 8-15 0l-6-18c-6 6-16 2-14-8z" fill="#F7A21B"/>
+      <ellipse cx="140" cy="210" rx="34" ry="9" fill="#5F7A26"/><ellipse cx="140" cy="210" rx="24" ry="5" fill="#7E9A3A"/>
+      <ellipse cx="290" cy="212" rx="34" ry="9" fill="#5F7A26"/><ellipse cx="290" cy="212" rx="24" ry="5" fill="#7E9A3A"/>
+      <path d="M190 212c10-10 50-10 60 0" stroke="#F3E3EC" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M96 214c8-8 30-8 36-2M316 214c10-8 30-8 36-2" stroke="#E9D2DD" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <g transform="translate(0 7)">
+        <path d="M58 196c-6 0-10-5-8-11C66 110 140 62 220 62s154 48 170 123c2 6-2 11-8 11z" fill="#E59A45"/>
+        <path d="M58 196c-6 0-10-5-8-11 2-8 4-14 8-20 10 18 72 26 162 26s152-8 162-26c4 6 6 12 8 20 2 6-2 11-8 11z" fill="#B9692A"/>
+        <path d="M104 120c24-30 66-46 110-46" stroke="#F6C98A" stroke-width="10" stroke-linecap="round" fill="none" opacity=".7"/>
+        <g fill="#FFF1D6">
+          <ellipse cx="160" cy="104" rx="7" ry="4" transform="rotate(-25 160 104)"/><ellipse cx="206" cy="90" rx="7" ry="4" transform="rotate(10 206 90)"/>
+          <ellipse cx="254" cy="96" rx="7" ry="4" transform="rotate(30 254 96)"/><ellipse cx="298" cy="120" rx="7" ry="4" transform="rotate(-15 298 120)"/>
+          <ellipse cx="126" cy="140" rx="7" ry="4" transform="rotate(20 126 140)"/><ellipse cx="226" cy="128" rx="7" ry="4" transform="rotate(-35 226 128)"/>
+          <ellipse cx="184" cy="146" rx="7" ry="4" transform="rotate(15 184 146)"/><ellipse cx="320" cy="156" rx="7" ry="4" transform="rotate(40 320 156)"/>
+          <ellipse cx="274" cy="150" rx="7" ry="4" transform="rotate(-10 274 150)"/>
+        </g>
+      </g>
+    </symbol>
+    <symbol id="batata" viewBox="0 0 120 170">
+      <g fill="#F8CF72" stroke="#B9692A" stroke-width="2">
+        <rect x="18" y="14" width="14" height="80" rx="3" transform="rotate(-10 25 54)"/>
+        <rect x="36" y="4" width="14" height="90" rx="3" transform="rotate(4 43 49)"/>
+        <rect x="54" y="10" width="14" height="84" rx="3" transform="rotate(-4 61 52)"/>
+        <rect x="72" y="18" width="14" height="76" rx="3" transform="rotate(12 79 56)"/>
+        <rect x="88" y="26" width="13" height="66" rx="3" transform="rotate(20 94 59)"/>
+      </g>
+      <path d="M8 70h104l-9 96H17z" fill="#C8321F" stroke="#24160F" stroke-width="3"/>
+      <svg x="34" y="104" width="52" height="24" viewBox="0 0 100 44"><use href="#bigode" fill="#FFF6E6"/></svg>
+    </symbol>
+    <symbol id="copo" viewBox="0 0 100 170">
+      <path d="M12 54h76l-10 112H22z" fill="#FFF6E6" stroke="#24160F" stroke-width="3"/>
+      <path d="M14 76h72l-2 22H16z" fill="#C8321F"/>
+      <path d="M50 54l16-50" stroke="#24160F" stroke-width="7" stroke-linecap="round"/>
+      <rect x="4" y="44" width="92" height="14" rx="6" fill="#24160F"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1 lancamento -->
+<article class="peca post k" id="post-1">
+  <span class="rot">Novo na chapa · a partir de terça</span>
+  <h2 class="d">Bigode<br><em>cheddar</em><br>duplo</h2>
+  <p class="desc">Duas carnes smash, cheddar cremoso e cebola crispy no pão de batata.</p>
+  <svg class="lanche" viewBox="0 0 440 400"><use href="#burger"/></svg>
+  <div class="selo"><div><small>Só</small><b>R$ 36</b></div></div>
+  <div class="assina" style="color:var(--papel)"><svg viewBox="0 0 100 44"><use href="#bigode" fill="#FFF6E6"/></svg>Bigode Burger</div>
+</article>
+
+<!-- 2 combo da semana -->
+<article class="peca post m" id="post-2">
+  <span class="rot">Combo da semana</span>
+  <p class="preco d"><span>R$</span>42</p>
+  <p class="itens">Smash duplo<br><span>+</span> batata pequena<br><span>+</span> refri lata</p>
+  <p class="ate">Vale até domingo, no delivery e no balcão.</p>
+  <svg class="arte" viewBox="0 0 600 420">
+    <ellipse cx="330" cy="400" rx="260" ry="16" fill="#D99A22"/>
+    <svg x="20" y="150" width="190" height="260" viewBox="0 0 120 170"><use href="#batata"/></svg>
+    <svg x="190" y="80" width="420" height="380" viewBox="0 0 440 400"><use href="#burger"/></svg>
+  </svg>
+  <div class="assina"><svg viewBox="0 0 100 44"><use href="#bigode" fill="#24160F"/></svg>Bigode Burger</div>
+</article>
+
+<!-- 3 terca do smash -->
+<article class="peca post c" id="post-3">
+  <span class="rot">Toda terça-feira</span>
+  <h2 class="d">Terça<span>do smash</span></h2>
+  <svg class="lanche" viewBox="0 0 440 400"><use href="#burger"/></svg>
+  <div class="selo"><div><small>Smash duplo</small><b>R$ 25</b><s>R$ 32</s></div></div>
+  <div class="assina"><svg viewBox="0 0 100 44"><use href="#bigode" fill="#F2B33D"/></svg>Bigode Burger</div>
+  <p class="nota">Balcão e delivery</p>
+</article>
+
+<!-- 4 bastidor -->
+<article class="peca post p" id="post-4">
+  <svg class="chapa-arte" viewBox="0 0 1080 600" preserveAspectRatio="xMidYMid slice">
+    <rect width="1080" height="600" fill="#24160F"/>
+    <g stroke="#3A261C" stroke-width="3">
+      <path d="M0 120h1080M0 240h1080M0 360h1080M0 480h1080"/>
+    </g>
+    <!-- carne amassada -->
+    <ellipse cx="560" cy="470" rx="250" ry="46" fill="#2C140A"/>
+    <path d="M330 460c-20 6-22 20-4 26 14 6 30 8 60 8h340c30 0 46-2 60-8 18-6 16-20-4-26-14-6-26-14-56-16H386c-30 2-42 10-56 16z" fill="#4A2516"/>
+    <path d="M318 476c10 4 16-2 24 0M780 476c10 4 16-2 24 0M346 464c6-4 12-3 18-6M756 464c6-4 12-3 18-6" stroke="#6E3A22" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <!-- espatula -->
+    <g transform="rotate(-8 560 330)">
+      <rect x="380" y="380" width="360" height="26" rx="6" fill="#C9BBAA"/>
+      <rect x="380" y="380" width="360" height="8" rx="4" fill="#E9DFD2"/>
+      <path d="M560 380v-150" stroke="#9C8E80" stroke-width="22"/>
+      <rect x="520" y="70" width="80" height="170" rx="20" fill="#C8321F"/>
+      <path d="M534 100v110M560 100v110M586 100v110" stroke="#9E2414" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <!-- fumaca -->
+    <g stroke="#7A5A44" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8">
+      <path d="M300 410c-20-30 20-50 0-90s20-60 0-90"/>
+      <path d="M840 420c-20-30 20-50 0-90s20-60 0-90"/>
+      <path d="M900 380c-14-24 14-40 0-70"/>
+    </g>
+    <text x="72" y="96" fill="#F2B33D" font-family="Archivo" font-weight="800" font-size="30" letter-spacing="2.4">BASTIDOR</text>
+  </svg>
+  <h2 class="d">90 g de carne.<br>Uma espátula <span>pesada.</span></h2>
+  <p class="desc">Amassa forte nos primeiros segundos e a borda fica crocante. Por isso a gente chama de smash.</p>
+  <div class="assina"><svg viewBox="0 0 100 44"><use href="#bigode" fill="#24160F"/></svg></div>
+</article>
+
+<!-- 5 horario -->
+<article class="peca post c" id="post-5">
+  <svg class="cordao" viewBox="0 0 1080 220"><path d="M540 40L320 212M540 40l220 172" stroke="#7A5A44" stroke-width="6" fill="none"/><circle cx="540" cy="40" r="14" fill="#F2B33D"/></svg>
+  <div class="placa">
+    <span class="rot">Chapa ligada</span>
+    <h2 class="d">Ter a dom</h2>
+    <p class="h">18h às 23h30</p>
+    <p>Delivery até 5 km e retirada no balcão.<br>Rua das Palmeiras, 214, Centro.</p>
+    <div class="seg"><span>Segunda a chapa descansa</span><span>Pix · cartão · dinheiro</span></div>
+  </div>
+  <div class="assina"><svg viewBox="0 0 100 44"><use href="#bigode"/></svg>Bigode Burger</div>
+</article>
+
+<!-- 6 whatsapp -->
+<article class="peca post k" id="post-6">
+  <h2 class="d">Pediu,<br><em>a chapa</em><br>já liga</h2>
+  <div class="chat">
+    <div class="bal eu">Oi, Bigode! 1 smash duplo e 1 batata pequena. Pra entregar na Rua do Ipê, 88.<small>19:42</small></div>
+    <div class="bal eles">Anotado! Deu R$ 48 mais a entrega. Pix ou cartão na hora?<small>19:43</small></div>
+  </div>
+  <span class="cta"><svg aria-hidden="true"><use href="#zap"/></svg>Pedir pelo WhatsApp · link na bio</span>
+</article>
+
+<!-- story 1 -->
+<article class="peca story c" id="story-1">
+  <span class="rot">Toda terça, 18h às 23h30</span>
+  <h2 class="d">Terça<br>do<br><em>smash</em></h2>
+  <svg class="lanche" viewBox="0 0 440 400"><use href="#burger"/></svg>
+  <div class="selo"><div><small>Smash duplo</small><b>R$ 25</b></div></div>
+  <p class="linha">No balcão e no delivery, até acabar a carne do dia.</p>
+  <span class="link"><svg aria-hidden="true"><use href="#zap"/></svg>Pedir pelo WhatsApp</span>
+</article>
+
+<!-- story 2 -->
+<article class="peca story m" id="story-2">
+  <div class="topo"><svg viewBox="0 0 100 44"><use href="#bigode" fill="#24160F"/></svg><span class="rot">Ter a dom · 18h às 23h30</span></div>
+  <h2 class="d">O que sai<br>da chapa</h2>
+  <div class="menu">
+    <h3>Smash</h3>
+    <div class="l">Smash simples<i></i><b>R$ 24</b></div>
+    <div class="l">Smash duplo<i></i><b>R$ 32</b></div>
+    <div class="l">Bigode<i></i><b>R$ 38</b></div>
+    <div class="l">Salada<i></i><b>R$ 30</b></div>
+    <h3>Combos</h3>
+    <div class="l">Combo smash<i></i><b>R$ 42</b></div>
+    <div class="l">Combo Bigode<i></i><b>R$ 54</b></div>
+    <div class="l">Combo dupla<i></i><b>R$ 89</b></div>
+  </div>
+  <p class="pe">Pede pelo WhatsApp, o link tá no perfil.<br><span>Segunda a chapa descansa.</span></p>
+</article>
+
+</body>
+</html>
