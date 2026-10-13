@@ -828,39 +828,60 @@
     .fundo.com-metal b { z-index: 3; }
     html.com-metal .ab-noite { display: none; }   /* a Hero escura agora vem do próprio fundo */
 
-    /* efeitos: vitrine da biblioteca; no computador a seção trava e os cards andam para o lado */
-    #efeitos { padding: 0; }
-    .ef-palco { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 34px; padding: 96px 0 48px; overflow: hidden; }
-    .ef-palco .cabeca { margin-bottom: 0; }
-    .ef-repo { display: inline-block; margin-top: 8px; font-weight: 600; color: var(--escuro); text-decoration: none; border-bottom: 1px solid rgba(12,42,107,.3); }
-    .ef-repo:hover { border-color: var(--ciano); }
-    .ef-trilho { display: flex; gap: 22px; width: max-content; padding: 6px var(--borda) 10px; }
-    .ef-card { flex: none; width: clamp(250px, 22vw, 330px); display: grid; gap: 14px; }
-    .ef-vitrine { position: relative; aspect-ratio: 3 / 4; display: grid; place-items: center; padding: 22px; border-radius: 22px; overflow: hidden; text-align: center; color: #eaf4ff;
-      background: linear-gradient(160deg, #0c1e45, #06112b 70%); box-shadow: 0 0 0 1px rgba(212,234,255,.12), 0 30px 60px rgba(6,17,43,.35); --luz-cor: #6fdcf5; }
-    .ef-num { position: absolute; top: 14px; left: 16px; font: 600 11px/1 ui-monospace, Consolas, monospace; letter-spacing: .14em; color: rgba(212,234,255,.45); }
-    .ef-txt { font-family: "Outfit", "Inter", sans-serif; font-weight: 900; font-size: clamp(38px, 3.6vw, 52px); letter-spacing: -.035em; line-height: 1; --brilho-base: #d4eaff; --brilho-luz: #2cd3f2; }
-    .ef-medio { font-size: clamp(26px, 2.2vw, 32px); line-height: 1.12; }
-    .ef-mono { font-size: clamp(28px, 2.4vw, 36px); letter-spacing: .02em; }
-    .ef-botao { display: inline-block; padding: 16px 28px; border-radius: 999px; font-weight: 600; color: #06112b; background: linear-gradient(90deg, #d4eaff, #2cd3f2); text-decoration: none; cursor: pointer; box-shadow: 0 0 30px rgba(44,211,242,.35); }
-    .ef-painel { display: grid; place-items: center; width: 82%; padding: 34px 18px; border-radius: 18px; font-weight: 600; background: rgba(212,234,255,.06); --borda-cor: #2cd3f2; --borda-largura: 2px; }
-    .ef-alto { aspect-ratio: 4 / 5; background: linear-gradient(150deg, #1d5fd0, #0c2a6b); box-shadow: 0 20px 40px rgba(0,0,0,.35); }
-    .ef-cheio { position: absolute; inset: 0; --aurora-fundo: #06112b; }
-    .ef-dica { max-width: 20ch; font-size: 15px; line-height: 1.5; color: #b3c8e6; }
-    .ef-legenda { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .ef-legenda b { display: block; font-family: "Outfit", "Inter", sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -.02em; color: var(--texto); }
-    .ef-legenda span { display: block; font: 500 11.5px/1.4 ui-monospace, Consolas, monospace; letter-spacing: .08em; color: var(--cinza); }
-    .ef-copiar { flex: none; padding: 9px 14px; border-radius: 999px; border: 1px solid rgba(12,42,107,.2); background: rgba(255,255,255,.6); font: 600 12.5px/1 "Inter", sans-serif; color: var(--escuro); cursor: pointer; transition: background .2s, border-color .2s; }
-    .ef-copiar:hover { border-color: var(--ciano); background: #fff; }
-    .ef-copiar:focus-visible { outline: 2px solid var(--ciano); outline-offset: 2px; }
-    .ef-copiar.ok { color: #fff; background: var(--escuro); border-color: var(--escuro); }
-    @media (max-width: 820px) {
-      .ef-palco { min-height: 0; padding: 72px 0 40px; }
-      .ef-janela { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
-      .ef-janela::-webkit-scrollbar { display: none; }
-      .ef-trilho { padding: 6px 20px 10px; gap: 16px; }
-      .ef-card { width: 76vw; scroll-snap-align: center; }
-    }
+    /* efeitos: palco de tela inteira; o efeito em foco roda no fundo e a faixa de cards fica embaixo */
+    #efeitos { padding: 0; border-top: 0; }
+    .vt { --w: 1440px; --h: 900px; --card-h: 238px; --card-w: 178px; --vao: 8px; --pad: 24px;
+      position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; color: #fff; background: #030916; user-select: none; outline: none; }
+    .vt:focus-visible { box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
+    .vt-fundos, .vt-fundo, .vt-veu { position: absolute; inset: 0; }
+    .vt-fundo { opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility 0s .7s;
+      background: radial-gradient(70% 60% at 50% 30%, color-mix(in srgb, var(--acento) 55%, transparent), transparent 70%), radial-gradient(60% 50% at 80% 100%, color-mix(in srgb, var(--acento) 30%, transparent), transparent 70%), #030916; }
+    .vt-fundo.on { opacity: 1; visibility: visible; transition: opacity .7s ease, visibility 0s; }
+    .vt-fundo.on > * { animation: vt-chega 6s linear both; }
+    @keyframes vt-chega { from { scale: 1.08; } to { scale: 1; } }
+    .vt-demo { position: absolute; left: 0; right: 0; top: 11%; height: 27%; display: grid; place-items: center; padding: 0 var(--pad); text-align: center; }
+    .vt-cheio { position: absolute; inset: 0; --aurora-fundo: transparent; }
+    .vt-grande { font-family: "Outfit", "Inter", sans-serif; font-weight: 900; font-size: clamp(56px, calc(var(--h) * .15), 170px); line-height: .9; letter-spacing: -.04em; --brilho-base: #d4eaff; --brilho-luz: #2cd3f2; }
+    .vt-mono { font-size: min(clamp(40px, calc(var(--h) * .1), 120px), 10.5vw); letter-spacing: .02em; }
+    .vt-medio { max-width: 18ch; font-family: "Outfit", "Inter", sans-serif; font-weight: 800; font-size: clamp(30px, calc(var(--h) * .065), 64px); line-height: 1.05; letter-spacing: -.03em; }
+    .vt-botao { display: inline-block; padding: 20px 38px; border-radius: 999px; font-weight: 700; font-size: 18px; color: #06112b; text-decoration: none; cursor: pointer; background: linear-gradient(90deg, #d4eaff, #2cd3f2); box-shadow: 0 0 50px rgba(44,211,242,.45); }
+    .vt-painel { display: grid; place-items: center; width: min(420px, 80%); height: 100%; max-height: 190px; border-radius: 22px; font-weight: 600; font-size: 18px; background: rgba(212,234,255,.06); --borda-cor: #2cd3f2; --borda-largura: 2px; }
+    .vt-tilt { width: min(300px, 70%); max-height: none; aspect-ratio: 4 / 3; height: auto; background: linear-gradient(150deg, #1d5fd0, #0c2a6b); box-shadow: 0 30px 60px rgba(0,0,0,.4); }
+    .vt-trio { display: flex; gap: 14px; height: 100%; max-height: 210px; }
+    .vt-mini { width: min(clamp(90px, calc(var(--h) * .16), 150px), 27vw); border-radius: 18px; background: rgba(212,234,255,.06); box-shadow: 0 0 0 1px rgba(212,234,255,.1); --luz-cor: #6fdcf5; }
+    .vt-mini-txt { display: grid; place-items: center; padding: 10px; font-size: 13px; color: #b3c8e6; }
+    .vt-veu { pointer-events: none; background: linear-gradient(180deg, rgba(3,9,22,.35), transparent 30%, transparent 55%, rgba(3,9,22,.55));
+      background-image: linear-gradient(180deg, rgba(3,9,22,.35), transparent 30%, transparent 55%, rgba(3,9,22,.55)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      background-size: auto, 180px 180px; mix-blend-mode: normal; }
+    .vt-topo { position: absolute; z-index: 3; top: max(86px, calc(var(--h) * .1)); left: var(--pad); right: var(--pad); display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      font: 600 11px/1 ui-monospace, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; }
+    .vt-rot { color: rgba(212,234,255,.7); }
+    .vt-marca { font-family: "Outfit", "Inter", sans-serif; font-size: 15px; font-weight: 700; letter-spacing: .02em; text-transform: none; }
+    .vt-link { color: #fff; text-decoration: none; padding: 9px 14px; border-radius: 999px; border: 1px solid rgba(212,234,255,.3); transition: background .2s, border-color .2s; }
+    .vt-link:hover { background: rgba(212,234,255,.1); border-color: #2cd3f2; }
+    .vt-link:focus-visible { outline: 2px solid #2cd3f2; outline-offset: 3px; }
+    .vt-cabeca { position: absolute; z-index: 2; left: var(--pad); right: var(--pad); bottom: calc(50% + var(--h) * .028); display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 6vw; pointer-events: none; }
+    .vt-nome { font-family: "Outfit", "Inter", sans-serif; font-weight: 800; font-size: max(30px, calc(var(--h) * .067)); line-height: .9; letter-spacing: -.03em; }
+    .vt-nome > span { display: block; overflow: hidden; padding-bottom: .04em; }
+    .vt-nome > span > span { display: block; transform: translateY(110%); transition: transform .62s cubic-bezier(.22,1,.36,1); transition-delay: calc(var(--i) * 70ms); }
+    .vt-nome.entrou > span > span { transform: none; }
+    .vt-credito, .vt-meta { font: 500 max(10px, calc(var(--h) * .0115))/1.3 ui-monospace, Consolas, monospace; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+    .vt-meta { margin-left: auto; display: flex; gap: max(16px, 4vw); }
+    .vt-faixa { position: absolute; z-index: 2; left: 0; right: 0; top: 50%; height: var(--card-h); }
+    .vt-trilho { display: flex; align-items: flex-start; gap: var(--vao); transform: translateX(var(--x, 0px)); transition: transform .8s cubic-bezier(.22,1,.36,1); }
+    .vt-card { position: relative; flex: none; width: var(--card-w); height: calc(var(--card-h) / 2); padding: 12px; border: 0; overflow: hidden; cursor: pointer; text-align: left; color: #fff;
+      display: flex; flex-direction: column; justify-content: flex-start; background: linear-gradient(165deg, var(--acento), #06112b 85%); transition: height .8s cubic-bezier(.22,1,.36,1), filter .4s; filter: brightness(.82); }
+    .vt-card.on { height: var(--card-h); filter: none; }
+    .vt-card:focus-visible { outline: 2px solid #2cd3f2; outline-offset: 2px; }
+    .vt-card-n { display: block; font: 600 10px/1 ui-monospace, Consolas, monospace; letter-spacing: .14em; opacity: .7; }
+    .vt-card-nome { display: block; margin-top: 8px; font-family: "Outfit", "Inter", sans-serif; font-weight: 800; font-size: calc(var(--card-w) * .11); line-height: 1.02; letter-spacing: -.02em; overflow-wrap: anywhere; }
+    .vt-card-en { position: absolute; left: 12px; bottom: 12px; font: 500 9.5px/1 ui-monospace, Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+    .vt-trilha { position: absolute; z-index: 2; left: var(--pad); bottom: max(14px, calc(var(--h) * .022)); width: calc(var(--w) * .2); min-width: 140px; }
+    .vt-cont { display: flex; justify-content: space-between; font: 500 max(10px, calc(var(--h) * .0115))/1 ui-monospace, Consolas, monospace; font-variant-numeric: tabular-nums; opacity: .8; }
+    .vt-barra { position: relative; height: 1px; margin-top: 8px; background: rgba(255,255,255,.25); }
+    .vt-barra i { position: absolute; top: 0; bottom: 0; left: 0; width: 10%; background: #fff; transition: left .8s cubic-bezier(.22,1,.36,1); }
+    @media (max-width: 820px) { .vt-demo { top: 15%; height: 18%; } .vt-card-nome { font-size: calc(var(--card-w) * .095); } .vt-medio { font-size: clamp(22px, 6.4vw, 30px); } .vt-grande { font-size: min(clamp(56px, calc(var(--h) * .15), 170px), 24vw); } .vt-grande.vt-mono { font-size: 10.5vw; } .vt-marca { display: none; } .vt-meta { margin-left: 0; width: 100%; gap: 14px; } .vt-cabeca { gap: 6px 14px; } }
+    @media (prefers-reduced-motion: reduce) { .vt-trilho, .vt-card, .vt-barra i, .vt-nome > span > span { transition: none; } .vt-fundo.on > * { animation: none; } }
 
     /* contato: texto de um lado, a conversa no celular do outro */
     .contato { text-align: left; }
@@ -1249,75 +1270,40 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
 
 
   <section id="efeitos">
-    <div class="ef-palco" id="ef-palco">
-      <div class="miolo cabeca rev">
-        <div><div class="rotulo">[ <b>03</b> ] EFEITOS</div><h2>Biblioteca de <em>efeitos.</em></h2></div>
-        <p>Os efeitos que eu uso nos sites, cada um com o nome certo para você achar e o código para colar em qualquer página. JavaScript puro, sem React. <a class="ef-repo" href="https://github.com/Guilhermeslvg/efeitos" target="_blank" rel="noopener">guilherme/efeitos no GitHub ↗</a></p>
+    <div class="vt" id="vt" tabindex="0" role="group" aria-roledescription="carrossel" aria-label="Biblioteca de efeitos">
+      <h2 class="sr">Biblioteca de efeitos</h2>
+      <div class="vt-fundos">
+        <div class="vt-fundo on" style="--acento:#1d5fd0"><div class="vt-demo"><span class="vt-grande" data-efeito="brilho">Brilho</span></div></div>
+        <div class="vt-fundo" style="--acento:#1aa5c9"><div class="vt-demo"><span class="vt-grande vt-mono" data-efeito="embaralhar" data-gatilho="sempre">GUILHERME</span></div></div>
+        <div class="vt-fundo" style="--acento:#3b6fe0"><div class="vt-demo"><span class="vt-medio" data-efeito="revelar" data-repetir>Cada palavra sobe na hora certa</span></div></div>
+        <div class="vt-fundo" style="--acento:#12347e"><div class="vt-demo"><span class="vt-medio" data-efeito="maquina" data-frases="Landing pages|Sistemas|Tráfego pago">Landing pages</span></div></div>
+        <div class="vt-fundo" style="--acento:#2cd3f2"><div class="vt-demo"><a class="vt-botao" data-efeito="magnetico" tabindex="-1">Chega perto</a></div></div>
+        <div class="vt-fundo" style="--acento:#4c9be8"><div class="vt-demo"><div class="vt-painel" data-efeito="borda">Borda girando</div></div></div>
+        <div class="vt-fundo" style="--acento:#2a8fd6"><div class="vt-demo"><div class="vt-trio"><div class="vt-mini" data-efeito="cartao-brilho"></div><div class="vt-mini vt-mini-txt" data-efeito="cartao-brilho">Passe o mouse</div><div class="vt-mini" data-efeito="cartao-brilho"></div></div></div></div>
+        <div class="vt-fundo" style="--acento:#0c2a6b"><div class="vt-demo"><div class="vt-painel vt-tilt" data-efeito="inclinar">Inclina com o mouse</div></div></div>
+        <div class="vt-fundo" style="--acento:#6fb2f0"><div class="vt-cheio" data-efeito="aurora"></div></div>
+        <div class="vt-fundo" style="--acento:#5ec8f0"><div class="vt-cheio" data-efeito="metal" data-cores="#06112b,#0c2a6b,#4c9be8,#ffffff" data-veu=".9"></div></div>
       </div>
-      <div class="ef-janela" id="ef-janela">
-        <div class="ef-trilho" id="ef-trilho">
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><span class="ef-txt" data-efeito="brilho">Brilho</span><span class="ef-num">01</span></div>
-            <div class="ef-legenda"><div><b>Brilho no texto</b><span>text shimmer</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Brilho no texto">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/brilho.js&quot;&gt;&lt;/script&gt;
-&lt;h1 data-efeito=&quot;brilho&quot;&gt;Seu título&lt;/h1&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><span class="ef-txt ef-mono" data-efeito="embaralhar" data-gatilho="sempre">GUILHERME</span><span class="ef-num">02</span></div>
-            <div class="ef-legenda"><div><b>Letras embaralhando</b><span>text scramble</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Letras embaralhando">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/embaralhar.js&quot;&gt;&lt;/script&gt;
-&lt;h2 data-efeito=&quot;embaralhar&quot; data-gatilho=&quot;passar&quot;&gt;Seu texto&lt;/h2&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><span class="ef-txt ef-medio" data-efeito="revelar" data-repetir>Cada palavra sobe na hora certa</span><span class="ef-num">03</span></div>
-            <div class="ef-legenda"><div><b>Revelar palavras</b><span>text reveal</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Revelar palavras">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/revelar.js&quot;&gt;&lt;/script&gt;
-&lt;h2 data-efeito=&quot;revelar&quot;&gt;Seu título aqui&lt;/h2&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><span class="ef-txt ef-medio" data-efeito="maquina" data-frases="Landing pages|Sistemas|Tráfego pago">Landing pages</span><span class="ef-num">04</span></div>
-            <div class="ef-legenda"><div><b>Máquina de escrever</b><span>typewriter</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Máquina de escrever">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/maquina.js&quot;&gt;&lt;/script&gt;
-&lt;p data-efeito=&quot;maquina&quot; data-frases=&quot;Primeira|Segunda|Terceira&quot;&gt;Primeira&lt;/p&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><a class="ef-botao" data-efeito="magnetico" tabindex="-1">Chega perto</a><span class="ef-num">05</span></div>
-            <div class="ef-legenda"><div><b>Botão magnético</b><span>magnetic button</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Botão magnético">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/magnetico.js&quot;&gt;&lt;/script&gt;
-&lt;a class=&quot;botao&quot; data-efeito=&quot;magnetico&quot;&gt;Pedir orçamento&lt;/a&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><div class="ef-painel" data-efeito="borda">Borda girando</div><span class="ef-num">06</span></div>
-            <div class="ef-legenda"><div><b>Borda girando</b><span>animated border</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Borda girando">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/borda.js&quot;&gt;&lt;/script&gt;
-&lt;div class=&quot;cartao&quot; data-efeito=&quot;borda&quot;&gt;...&lt;/div&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><span class="ef-dica">Passe o mouse pelos cards: a luz segue você e acende a borda.</span><span class="ef-num">07</span></div>
-            <div class="ef-legenda"><div><b>Cartão com brilho</b><span>spotlight card</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Cartão com brilho">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/cartao-brilho.js&quot;&gt;&lt;/script&gt;
-&lt;div class=&quot;cartao&quot; data-efeito=&quot;cartao-brilho&quot;&gt;...&lt;/div&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><div class="ef-painel ef-alto" data-efeito="inclinar">Inclina com o mouse</div><span class="ef-num">08</span></div>
-            <div class="ef-legenda"><div><b>Inclinar em 3D</b><span>tilt card</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Inclinar em 3D">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/inclinar.js&quot;&gt;&lt;/script&gt;
-&lt;div class=&quot;cartao&quot; data-efeito=&quot;inclinar&quot;&gt;...&lt;/div&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><div class="ef-cheio" data-efeito="aurora"></div><span class="ef-num">09</span></div>
-            <div class="ef-legenda"><div><b>Fundo aurora</b><span>aurora background</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Fundo aurora">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/aurora.js&quot;&gt;&lt;/script&gt;
-&lt;section data-efeito=&quot;aurora&quot;&gt;...&lt;/section&gt;</textarea>
-          </article>
-          <article class="ef-card">
-            <div class="ef-vitrine" data-efeito="cartao-brilho"><div class="ef-cheio" data-efeito="metal" data-cores="#06112b,#0c2a6b,#4c9be8,#ffffff" data-veu=".9"></div><span class="ef-num">10</span></div>
-            <div class="ef-legenda"><div><b>Metal líquido</b><span>liquid metal shader</span></div><button type="button" class="ef-copiar" aria-label="Copiar o código do efeito Metal líquido">Copiar código</button></div>
-            <textarea class="ef-codigo" hidden readonly>&lt;script src=&quot;https://cdn.jsdelivr.net/gh/Guilhermeslvg/efeitos@main/efeitos/metal.js&quot;&gt;&lt;/script&gt;
-&lt;section data-efeito=&quot;metal&quot; data-cores=&quot;#030916,#06112b,#1d5fd0,#ffffff&quot;&gt;...&lt;/section&gt;</textarea>
-          </article>
-        </div>
+      <div class="vt-veu" aria-hidden="true"></div>
+      <div class="vt-topo"><span class="vt-rot">[ 03 ] EFEITOS</span><span class="vt-marca">guilherme/efeitos</span><a class="vt-link" href="https://github.com/Guilhermeslvg/efeitos" target="_blank" rel="noopener">Abrir a biblioteca ↗</a></div>
+      <div class="vt-cabeca">
+        <div class="vt-nome" id="vt-nome" aria-live="polite"></div>
+        <p class="vt-credito" id="vt-credito"></p>
+        <div class="vt-meta" id="vt-meta"></div>
       </div>
+      <div class="vt-faixa"><div class="vt-trilho" id="vt-trilho">
+          <button type="button" class="vt-card on" style="--acento:#1d5fd0" aria-label="Brilho no texto" aria-current="true"><span class="vt-card-n">01</span><span class="vt-card-nome">Brilho<br>no texto</span><span class="vt-card-en">text shimmer</span></button>
+          <button type="button" class="vt-card" style="--acento:#1aa5c9" aria-label="Letras embaralhando"><span class="vt-card-n">02</span><span class="vt-card-nome">Letras<br>embaralhando</span><span class="vt-card-en">text scramble</span></button>
+          <button type="button" class="vt-card" style="--acento:#3b6fe0" aria-label="Revelar palavras"><span class="vt-card-n">03</span><span class="vt-card-nome">Revelar<br>palavras</span><span class="vt-card-en">text reveal</span></button>
+          <button type="button" class="vt-card" style="--acento:#12347e" aria-label="Máquina de escrever"><span class="vt-card-n">04</span><span class="vt-card-nome">Máquina de<br>escrever</span><span class="vt-card-en">typewriter</span></button>
+          <button type="button" class="vt-card" style="--acento:#2cd3f2" aria-label="Botão magnético"><span class="vt-card-n">05</span><span class="vt-card-nome">Botão<br>magnético</span><span class="vt-card-en">magnetic button</span></button>
+          <button type="button" class="vt-card" style="--acento:#4c9be8" aria-label="Borda girando"><span class="vt-card-n">06</span><span class="vt-card-nome">Borda<br>girando</span><span class="vt-card-en">animated border</span></button>
+          <button type="button" class="vt-card" style="--acento:#2a8fd6" aria-label="Cartão com brilho"><span class="vt-card-n">07</span><span class="vt-card-nome">Cartão<br>com brilho</span><span class="vt-card-en">spotlight card</span></button>
+          <button type="button" class="vt-card" style="--acento:#0c2a6b" aria-label="Inclinar em 3D"><span class="vt-card-n">08</span><span class="vt-card-nome">Inclinar<br>em 3D</span><span class="vt-card-en">tilt card</span></button>
+          <button type="button" class="vt-card" style="--acento:#6fb2f0" aria-label="Fundo aurora"><span class="vt-card-n">09</span><span class="vt-card-nome">Fundo<br>aurora</span><span class="vt-card-en">aurora background</span></button>
+          <button type="button" class="vt-card" style="--acento:#5ec8f0" aria-label="Metal líquido"><span class="vt-card-n">10</span><span class="vt-card-nome">Metal<br>líquido</span><span class="vt-card-en">liquid metal shader</span></button>
+      </div></div>
+      <div class="vt-trilha" aria-hidden="true"><div class="vt-cont"><span id="vt-atual">01</span><span>10</span></div><div class="vt-barra"><i id="vt-marcador"></i></div></div>
     </div>
   </section>
 
@@ -1917,20 +1903,59 @@ const ZAP = &quot;https://wa.me/5531989165103?text=&quot;;</pre></div><img src="
     cv.addEventListener("webglcontextlost", (e) => { e.preventDefault(); if (pedido) cancelAnimationFrame(pedido); pedido = null; cv.remove(); });
   })();
 
-  // efeitos: copiar o código de cada card; no computador a seção trava e a fila anda para o lado com a rolagem
+  // efeitos: o card em foco vai para o meio da faixa e o efeito dele roda grande no fundo. Rolar troca o foco (a seção
+  // trava enquanto passa pelos efeitos); clicar num card ou usar as setas também. Os cards chegam voando de todos os lados.
   (() => {
-    document.querySelectorAll(".ef-copiar").forEach((b) => b.addEventListener("click", async () => {
-      const codigo = b.closest(".ef-card").querySelector(".ef-codigo").value;
-      try { await navigator.clipboard.writeText(codigo); b.textContent = "Copiado"; b.classList.add("ok"); }
-      catch (e) { b.textContent = "Não deu para copiar"; }
-      setTimeout(() => { b.textContent = "Copiar código"; b.classList.remove("ok"); }, 1800);
-    }));
-    const palco = document.getElementById("ef-palco"), trilho = document.getElementById("ef-trilho");
-    if (!palco || !window.gsap || !window.ScrollTrigger || matchMedia("(prefers-reduced-motion: reduce)").matches || !matchMedia("(min-width: 821px)").matches) return;
+    const vt = document.getElementById("vt"); if (!vt) return;
+    const EF = [{n:"Brilho\nno texto",en:"text shimmer",cat:"Texto",arq:"brilho.js"},{n:"Letras\nembaralhando",en:"text scramble",cat:"Texto",arq:"embaralhar.js"},{n:"Revelar\npalavras",en:"text reveal",cat:"Texto",arq:"revelar.js"},{n:"Máquina de\nescrever",en:"typewriter",cat:"Texto",arq:"maquina.js"},{n:"Botão\nmagnético",en:"magnetic button",cat:"Botão",arq:"magnetico.js"},{n:"Borda\ngirando",en:"animated border",cat:"Card",arq:"borda.js"},{n:"Cartão\ncom brilho",en:"spotlight card",cat:"Card",arq:"cartao-brilho.js"},{n:"Inclinar\nem 3D",en:"tilt card",cat:"Card",arq:"inclinar.js"},{n:"Fundo\naurora",en:"aurora background",cat:"Fundo",arq:"aurora.js"},{n:"Metal\nlíquido",en:"liquid metal shader",cat:"Fundo · WebGL",arq:"metal.js"}];
+    const trilho = document.getElementById("vt-trilho"), cards = [...trilho.children], fundos = [...vt.querySelectorAll(".vt-fundo")];
+    const nome = document.getElementById("vt-nome"), credito = document.getElementById("vt-credito"), meta = document.getElementById("vt-meta");
+    const atual = document.getElementById("vt-atual"), marcador = document.getElementById("vt-marcador");
+    const n = EF.length; let i = 0, cw = 0, vao = 0;
+    marcador.style.width = 100 / n + "%";
+    const medir = () => {
+      const w = vt.clientWidth, h = vt.clientHeight, ch = Math.min(360, Math.max(96, h * .264));
+      cw = ch * .75; vao = Math.max(4, Math.round(cw * .038));
+      for (const [k, v] of Object.entries({ "--w": w + "px", "--h": h + "px", "--card-h": ch + "px", "--card-w": cw + "px", "--vao": vao + "px", "--pad": Math.max(16, Math.round(w * .017)) + "px" })) vt.style.setProperty(k, v);
+      trilho.style.setProperty("--x", w / 2 - (i * (cw + vao) + cw / 2) + "px");
+    };
+    const mostrar = (k, primeira) => {
+      i = k;
+      cards.forEach((c, j) => { c.classList.toggle("on", j === k); c.toggleAttribute("aria-current", j === k); });
+      fundos.forEach((f, j) => f.classList.toggle("on", j === k));
+      const e = EF[k];
+      nome.classList.remove("entrou");
+      nome.innerHTML = e.n.split("\n").map((l, j) => `<span><span style="--i:${j}">${l}</span></span>`).join("");
+      requestAnimationFrame(() => requestAnimationFrame(() => nome.classList.add("entrou")));
+      credito.textContent = e.en;
+      meta.innerHTML = [e.cat, "JS puro", e.arq].map((m) => `<span>${m}</span>`).join("");
+      atual.textContent = String(k + 1).padStart(2, "0");
+      marcador.style.left = (k / n) * 100 + "%";
+      trilho.style.setProperty("--x", vt.clientWidth / 2 - (k * (cw + vao) + cw / 2) + "px");
+    };
+    new ResizeObserver(medir).observe(vt); medir(); mostrar(0, true);
+
+    // rolagem: com a seção travada, cada trecho da rolagem é um efeito
+    let trava = null;
+    const ir = (k) => {
+      k = Math.max(0, Math.min(n - 1, k));
+      if (trava && window.lenis) window.lenis.scrollTo(trava.start + (trava.end - trava.start) * (k / (n - 1)) + 1, { duration: .9 });
+      else if (k !== i) mostrar(k);
+    };
+    cards.forEach((c, k) => c.addEventListener("click", () => ir(k)));
+    vt.addEventListener("keydown", (e) => {
+      const alvo = { ArrowLeft: i - 1, ArrowRight: i + 1, Home: 0, End: n - 1 }[e.key];
+      if (alvo === undefined) return; e.preventDefault(); ir(alvo);
+    });
+    const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!window.gsap || !window.ScrollTrigger || semMovimento) return;
     gsap.registerPlugin(ScrollTrigger);
-    const distancia = () => Math.max(0, trilho.scrollWidth - innerWidth);
-    gsap.to(trilho, { x: () => -distancia(), ease: "none",
-      scrollTrigger: { trigger: palco, start: "top top", end: () => "+=" + distancia(), pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } });
+    trava = ScrollTrigger.create({ trigger: vt, start: "top top", end: () => "+=" + innerHeight * .55 * (n - 1), pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate: (s) => { const k = Math.round(s.progress * (n - 1)); if (k !== i) mostrar(k); } });
+    // entrada: os cards chegam de todos os lados e se encaixam na faixa
+    const sorte = (a) => (Math.random() * 2 - 1) * a;
+    gsap.from(cards, { x: () => sorte(innerWidth * .6), y: () => sorte(innerHeight * .7), rotation: () => sorte(28), scale: .6, opacity: 0, duration: 1.3, ease: "expo.out",
+      stagger: { each: .05, from: "random" }, clearProps: "transform,opacity", scrollTrigger: { trigger: vt, start: "top 75%", once: true } });
   })();
 
   // projetos: faixa curva. As capas passam da direita para a esquerda por dentro de um cilindro; o centro fica de frente
