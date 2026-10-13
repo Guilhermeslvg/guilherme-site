@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bigode Burger · smash na chapa</title>
+<meta name="description" content="Bigode Burger: smash amassado na chapa de ferro. Cardápio, combos e pedido pelo WhatsApp. Ter a dom, 18h às 23h30.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Bowlby+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* paleta Bigode Burger */
+    --ketchup: #C8321F;      /* fundo do topo, destaque */
+    --ketchup-esc: #9E2414;  /* hover, sombras do vermelho */
+    --mostarda: #F2B33D;     /* fundo principal, queijo */
+    --mostarda-cl: #F8CF72;  /* superficie sobre mostarda */
+    --chapa: #24160F;        /* texto, letreiro do cardapio */
+    --chapa-2: #3A261C;      /* superficie escura */
+    --papel: #FFF6E6;        /* comanda */
+    --picles: #5F7A26;       /* etiquetas pequenas */
+    --apagado: #7A5A44;      /* texto secundario sobre claro */
+    --pao: #E59A45;
+    --pao-esc: #B9692A;
+    --carne: #4A2516;
+    --carne-borda: #2C140A;
+
+    --f-display: "Bowlby One", "Arial Black", sans-serif;
+    --f-texto: "Archivo", system-ui, sans-serif;
+
+    --t-titulo: clamp(2.6rem, 6.4vw, 6rem);
+    --t-sub: clamp(1.6rem, 3vw, 2.6rem);
+    --t-corpo: 1.0625rem;
+    --t-legenda: .8125rem;
+
+    --gutter: clamp(16px, 4vw, 56px);
+    --max: 1240px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--mostarda);
+    color: var(--chapa);
+    font-family: var(--f-texto);
+    font-size: var(--t-corpo);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+  h1, h2, h3 { margin: 0; font-weight: 400; }
+  p { margin: 0; }
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  :focus-visible {
+    outline: 3px solid var(--chapa);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .escuro :focus-visible, .topo :focus-visible { outline-color: var(--mostarda); }
+
+  /* botoes */
+  .btn {
+    display: inline-flex; align-items: center; gap: .6em;
+    min-height: 48px; padding: .8em 1.4em;
+    font: 700 1rem/1 var(--f-texto); font-stretch: 90%;
+    text-decoration: none; cursor: pointer;
+    border: 2px solid var(--chapa); border-radius: 999px;
+    transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
+  }
+  .btn-zap { background: var(--chapa); color: var(--mostarda); box-shadow: 0 4px 0 var(--ketchup-esc); }
+  .btn-zap:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--ketchup-esc); }
+  .btn-zap:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--ketchup-esc); }
+  .btn-linha { background: transparent; color: var(--papel); border-color: var(--papel); }
+  .btn-linha:hover { background: var(--papel); color: var(--ketchup); }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+
+  /* topo */
+  .topo { background: var(--ketchup); color: var(--papel); }
+  .barra {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding-top: 18px; padding-bottom: 18px;
+  }
+  .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .marca svg { width: 52px; height: auto; fill: var(--papel); }
+  .marca span { font: 400 1.35rem/1 var(--f-display); letter-spacing: .01em; }
+  .barra nav { display: flex; align-items: center; gap: 28px; }
+  .barra nav a.link { font-weight: 600; text-decoration: none; padding: 10px 0; border-bottom: 2px solid transparent; }
+  .barra nav a.link:hover { border-color: var(--mostarda); }
+  .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: var(--t-legenda); font-weight: 600; font-stretch: 85%;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .status i { width: 9px; height: 9px; border-radius: 50%; background: var(--mostarda); }
+  .status.fechado i { background: var(--papel); opacity: .5; }
+
+  .hero {
+    display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 24px;
+    padding-top: clamp(24px, 4vw, 56px); padding-bottom: clamp(48px, 6vw, 88px);
+  }
+  .hero h1 {
+    font-family: var(--f-display); font-size: var(--t-titulo);
+    line-height: .92; letter-spacing: -.01em; text-transform: uppercase;
+  }
+  .hero h1 em { font-style: normal; color: var(--mostarda); }
+  .hero p.lead { margin-top: 24px; max-width: 30em; font-size: 1.15rem; color: #FBE3D2; }
+  .hero .acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero .btn-zap { background: var(--mostarda); color: var(--chapa); border-color: var(--mostarda); box-shadow: 0 4px 0 var(--chapa); }
+  .hero .btn-zap:hover { box-shadow: 0 6px 0 var(--chapa); }
+  .hero .aviso { margin-top: 20px; font-size: var(--t-legenda); color: #F4C3B2; font-stretch: 90%; }
+
+  .lanche { position: relative; width: 100%; max-width: 560px; justify-self: center; }
+  .lanche svg { width: 100%; height: auto; overflow: visible; }
+  .lanche .camada { transform-box: view-box; }
+  .etiqueta-preco {
+    position: absolute; right: 2%; top: 6%;
+    width: 128px; height: 128px; border-radius: 50%;
+    background: var(--mostarda); color: var(--chapa);
+    display: grid; place-content: center; text-align: center;
+    transform: rotate(10deg);
+    border: 3px solid var(--chapa);
+  }
+  .etiqueta-preco small { display: block; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; font-stretch: 80%; }
+  .etiqueta-preco b { display: block; font: 400 2rem/1 var(--f-display); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js .camada { opacity: 0; transform: translateY(-140px); }
+    .js .lanche.caiu .camada { animation: cai .55s cubic-bezier(.3,1.5,.6,1) forwards; animation-delay: calc(var(--i) * 110ms); }
+    .js .etiqueta-preco { opacity: 0; transform: rotate(-30deg) scale(.4); }
+    .js .lanche.caiu .etiqueta-preco { animation: carimbo .4s cubic-bezier(.3,1.6,.5,1) 1.05s forwards; }
+  }
+  @keyframes cai { to { opacity: 1; transform: translateY(0); } }
+  @keyframes carimbo { to { opacity: 1; transform: rotate(10deg) scale(1); } }
+
+  /* faixa da terca */
+  .terca { background: var(--chapa); color: var(--mostarda); }
+  .terca .wrap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding-top: 20px; padding-bottom: 20px; }
+  .terca strong { font: 400 clamp(1.25rem, 2.4vw, 1.9rem)/1.1 var(--f-display); text-transform: uppercase; }
+  .terca span { color: var(--papel); font-stretch: 90%; }
+
+  /* secoes */
+  section { padding: clamp(64px, 8vw, 112px) 0; }
+  .cabeca { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 32px; margin-bottom: 40px; }
+  .cabeca h2 { font: 400 var(--t-sub)/1 var(--f-display); text-transform: uppercase; }
+  .cabeca p { max-width: 34em; color: var(--chapa-2); }
+
+  /* cardapio */
+  .cardapio-grade { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; align-items: start; }
+  .letreiro {
+    background: var(--chapa); color: var(--papel);
+    border-radius: 14px; padding: clamp(20px, 3.4vw, 40px);
+    border: 6px solid var(--chapa-2);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 36px 48px;
+  }
+  .grupo h3 {
+    font: 400 1.15rem/1 var(--f-display); text-transform: uppercase; color: var(--mostarda);
+    padding-bottom: 12px; margin-bottom: 6px; border-bottom: 2px dashed #6B4C3B;
+  }
+  .grupo.largo { grid-column: 1 / -1; }
+  .grupo.largo ul { columns: 2; column-gap: 48px; }
+  .grupo ul { list-style: none; margin: 0; padding: 0; }
+  .item {
+    display: grid; grid-template-columns: 1fr auto 44px; align-items: center; gap: 4px 12px;
+    padding: 10px 0; break-inside: avoid;
+  }
+  .item .nome { font-weight: 700; font-stretch: 95%; }
+  .item .desc { grid-column: 1 / 2; font-size: .875rem; color: #CDB8A6; line-height: 1.35; }
+  .item .preco { grid-row: 1; grid-column: 2; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--mostarda); white-space: nowrap; }
+  .item .add {
+    grid-row: 1 / span 2; grid-column: 3;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: transparent; color: var(--mostarda); border: 2px solid #6B4C3B;
+    font: 700 1.4rem/1 var(--f-texto); cursor: pointer;
+    transition: background-color .15s, color .15s, border-color .15s, transform .15s;
+  }
+  .item .add:hover { background: var(--mostarda); color: var(--chapa); border-color: var(--mostarda); }
+  .item .add.ok { background: var(--picles); border-color: var(--picles); color: var(--papel); transform: scale(1.08); }
+  .tag { display: inline-block; margin-left: 6px; padding: 2px 7px; border-radius: 4px; background: var(--ketchup); color: var(--papel); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; vertical-align: 2px; }
+  .extras { grid-column: 1 / -1; font-size: .875rem; color: #CDB8A6; border-top: 2px dashed #6B4C3B; padding-top: 16px; }
+  .extras b { color: var(--papel); }
+
+  /* comanda */
+  .comanda {
+    position: sticky; top: 20px;
+    background: var(--papel); color: var(--chapa);
+    padding: 24px 22px 22px;
+    border-radius: 4px;
+    box-shadow: 0 2px 0 rgba(36,22,15,.15), 8px 10px 0 var(--ketchup);
+  }
+  .comanda h3 { font: 400 1.25rem/1 var(--f-display); text-transform: uppercase; }
+  .comanda .sub { font-size: var(--t-legenda); color: var(--apagado); margin-top: 6px; }
+  .comanda ul { list-style: none; margin: 18px 0 0; padding: 14px 0 0; border-top: 1px dashed var(--apagado); min-height: 64px; }
+  .comanda li { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 8px; padding: 6px 0; font-size: .95rem; }
+  .comanda li .qtd { font-weight: 800; font-variant-numeric: tabular-nums; min-width: 2ch; }
+  .comanda li .val { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .comanda li button {
+    width: 40px; height: 40px; border-radius: 50%; border: 1px solid #D9C3A8; background: transparent;
+    color: var(--apagado); cursor: pointer; font: 600 1.1rem/1 var(--f-texto);
+  }
+  .comanda li button:hover { background: var(--ketchup); border-color: var(--ketchup); color: var(--papel); }
+  .vazio { color: var(--apagado); font-size: .95rem; padding: 6px 0 4px; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--apagado); }
+  .total span { font-weight: 700; text-transform: uppercase; font-size: var(--t-legenda); letter-spacing: .06em; }
+  .total b { font: 400 1.8rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+  .comanda .btn { width: 100%; justify-content: center; margin-top: 18px; }
+  .comanda .btn[aria-disabled="true"] { opacity: .45; pointer-events: none; box-shadow: none; }
+  .comanda .obs { font-size: var(--t-legenda); color: var(--apagado); margin-top: 12px; }
+
+  .barra-pedido {
+    position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 20;
+    display: none; align-items: center; justify-content: space-between; gap: 12px;
+    background: var(--chapa); color: var(--papel);
+    padding: 10px 10px 10px 18px; border-radius: 999px;
+    box-shadow: 0 6px 20px rgba(36,22,15,.35);
+    text-decoration: none; font-weight: 700;
+  }
+  .barra-pedido b { background: var(--mostarda); color: var(--chapa); border-radius: 999px; padding: 10px 16px; font-variant-numeric: tabular-nums; }
+
+  /* combos */
+  .combos { background: var(--ketchup); color: var(--papel); }
+  .combos .cabeca p { color: #FBE3D2; }
+  .combo-grade { display: grid; grid-template-columns: 1.25fr 1fr; gap: 24px; }
+  .combo-destaque {
+    background: var(--mostarda); color: var(--chapa); border-radius: 22px;
+    padding: clamp(24px, 3vw, 40px);
+    display: grid; grid-template-columns: 1fr 200px; gap: 16px; align-items: end;
+    border: 3px solid var(--chapa);
+  }
+  .combo-destaque .rot { font-size: var(--t-legenda); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .combo-destaque h3 { font: 400 clamp(2rem, 3.6vw, 3.2rem)/.95 var(--f-display); text-transform: uppercase; margin-top: 10px; }
+  .combo-destaque p { margin-top: 14px; max-width: 24em; }
+  .combo-destaque .valor { display: flex; align-items: baseline; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+  .combo-destaque .valor b { font: 400 3rem/1 var(--f-display); }
+  .combo-destaque .valor s { color: var(--apagado); font-weight: 600; }
+  .combo-destaque .btn { margin-top: 22px; }
+  .combo-destaque svg { width: 100%; height: auto; }
+  .combo-lista { display: grid; gap: 0; align-content: start; }
+  .combo-linha {
+    display: grid; grid-template-columns: 1fr auto; gap: 6px 20px; align-items: baseline;
+    padding: 22px 0; border-bottom: 2px solid rgba(255,246,230,.25);
+  }
+  .combo-linha:first-child { padding-top: 4px; }
+  .combo-linha h3 { font: 400 1.35rem/1.1 var(--f-display); text-transform: uppercase; }
+  .combo-linha .preco { font: 400 1.6rem/1 var(--f-display); color: var(--mostarda); font-variant-numeric: tabular-nums; }
+  .combo-linha p { grid-column: 1 / -1; color: #FBE3D2; font-size: .95rem; }
+  .combo-linha button {
+    grid-column: 1 / -1; justify-self: start; margin-top: 6px;
+    background: none; border: 0; padding: 8px 0; min-height: 40px; color: var(--papel);
+    font: 700 .95rem/1 var(--f-texto); text-decoration: underline; text-underline-offset: 4px; cursor: pointer;
+  }
+  .combo-linha button:hover { color: var(--mostarda); }
+
+  /* chapa */
+  .escuro { background: var(--chapa); color: var(--papel); }
+  .escuro .cabeca p { color: #CDB8A6; }
+  .escuro .cabeca h2 { color: var(--mostarda); }
+  .tempo { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
+  .tempo::before { content: ""; position: absolute; left: 0; right: 0; top: 30px; height: 4px; background: repeating-linear-gradient(90deg, var(--ketchup) 0 18px, transparent 18px 26px); }
+  .tempo li { position: relative; padding-right: 24px; }
+  .tempo time { position: relative; display: inline-block; font: 400 1.6rem/1 var(--f-display); background: var(--chapa); padding: 14px 14px 14px 0; color: var(--mostarda); font-variant-numeric: tabular-nums; }
+  .tempo h3 { font-weight: 800; font-size: 1.15rem; margin-top: 18px; font-stretch: 95%; }
+  .tempo p { color: #CDB8A6; margin-top: 8px; font-size: .95rem; }
+
+  /* onde */
+  .onde-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .placa {
+    background: var(--papel); border: 3px solid var(--chapa); border-radius: 18px; padding: clamp(22px, 3vw, 36px);
+  }
+  .placa dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 14px 24px; }
+  .placa dt { font-size: var(--t-legenda); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--apagado); padding-top: 3px; }
+  .placa dd { margin: 0; font-weight: 600; }
+  .horas { margin-top: 24px; border-top: 2px dashed #D9C3A8; padding-top: 20px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+  .horas div { padding: 10px 2px; border-radius: 8px; background: var(--mostarda-cl); font-size: .8rem; font-weight: 700; font-stretch: 85%; }
+  .horas div small { display: block; font-weight: 500; font-size: .72rem; }
+  .horas .off { background: transparent; color: var(--apagado); border: 1px dashed #D9C3A8; }
+  .horas .hoje { background: var(--chapa); color: var(--mostarda); }
+  .onde-texto h2 { font: 400 var(--t-sub)/1 var(--f-display); text-transform: uppercase; }
+  .onde-texto p { margin-top: 18px; max-width: 30em; }
+  .onde-texto .btn { margin-top: 28px; }
+
+  footer { background: var(--chapa); color: #CDB8A6; padding: 36px 0; font-size: var(--t-legenda); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; align-items: center; }
+  footer .marca svg { width: 40px; fill: var(--mostarda); }
+  footer .marca span { color: var(--papel); font-size: 1.05rem; }
+
+  @media (max-width: 1020px) {
+    .cardapio-grade { grid-template-columns: 1fr; }
+    .comanda { position: relative; top: 0; max-width: 520px; }
+    .barra-pedido.ativa { display: flex; }
+    body:has(.barra-pedido.ativa) footer { padding-bottom: 96px; }
+  }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+    .lanche { max-width: 440px; }
+    .letreiro { grid-template-columns: 1fr; }
+    .grupo.largo ul { columns: 1; }
+    .combo-grade, .onde-grade { grid-template-columns: 1fr; }
+    .tempo { grid-template-columns: 1fr 1fr; row-gap: 36px; }
+    .tempo::before { display: none; }
+    .barra nav a.link, .barra .status { display: none; }
+  }
+  @media (max-width: 520px) {
+    .barra nav .btn { padding: .7em 1em; }
+    .barra nav .btn .longo { display: none; }
+    .marca span { font-size: 1.1rem; }
+    .marca svg { width: 42px; }
+    .combo-destaque { grid-template-columns: 1fr; }
+    .combo-destaque svg { max-width: 220px; }
+    .tempo { grid-template-columns: 1fr; }
+    .etiqueta-preco { width: 104px; height: 104px; }
+    .etiqueta-preco b { font-size: 1.6rem; }
+    .horas { grid-template-columns: repeat(4, 1fr); }
+    .placa dl { grid-template-columns: 1fr; gap: 4px; }
+    .placa dd { margin-bottom: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="bigode" viewBox="0 0 100 44">
+      <path d="M50 16c-5-9-17-12-26-6-6 4-9 12-16 13-3 1-6-1-7-4-2 9 6 17 17 17 13 0 24-7 32-13 8 6 19 13 32 13 11 0 19-8 17-17-1 3-4 5-7 4-7-1-10-9-16-13-9-6-21-3-26 6z"/>
+    </symbol>
+    <symbol id="zap" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.5 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.4-.2z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="topo">
+  <div class="wrap barra">
+    <a class="marca" href="#" aria-label="Bigode Burger, início">
+      <svg viewBox="0 0 100 44" aria-hidden="true"><use href="#bigode"/></svg>
+      <span>Bigode Burger</span>
+    </a>
+    <nav aria-label="Principal">
+      <span class="status" id="status"><i></i><span>Ter a dom, 18h às 23h30</span></span>
+      <a class="link" href="#cardapio">Cardápio</a>
+      <a class="link" href="#combos">Combos</a>
+      <a class="link" href="#onde">Onde fica</a>
+      <a class="btn btn-zap zap-link" href="https://wa.me/?text=Oi%2C%20Bigode!%20Quero%20fazer%20um%20pedido." target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#zap"/></svg><span>Pedir<span class="longo"> pelo WhatsApp</span></span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="wrap hero">
+    <div>
+      <h1>Smash<br>amassado<br>na <em>chapa</em><br>de ferro</h1>
+      <p class="lead">Bola de carne de 90 g prensada na hora, borda tostadinha e cheddar escorrendo no pão de batata selado na manteiga.</p>
+      <div class="acoes">
+        <a class="btn btn-zap zap-link" href="https://wa.me/?text=Oi%2C%20Bigode!%20Quero%20fazer%20um%20pedido." target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#zap"/></svg>Pedir pelo WhatsApp
+        </a>
+        <a class="btn btn-linha" href="#cardapio">Ver o cardápio</a>
+      </div>
+      <p class="aviso">Delivery até 5 km e retirada no balcão. Pix, cartão ou dinheiro.</p>
+    </div>
+
+    <div class="lanche" id="lanche">
+      <svg viewBox="0 0 440 400" role="img" aria-label="Ilustração de um smash duplo com cheddar, picles e cebola">
+        <ellipse cx="220" cy="372" rx="170" ry="14" fill="#9E2414"/>
+        <!-- pao de baixo -->
+        <g class="camada" style="--i:0">
+          <path d="M62 300h316c8 0 12 6 10 14-6 30-50 50-168 50S58 344 52 314c-2-8 2-14 10-14z" fill="var(--pao)"/>
+          <path d="M60 300h320c6 0 9 4 8 9l-1 4H53l-1-4c-1-5 2-9 8-9z" fill="#F6C98A"/>
+          <path d="M80 342c40 14 90 18 140 18s100-4 140-18c-20 14-64 22-140 22s-120-8-140-22z" fill="var(--pao-esc)"/>
+        </g>
+        <!-- carne 1 -->
+        <g class="camada" style="--i:1">
+          <path d="M52 284c-14 4-16 16-4 20 6 3 10 0 16 2 8 3 18 4 30 4h252c12 0 22-1 30-4 6-2 10 1 16-2 12-4 10-16-4-20-8-2-12 0-18-4-6-3-14-6-28-6H98c-14 0-22 3-28 6-6 4-10 2-18 4z" fill="var(--carne)"/>
+          <path d="M44 296c6 2 10-2 16 0M380 296c6 2 10-2 16 0M70 290c4-3 8-2 12-4M358 290c4-3 8-2 12-4" stroke="var(--carne-borda)" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M100 286h240" stroke="#6E3A22" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 14"/>
+        </g>
+        <!-- queijo 1 -->
+        <g class="camada" style="--i:2">
+          <path d="M74 266h292l-6 12c-4 6-10 6-14 0l-4-6-14 30c-3 7-11 7-14 0l-10-24h-60l-8 16c-3 6-10 6-13 0l-8-16H128l-16 40c-3 8-12 8-15 0l-8-22c-6 8-16 4-15-6z" fill="#F7A21B"/>
+        </g>
+        <!-- carne 2 -->
+        <g class="camada" style="--i:3">
+          <path d="M56 236c-14 4-14 16-2 20 6 2 10 0 16 2 8 3 18 4 30 4h240c12 0 22-1 30-4 6-2 10 0 16-2 12-4 12-16-2-20-8-2-12 0-18-4-6-3-14-6-28-6H102c-14 0-22 3-28 6-6 4-10 2-18 4z" fill="var(--carne)"/>
+          <path d="M48 248c6 2 10-2 16 0M376 248c6 2 10-2 16 0M74 242c4-3 8-2 12-4M354 242c4-3 8-2 12-4" stroke="var(--carne-borda)" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M104 238h232" stroke="#6E3A22" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 14"/>
+        </g>
+        <!-- queijo 2 -->
+        <g class="camada" style="--i:4">
+          <path d="M80 218h280l-8 14c-4 6-10 6-13 0l-5-8-10 26c-3 7-11 7-14 0l-8-20h-70l-10 22c-3 6-10 6-13 0l-8-22h-52l-12 32c-3 8-12 8-15 0l-6-18c-6 6-16 2-14-8z" fill="#F7A21B"/>
+        </g>
+        <!-- picles e cebola -->
+        <g class="camada" style="--i:5">
+          <ellipse cx="140" cy="210" rx="34" ry="9" fill="var(--picles)"/>
+          <ellipse cx="140" cy="210" rx="24" ry="5" fill="#7E9A3A"/>
+          <ellipse cx="290" cy="212" rx="34" ry="9" fill="var(--picles)"/>
+          <ellipse cx="290" cy="212" rx="24" ry="5" fill="#7E9A3A"/>
+          <path d="M190 212c10-10 50-10 60 0" stroke="#F3E3EC" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M96 214c8-8 30-8 36-2M316 214c10-8 30-8 36-2" stroke="#E9D2DD" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- pao de cima -->
+        <g class="camada" style="--i:6"><g transform="translate(0 7)">
+          <path d="M58 196c-6 0-10-5-8-11C66 110 140 62 220 62s154 48 170 123c2 6-2 11-8 11z" fill="var(--pao)"/>
+          <path d="M58 196c-6 0-10-5-8-11 2-8 4-14 8-20 10 18 72 26 162 26s152-8 162-26c4 6 6 12 8 20 2 6-2 11-8 11z" fill="var(--pao-esc)"/>
+          <path d="M104 120c24-30 66-46 110-46" stroke="#F6C98A" stroke-width="10" stroke-linecap="round" fill="none" opacity=".7"/>
+          <g fill="#FFF1D6">
+            <ellipse cx="160" cy="104" rx="7" ry="4" transform="rotate(-25 160 104)"/>
+            <ellipse cx="206" cy="90" rx="7" ry="4" transform="rotate(10 206 90)"/>
+            <ellipse cx="254" cy="96" rx="7" ry="4" transform="rotate(30 254 96)"/>
+            <ellipse cx="298" cy="120" rx="7" ry="4" transform="rotate(-15 298 120)"/>
+            <ellipse cx="126" cy="140" rx="7" ry="4" transform="rotate(20 126 140)"/>
+            <ellipse cx="226" cy="128" rx="7" ry="4" transform="rotate(-35 226 128)"/>
+            <ellipse cx="184" cy="146" rx="7" ry="4" transform="rotate(15 184 146)"/>
+            <ellipse cx="320" cy="156" rx="7" ry="4" transform="rotate(40 320 156)"/>
+            <ellipse cx="274" cy="150" rx="7" ry="4" transform="rotate(-10 274 150)"/>
+          </g>
+        </g></g>
+      </svg>
+      <div class="etiqueta-preco" aria-hidden="true"><div><small>Smash duplo</small><b>R$ 32</b></div></div>
+    </div>
+  </div>
+</header>
+
+<div class="terca">
+  <div class="wrap">
+    <strong>Terça do smash: duplo por R$ 25</strong>
+    <span>Só às terças, no balcão e no delivery, até acabar a carne do dia.</span>
+  </div>
+</div>
+
+<main>
+  <section id="cardapio">
+    <div class="wrap">
+      <div class="cabeca">
+        <h2>Cardápio</h2>
+        <p>Toque no + para montar a comanda. No fim, ela vai pronta para o nosso WhatsApp e a gente confirma o valor da entrega.</p>
+      </div>
+
+      <div class="cardapio-grade">
+        <div class="letreiro">
+          <div class="grupo">
+            <h3>Smash</h3>
+            <ul>
+              <li class="item" data-nome="Smash simples" data-preco="24"><span class="nome">Smash simples</span><span class="preco">R$ 24</span><span class="desc">1 carne de 90 g, cheddar, picles, molho da casa</span><button class="add" type="button" aria-label="Adicionar Smash simples">+</button></li>
+              <li class="item" data-nome="Smash duplo" data-preco="32"><span class="nome">Smash duplo</span><span class="preco">R$ 32</span><span class="desc">2 carnes, 2 cheddar, picles, cebola, molho da casa</span><button class="add" type="button" aria-label="Adicionar Smash duplo">+</button></li>
+              <li class="item" data-nome="Smash triplo" data-preco="39"><span class="nome">Smash triplo</span><span class="preco">R$ 39</span><span class="desc">3 carnes, 3 cheddar, picles e cebola</span><button class="add" type="button" aria-label="Adicionar Smash triplo">+</button></li>
+            </ul>
+          </div>
+          <div class="grupo">
+            <h3>Da casa</h3>
+            <ul>
+              <li class="item" data-nome="Bigode" data-preco="38"><span class="nome">Bigode<span class="tag">o nosso</span></span><span class="preco">R$ 38</span><span class="desc">2 carnes, cheddar, bacon, cebola caramelizada na cerveja</span><button class="add" type="button" aria-label="Adicionar Bigode">+</button></li>
+              <li class="item" data-nome="Salada" data-preco="30"><span class="nome">Salada</span><span class="preco">R$ 30</span><span class="desc">2 carnes, queijo prato, alface, tomate, maionese verde</span><button class="add" type="button" aria-label="Adicionar Salada">+</button></li>
+              <li class="item" data-nome="Frango crocante" data-preco="29"><span class="nome">Frango crocante</span><span class="preco">R$ 29</span><span class="desc">Sobrecoxa empanada, repolho, molho de alho</span><button class="add" type="button" aria-label="Adicionar Frango crocante">+</button></li>
+            </ul>
+          </div>
+          <div class="grupo">
+            <h3>Pra acompanhar</h3>
+            <ul>
+              <li class="item" data-nome="Batata pequena" data-preco="16"><span class="nome">Batata pequena</span><span class="preco">R$ 16</span><span class="desc">Palito, sal e páprica</span><button class="add" type="button" aria-label="Adicionar Batata pequena">+</button></li>
+              <li class="item" data-nome="Batata grande" data-preco="22"><span class="nome">Batata grande</span><span class="preco">R$ 22</span><span class="desc">Serve bem duas pessoas</span><button class="add" type="button" aria-label="Adicionar Batata grande">+</button></li>
+              <li class="item" data-nome="Batata cheddar e bacon" data-preco="27"><span class="nome">Batata cheddar e bacon</span><span class="preco">R$ 27</span><span class="desc">A grande, coberta</span><button class="add" type="button" aria-label="Adicionar Batata cheddar e bacon">+</button></li>
+              <li class="item" data-nome="Anéis de cebola" data-preco="18"><span class="nome">Anéis de cebola</span><span class="preco">R$ 18</span><span class="desc">Com maionese de alho</span><button class="add" type="button" aria-label="Adicionar Anéis de cebola">+</button></li>
+            </ul>
+          </div>
+          <div class="grupo">
+            <h3>Pra beber</h3>
+            <ul>
+              <li class="item" data-nome="Refri lata" data-preco="7"><span class="nome">Refri lata</span><span class="preco">R$ 7</span><span class="desc">Cola, guaraná ou laranja</span><button class="add" type="button" aria-label="Adicionar Refri lata">+</button></li>
+              <li class="item" data-nome="Suco natural" data-preco="10"><span class="nome">Suco natural</span><span class="preco">R$ 10</span><span class="desc">Laranja, limão ou maracujá</span><button class="add" type="button" aria-label="Adicionar Suco natural">+</button></li>
+              <li class="item" data-nome="Milkshake" data-preco="19"><span class="nome">Milkshake</span><span class="preco">R$ 19</span><span class="desc">Ninho, chocolate ou morango, 400 ml</span><button class="add" type="button" aria-label="Adicionar Milkshake">+</button></li>
+            </ul>
+          </div>
+          <p class="extras"><b>Turbinar:</b> carne extra +R$ 8 · bacon +R$ 5 · cheddar +R$ 4 · cebola caramelizada +R$ 4. Peça na observação da comanda.</p>
+        </div>
+
+        <aside class="comanda" id="comanda" aria-labelledby="comanda-titulo">
+          <h3 id="comanda-titulo">Sua comanda</h3>
+          <p class="sub">A entrega é combinada no WhatsApp.</p>
+          <ul id="itens" aria-live="polite"></ul>
+          <div class="total"><span>Total dos lanches</span><b id="total">R$ 0</b></div>
+          <a class="btn btn-zap" id="enviar" href="#" aria-disabled="true" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#zap"/></svg>Mandar pedido no WhatsApp
+          </a>
+          <p class="obs">Quer tirar a cebola ou pôr bacon? Escreva junto quando abrir a conversa.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="combos" id="combos">
+    <div class="wrap">
+      <div class="cabeca">
+        <h2>Combos</h2>
+        <p>Valem todos os dias que a gente abre. Refri pode trocar por suco, sem custo.</p>
+      </div>
+      <div class="combo-grade">
+        <article class="combo-destaque">
+          <div>
+            <span class="rot">O que mais sai</span>
+            <h3>Combo<br>Bigode</h3>
+            <p>Bigode + batata pequena + refri lata.</p>
+            <div class="valor"><b>R$ 54</b><s>R$ 61 separado</s></div>
+            <button class="btn btn-zap combo-add" type="button" data-nome="Combo Bigode" data-preco="54">Pôr na comanda</button>
+          </div>
+          <svg viewBox="0 0 220 200" aria-hidden="true">
+            <path d="M120 70h70l-10 120h-50z" fill="var(--ketchup)"/>
+            <path d="M120 70h70l-2 18h-66z" fill="var(--ketchup-esc)"/>
+            <path d="M160 70l14-56" stroke="var(--chapa)" stroke-width="7" stroke-linecap="round"/>
+            <rect x="112" y="60" width="86" height="14" rx="6" fill="var(--papel)"/>
+            <g fill="#F8CF72" stroke="var(--pao-esc)" stroke-width="2">
+              <rect x="22" y="40" width="14" height="80" rx="3" transform="rotate(-10 29 80)"/>
+              <rect x="40" y="30" width="14" height="90" rx="3" transform="rotate(4 47 75)"/>
+              <rect x="58" y="36" width="14" height="84" rx="3" transform="rotate(-4 65 78)"/>
+              <rect x="76" y="44" width="14" height="76" rx="3" transform="rotate(12 83 82)"/>
+            </g>
+            <path d="M14 96h92l-8 94H22z" fill="var(--papel)" stroke="var(--chapa)" stroke-width="3"/>
+            <svg x="34" y="132" width="52" height="24" viewBox="0 0 100 44"><use href="#bigode" fill="var(--chapa)"/></svg>
+          </svg>
+        </article>
+        <div class="combo-lista">
+          <div class="combo-linha">
+            <h3>Combo smash</h3><span class="preco">R$ 42</span>
+            <p>Smash duplo + batata pequena + refri lata.</p>
+            <button type="button" class="combo-add" data-nome="Combo smash" data-preco="42">Pôr na comanda</button>
+          </div>
+          <div class="combo-linha">
+            <h3>Combo dupla</h3><span class="preco">R$ 89</span>
+            <p>2 smash duplos + batata grande + 2 refri lata. Pra dividir no sofá.</p>
+            <button type="button" class="combo-add" data-nome="Combo dupla" data-preco="89">Pôr na comanda</button>
+          </div>
+          <div class="combo-linha">
+            <h3>Combo frango</h3><span class="preco">R$ 46</span>
+            <p>Frango crocante + anéis de cebola + suco natural.</p>
+            <button type="button" class="combo-add" data-nome="Combo frango" data-preco="46">Pôr na comanda</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="escuro">
+    <div class="wrap">
+      <div class="cabeca">
+        <h2>Dois minutos de chapa</h2>
+        <p>É o tempo de um smash, do jeito que a gente faz desde o primeiro dia.</p>
+      </div>
+      <ol class="tempo">
+        <li><time>0:00</time><h3>Bola na chapa</h3><p>Carne moída na casa, 90 g, só sal e pimenta. A chapa de ferro fica bem quente.</p></li>
+        <li><time>0:10</time><h3>Amassa</h3><p>Espátula pesada em cima até a carne ficar fina. É aí que nasce a borda crocante.</p></li>
+        <li><time>1:30</time><h3>Vira e cobre</h3><p>Uma virada só. O cheddar vai por cima e derrete no calor da própria carne.</p></li>
+        <li><time>2:00</time><h3>No pão</h3><p>Pão de batata selado na manteiga, picles e molho da casa. Sai embrulhado no papel.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="onde">
+    <div class="wrap onde-grade">
+      <div class="onde-texto">
+        <h2>Onde a chapa fica</h2>
+        <p>Pode vir comer no balcão, buscar na porta ou pedir para entregar. Na segunda a chapa descansa.</p>
+        <a class="btn btn-zap zap-link" href="https://wa.me/?text=Oi%2C%20Bigode!%20Quero%20fazer%20um%20pedido." target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#zap"/></svg>Pedir pelo WhatsApp
+        </a>
+      </div>
+      <div class="placa">
+        <dl>
+          <dt>Endereço</dt><dd>Rua das Palmeiras, 214, Centro</dd>
+          <dt>Entrega</dt><dd>Até 5 km, taxa combinada pelo WhatsApp</dd>
+          <dt>Pagamento</dt><dd>Pix, cartão e dinheiro</dd>
+        </dl>
+        <div class="horas" id="horas" aria-label="Horário da semana">
+          <div class="off" data-d="1">Seg<small>fechado</small></div>
+          <div data-d="2">Ter<small>18h–23h30</small></div>
+          <div data-d="3">Qua<small>18h–23h30</small></div>
+          <div data-d="4">Qui<small>18h–23h30</small></div>
+          <div data-d="5">Sex<small>18h–23h30</small></div>
+          <div data-d="6">Sáb<small>18h–23h30</small></div>
+          <div data-d="0">Dom<small>18h–23h30</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a class="barra-pedido" id="barra-pedido" href="#comanda"><span id="barra-texto">Ver comanda</span><b id="barra-total">R$ 0</b></a>
+
+<footer>
+  <div class="wrap">
+    <a class="marca" href="#" aria-label="Voltar ao topo">
+      <svg viewBox="0 0 100 44" aria-hidden="true"><use href="#bigode"/></svg>
+      <span>Bigode Burger</span>
+    </a>
+    <span>Rua das Palmeiras, 214, Centro · Ter a dom, 18h às 23h30</span>
+    <span>Projeto conceito · marca fictícia criada por Guilherme</span>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  const brl = v => 'R$ ' + v.toLocaleString('pt-BR');
+
+  // queda do lanche
+  const lanche = document.getElementById('lanche');
+  requestAnimationFrame(() => setTimeout(() => lanche.classList.add('caiu'), 150));
+
+  // aberto agora?
+  (function () {
+    const agora = new Date();
+    const d = agora.getDay();
+    const min = agora.getHours() * 60 + agora.getMinutes();
+    const aberto = d !== 1 && (min >= 18 * 60 && min < 23 * 60 + 30);
+    const st = document.getElementById('status');
+    st.querySelector('span').textContent = aberto ? 'Aberto agora, até 23h30' : (d === 1 ? 'Hoje fechado, volta terça 18h' : (min < 18 * 60 ? 'Abre hoje às 18h' : 'Fechado, abre amanhã 18h'));
+    if (!aberto) st.classList.add('fechado');
+    const hoje = document.querySelector('#horas [data-d="' + d + '"]');
+    if (hoje && d !== 1) hoje.classList.add('hoje');
+  })();
+
+  // comanda
+  const pedido = new Map();
+  const lista = document.getElementById('itens');
+  const totalEl = document.getElementById('total');
+  const enviar = document.getElementById('enviar');
+  const barra = document.getElementById('barra-pedido');
+
+  function desenhar() {
+    lista.innerHTML = '';
+    let total = 0, qtd = 0;
+    if (!pedido.size) {
+      const li = document.createElement('li');
+      li.className = 'vazio';
+      li.textContent = 'Comanda vazia. Toque no + de um lanche para começar.';
+      lista.appendChild(li);
+    }
+    pedido.forEach((it, nome) => {
+      total += it.preco * it.qtd; qtd += it.qtd;
+      const li = document.createElement('li');
+      li.innerHTML = '<span class="qtd">' + it.qtd + 'x</span><span></span><span class="val">' + brl(it.preco * it.qtd) + '</span><button type="button" aria-label="Tirar um ' + nome + '">−</button>';
+      li.children[1].textContent = nome;
+      li.querySelector('button').addEventListener('click', () => {
+        it.qtd--; if (it.qtd <= 0) pedido.delete(nome); desenhar();
+      });
+      lista.appendChild(li);
+    });
+    totalEl.textContent = brl(total);
+    document.getElementById('barra-total').textContent = brl(total);
+    document.getElementById('barra-texto').textContent = qtd + (qtd === 1 ? ' item na comanda' : ' itens na comanda');
+    barra.classList.toggle('ativa', qtd > 0);
+    if (qtd) {
+      const linhas = [...pedido].map(([n, it]) => it.qtd + 'x ' + n + ' (' + brl(it.preco * it.qtd) + ')');
+      const txt = 'Oi, Bigode! Meu pedido:\n' + linhas.join('\n') + '\nTotal dos lanches: ' + brl(total) + '\nEntrega ou retirada: ';
+      enviar.href = 'https://wa.me/?text=' + encodeURIComponent(txt);
+      enviar.setAttribute('aria-disabled', 'false');
+    } else {
+      enviar.href = '#';
+      enviar.setAttribute('aria-disabled', 'true');
+    }
+  }
+
+  function adicionar(nome, preco, botao) {
+    const it = pedido.get(nome) || { preco, qtd: 0 };
+    it.qtd++; pedido.set(nome, it); desenhar();
+    if (botao) {
+      const antes = botao.textContent;
+      botao.classList.add('ok');
+      if (botao.classList.contains('add')) botao.textContent = '✓';
+      else botao.textContent = 'Na comanda';
+      setTimeout(() => { botao.classList.remove('ok'); botao.textContent = antes; }, 900);
+    }
+  }
+
+  document.querySelectorAll('.item .add').forEach(b => {
+    const li = b.closest('.item');
+    b.addEventListener('click', () => adicionar(li.dataset.nome, +li.dataset.preco, b));
+  });
+  document.querySelectorAll('.combo-add').forEach(b => {
+    b.addEventListener('click', () => adicionar(b.dataset.nome, +b.dataset.preco, b));
+  });
+  desenhar();
+</script>
+</body>
+</html>
